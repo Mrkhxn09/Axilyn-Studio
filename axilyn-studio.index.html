@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Axilyn Studio — Digital Creative Agency</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#04040a;
+  --surf:#08080f;
+  --card:#0d0d18;
+  --ring:#7C6FFF;
+  --ring2:#C4B9FF;
+  --teal:#2DDAB4;
+  --text:#f0f0f8;
+  --muted:#606088;
+  --border:rgba(124,111,255,0.14);
+  --font-head:'Bebas Neue',sans-serif;
+  --font-body:'DM Sans',sans-serif;
+}
+
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-weight:300;overflow-x:hidden;cursor:none;}
+
+/* custom cursor */
+#cursor{position:fixed;width:10px;height:10px;background:var(--ring);border-radius:50%;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s;}
+#cursor-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(124,111,255,.5);border-radius:50%;pointer-events:none;z-index:99998;transform:translate(-50%,-50%);transition:transform .12s ease,width .2s,height .2s;}
+
+/* noise */
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");pointer-events:none;z-index:9998;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 5%;backdrop-filter:blur(20px);background:rgba(4,4,10,.75);border-bottom:1px solid var(--border);}
+.nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
+.nav-logomark{width:36px;height:36px;flex-shrink:0;}
+.nav-wordmark{font-family:var(--font-head);font-size:1.5rem;letter-spacing:.06em;color:var(--text);}
+.nav-wordmark span{color:var(--ring);}
+nav ul{list-style:none;display:flex;gap:2.5rem;}
+nav ul a{color:rgba(240,240,248,.45);text-decoration:none;font-size:.82rem;letter-spacing:.08em;transition:color .2s;}
+nav ul a:hover{color:var(--ring);}
+.nav-cta{background:var(--ring);color:#fff!important;padding:.45rem 1.3rem;border-radius:99px;font-weight:500!important;transition:opacity .2s!important;}
+.nav-cta:hover{opacity:.85!important;color:#fff!important;}
+
+/* HERO */
+#hero{min-height:100vh;display:flex;align-items:center;padding:8rem 5% 5rem;position:relative;overflow:hidden;}
+.hero-orbital{position:absolute;right:-80px;top:50%;transform:translateY(-50%);width:600px;height:600px;opacity:.18;animation:slowspin 40s linear infinite;}
+.hero-orbital2{position:absolute;right:40px;top:50%;transform:translateY(-50%);width:360px;height:360px;opacity:.08;animation:slowspin 25s linear infinite reverse;}
+.hero-content{position:relative;z-index:2;max-width:700px;}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;border:1px solid var(--border);border-radius:99px;padding:.35rem 1rem;font-size:.72rem;letter-spacing:.12em;color:rgba(240,240,248,.4);margin-bottom:2rem;animation:fadeUp .8s ease both;}
+.badge-dot{width:6px;height:6px;border-radius:50%;background:var(--teal);animation:pulse 2s infinite;}
+h1{font-family:var(--font-head);font-size:clamp(4rem,10vw,9rem);line-height:.9;letter-spacing:.04em;animation:fadeUp .8s .1s ease both;}
+h1 .ring-word{color:var(--ring);position:relative;display:inline-block;}
+h1 .outline{-webkit-text-stroke:1.5px rgba(124,111,255,.35);color:transparent;}
+.hero-sub{margin-top:2rem;max-width:480px;color:rgba(240,240,248,.45);font-size:1rem;line-height:1.75;animation:fadeUp .8s .2s ease both;}
+.hero-btns{margin-top:2.5rem;display:flex;gap:1rem;flex-wrap:wrap;animation:fadeUp .8s .3s ease both;}
+.btn-primary{background:var(--ring);color:#fff;padding:.9rem 2.2rem;border-radius:99px;text-decoration:none;font-weight:500;font-size:.9rem;letter-spacing:.04em;transition:transform .2s,box-shadow .2s;box-shadow:0 0 40px rgba(124,111,255,.3);}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 0 70px rgba(124,111,255,.5);}
+.btn-ghost{border:1px solid var(--border);color:var(--text);padding:.9rem 2.2rem;border-radius:99px;text-decoration:none;font-size:.9rem;transition:border-color .2s,color .2s;}
+.btn-ghost:hover{border-color:var(--ring);color:var(--ring);}
+.hero-stats{margin-top:5rem;display:flex;gap:3.5rem;flex-wrap:wrap;animation:fadeUp .8s .4s ease both;}
+.stat-num{font-family:var(--font-head);font-size:3rem;color:var(--ring);letter-spacing:.04em;line-height:1;}
+.stat-lab{font-size:.72rem;letter-spacing:.1em;color:rgba(240,240,248,.35);margin-top:.3rem;text-transform:uppercase;}
+
+/* MARQUEE */
+.marquee-wrap{overflow:hidden;white-space:nowrap;padding:.8rem 0;background:rgba(124,111,255,.08);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.marquee-track{display:inline-flex;gap:2.5rem;animation:marquee 22s linear infinite;}
+.marquee-track span{font-family:var(--font-head);font-size:.95rem;letter-spacing:.12em;color:rgba(124,111,255,.6);}
+.marquee-track .sep{color:var(--teal);opacity:.5;}
+
+/* SECTIONS */
+section{padding:8rem 5%;}
+.sec-label{font-size:.7rem;letter-spacing:.2em;color:var(--teal);text-transform:uppercase;font-weight:500;margin-bottom:1rem;}
+h2{font-family:var(--font-head);font-size:clamp(2.5rem,6vw,5rem);letter-spacing:.04em;line-height:.95;margin-bottom:0;}
+
+/* SERVICES */
+#services{background:var(--surf);}
+.services-top{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:2rem;margin-bottom:5rem;}
+.services-top p{max-width:340px;color:rgba(240,240,248,.4);font-size:.95rem;line-height:1.75;}
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);}
+@media(max-width:900px){.svc-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:560px){.svc-grid{grid-template-columns:1fr;}}
+.svc-card{background:var(--card);padding:2.5rem 2rem;position:relative;overflow:hidden;transition:background .3s;}
+.svc-card::before{content:'';position:absolute;inset:0;background:rgba(124,111,255,.03);opacity:0;transition:opacity .3s;}
+.svc-card:hover{background:#10101e;}
+.svc-card:hover::before{opacity:1;}
+.svc-num{font-family:var(--font-head);font-size:5rem;color:rgba(124,111,255,.06);line-height:1;position:absolute;right:1.5rem;top:.8rem;letter-spacing:.04em;}
+.svc-icon{width:44px;height:44px;border-radius:10px;background:rgba(124,111,255,.08);border:1px solid rgba(124,111,255,.18);display:grid;place-items:center;font-size:1.2rem;margin-bottom:1.5rem;}
+.svc-card h3{font-family:var(--font-head);font-size:1.5rem;letter-spacing:.05em;margin-bottom:.8rem;}
+.svc-card p{color:rgba(240,240,248,.38);font-size:.88rem;line-height:1.7;}
+.svc-tag{display:inline-block;margin-top:1.5rem;font-size:.65rem;letter-spacing:.14em;color:var(--teal);border:1px solid rgba(45,218,180,.22);border-radius:99px;padding:.22rem .8rem;}
+
+/* PROCESS */
+#process{background:var(--bg);position:relative;overflow:hidden;}
+.process-orbital{position:absolute;left:-200px;top:50%;transform:translateY(-50%);width:500px;height:500px;opacity:.05;}
+.process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;margin-top:5rem;}
+@media(max-width:800px){.process-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:480px){.process-grid{grid-template-columns:1fr;}}
+.step{position:relative;padding-top:1rem;}
+.step-line{position:absolute;top:0;left:0;right:0;height:2px;background:var(--border);}
+.step-line::after{content:'';position:absolute;left:0;top:0;height:2px;background:var(--ring);width:0;transition:width .8s ease;}
+.step.visible .step-line::after{width:100%;}
+.step-num{font-family:var(--font-head);font-size:4rem;color:rgba(124,111,255,.08);letter-spacing:.04em;line-height:1;margin:.8rem 0 .5rem;}
+.step h3{font-family:var(--font-head);font-size:1.4rem;letter-spacing:.05em;margin-bottom:.6rem;}
+.step p{color:rgba(240,240,248,.38);font-size:.85rem;line-height:1.7;}
+
+/* MOBILE NAV */
+.nav-hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;}
+.nav-hamburger span{display:block;width:22px;height:1.5px;background:var(--text);transition:transform .3s,opacity .3s;}
+@media(max-width:680px){
+  nav ul{display:none;position:fixed;inset:0;background:rgba(4,4,10,.97);flex-direction:column;align-items:center;justify-content:center;gap:2.5rem;z-index:400;}
+  nav ul.open{display:flex;}
+  nav ul a{font-size:1.2rem;}
+  .nav-hamburger{display:flex;z-index:600;}
+  .nav-hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+  .nav-hamburger.open span:nth-child(2){opacity:0;}
+  .nav-hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+}
+
+/* ABOUT */
+#about{background:var(--surf);display:grid;grid-template-columns:1fr 1fr;gap:8rem;align-items:center;padding:8rem 5%;}
+@media(max-width:768px){#about{grid-template-columns:1fr;gap:4rem;}}
+.about-visual{position:relative;}
+.about-ring-wrap{width:100%;aspect-ratio:1;display:flex;align-items:center;justify-content:center;position:relative;}
+.about-ring-svg{width:100%;height:100%;animation:slowspin 20s linear infinite;}
+.about-center{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;}
+.about-initials{font-family:var(--font-head);font-size:3.5rem;letter-spacing:.1em;color:var(--ring);}
+.about-content .sec-label{margin-bottom:.8rem;}
+.about-content p{color:rgba(240,240,248,.42);font-size:.95rem;line-height:1.8;margin-top:1.5rem;}
+.skills{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:2rem;}
+.skill{background:var(--card);border:1px solid var(--border);border-radius:99px;padding:.3rem .9rem;font-size:.75rem;color:rgba(240,240,248,.4);transition:border-color .2s,color .2s;}
+.skill:hover{border-color:var(--ring);color:var(--ring);}
+
+/* CONTACT */
+#contact{background:var(--bg);text-align:center;}
+#contact h2{margin-bottom:.5rem;}
+#contact .hero-sub{margin:1rem auto 0;text-align:center;}
+.contact-box{max-width:580px;margin:3rem auto 0;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:2.5rem;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+@media(max-width:500px){.form-row{grid-template-columns:1fr;}}
+.fg{text-align:left;margin-bottom:1rem;}
+.fg label{display:block;font-size:.68rem;letter-spacing:.12em;color:rgba(240,240,248,.3);margin-bottom:.4rem;text-transform:uppercase;}
+.fg input,.fg textarea,.fg select{width:100%;background:var(--surf);border:1px solid var(--border);border-radius:6px;padding:.8rem 1rem;color:var(--text);font-family:var(--font-body);font-size:.9rem;outline:none;transition:border-color .25s;appearance:none;}
+.fg input:focus,.fg textarea:focus,.fg select:focus{border-color:var(--ring);}
+.fg textarea{resize:vertical;min-height:110px;}
+.fg select option{background:var(--card);}
+.submit-btn{width:100%;background:var(--ring);color:#fff;border:none;border-radius:99px;padding:1rem;font-family:var(--font-head);font-size:1.1rem;letter-spacing:.1em;cursor:pointer;transition:transform .2s,box-shadow .2s;margin-top:.5rem;}
+.submit-btn:hover{transform:translateY(-2px);box-shadow:0 0 50px rgba(124,111,255,.4);}
+
+/* FOOTER */
+footer{background:var(--surf);border-top:1px solid var(--border);padding:2.5rem 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem;}
+.foot-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.foot-mark{width:28px;height:28px;}
+.foot-word{font-family:var(--font-head);font-size:1.2rem;letter-spacing:.06em;color:var(--text);}
+.foot-word span{color:var(--ring);}
+footer p{color:rgba(240,240,248,.25);font-size:.8rem;}
+.foot-links{display:flex;gap:2rem;}
+.foot-links a{color:rgba(240,240,248,.3);text-decoration:none;font-size:.8rem;letter-spacing:.05em;transition:color .2s;}
+.foot-links a:hover{color:var(--ring);}
+
+/* PORTFOLIO */
+#work{background:var(--bg);}
+.work-top{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:2rem;margin-bottom:4rem;}
+.work-top p{max-width:320px;color:rgba(240,240,248,.4);font-size:.95rem;line-height:1.75;}
+.work-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;}
+@media(max-width:900px){.work-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:540px){.work-grid{grid-template-columns:1fr;}}
+.work-card{border-radius:10px;overflow:hidden;border:1px solid var(--border);background:var(--card);transition:transform .3s,box-shadow .3s;cursor:pointer;position:relative;}
+.work-card:hover{transform:translateY(-6px);box-shadow:0 20px 60px rgba(124,111,255,.15);}
+.work-card:nth-child(1){grid-column:span 2;}
+@media(max-width:900px){.work-card:nth-child(1){grid-column:span 1;}}
+.work-thumb{width:100%;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;font-size:3rem;position:relative;overflow:hidden;}
+.work-thumb::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,rgba(4,4,10,.9));z-index:1;}
+.work-thumb-bg{position:absolute;inset:0;background-size:cover;background-position:center;}
+.work-meta{padding:1.4rem 1.6rem 1.6rem;}
+.work-cat{font-size:.62rem;letter-spacing:.16em;color:var(--teal);text-transform:uppercase;margin-bottom:.4rem;}
+.work-card h3{font-family:var(--font-head);font-size:1.3rem;letter-spacing:.05em;margin-bottom:.4rem;}
+.work-card p{color:rgba(240,240,248,.35);font-size:.82rem;line-height:1.65;}
+.work-arrow{position:absolute;top:1.2rem;right:1.2rem;width:32px;height:32px;border-radius:50%;background:rgba(124,111,255,.1);border:1px solid var(--border);display:grid;place-items:center;font-size:.85rem;opacity:0;transition:opacity .25s,background .25s;z-index:2;}
+.work-card:hover .work-arrow{opacity:1;background:var(--ring);}
+
+/* TESTIMONIALS */
+#testimonials{background:var(--surf);overflow:hidden;}
+.testi-top{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:2rem;margin-bottom:4rem;}
+.testi-scroll{display:flex;gap:1.5rem;overflow-x:auto;scrollbar-width:none;padding-bottom:.5rem;scroll-snap-type:x mandatory;}
+.testi-scroll::-webkit-scrollbar{display:none;}
+.testi-card{flex-shrink:0;width:340px;scroll-snap-align:start;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:2rem;position:relative;transition:border-color .3s;}
+.testi-card:hover{border-color:rgba(124,111,255,.4);}
+.testi-quote{font-size:2rem;color:var(--ring);opacity:.4;font-family:Georgia,serif;line-height:1;margin-bottom:.8rem;}
+.testi-card p{color:rgba(240,240,248,.55);font-size:.88rem;line-height:1.75;margin-bottom:1.5rem;}
+.testi-author{display:flex;align-items:center;gap:.9rem;}
+.testi-avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--ring),var(--teal));display:grid;place-items:center;font-family:var(--font-head);font-size:.95rem;color:#fff;flex-shrink:0;}
+.testi-name{font-weight:500;font-size:.88rem;}
+.testi-role{font-size:.73rem;color:rgba(240,240,248,.3);letter-spacing:.05em;}
+.testi-stars{position:absolute;top:1.5rem;right:1.5rem;color:#f5c842;font-size:.75rem;letter-spacing:.05em;}
+.testi-nav{display:flex;gap:.6rem;margin-top:2rem;}
+.testi-dot{width:20px;height:3px;border-radius:99px;background:var(--border);cursor:pointer;transition:background .25s,width .25s;}
+.testi-dot.active{background:var(--ring);width:36px;}
+
+/* PRICING */
+#pricing{background:var(--bg);}
+.pricing-top{text-align:center;margin-bottom:4rem;}
+.pricing-top p{max-width:440px;margin:1rem auto 0;color:rgba(240,240,248,.4);font-size:.95rem;line-height:1.75;}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;max-width:960px;margin:0 auto;}
+@media(max-width:860px){.pricing-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:540px){.pricing-grid{grid-template-columns:1fr;}}
+.price-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:2.2rem 2rem;position:relative;transition:border-color .3s,transform .3s;}
+.price-card:hover{border-color:rgba(124,111,255,.35);transform:translateY(-4px);}
+.price-card.featured{border-color:var(--ring);background:rgba(124,111,255,.06);}
+.featured-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--ring);color:#fff;font-size:.65rem;letter-spacing:.16em;padding:.28rem 1rem;border-radius:99px;white-space:nowrap;font-family:var(--font-head);}
+.price-plan{font-size:.68rem;letter-spacing:.2em;color:var(--teal);text-transform:uppercase;margin-bottom:.8rem;}
+.price-amt{font-family:var(--font-head);font-size:3rem;letter-spacing:.03em;color:var(--text);line-height:1;}
+.price-amt sup{font-size:1.2rem;vertical-align:super;color:rgba(240,240,248,.5);}
+.price-period{font-size:.75rem;color:rgba(240,240,248,.3);margin-top:.2rem;}
+.price-div{width:100%;height:1px;background:var(--border);margin:1.5rem 0;}
+.price-features{list-style:none;display:flex;flex-direction:column;gap:.7rem;margin-bottom:2rem;}
+.price-features li{font-size:.84rem;color:rgba(240,240,248,.45);display:flex;align-items:flex-start;gap:.65rem;}
+.price-features li::before{content:'◦';color:var(--teal);flex-shrink:0;margin-top:.05rem;}
+.price-features li.off{color:rgba(240,240,248,.18);}
+.price-features li.off::before{color:rgba(240,240,248,.15);}
+.price-btn{display:block;width:100%;text-align:center;padding:.8rem;border-radius:99px;font-family:var(--font-head);font-size:1rem;letter-spacing:.08em;text-decoration:none;transition:transform .2s,box-shadow .2s;}
+.price-btn-ghost{border:1px solid var(--border);color:var(--text);}
+.price-btn-ghost:hover{border-color:var(--ring);color:var(--ring);}
+.price-btn-fill{background:var(--ring);color:#fff;box-shadow:0 0 30px rgba(124,111,255,.25);}
+.price-btn-fill:hover{transform:translateY(-2px);box-shadow:0 0 50px rgba(124,111,255,.4);}
+.pricing-note{text-align:center;margin-top:2rem;font-size:.78rem;color:rgba(240,240,248,.22);letter-spacing:.05em;}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:none;}}
+@keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+@keyframes slowspin{to{transform:rotate(360deg);}}
+@keyframes slowspinrev{to{transform:rotate(-360deg);}}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.25;}}
+.reveal{opacity:0;transform:translateY(36px);transition:opacity .75s ease,transform .75s ease;}
+.reveal.visible{opacity:1;transform:none;}
+</style>
+</head>
+<body>
+
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">
+    <svg class="nav-logomark" viewBox="0 0 40 40" fill="none">
+      <circle cx="20" cy="20" r="17" stroke="#7C6FFF" stroke-width="1.5" stroke-dasharray="5 3"/>
+      <circle cx="20" cy="20" r="10" stroke="#C4B9FF" stroke-width="1" opacity=".5"/>
+      <circle cx="20" cy="20" r="4" fill="#7C6FFF"/>
+      <circle cx="33" cy="8" r="2.5" fill="#2DDAB4"/>
+      <circle cx="7" cy="32" r="1.8" fill="#C4B9FF" opacity=".7"/>
+    </svg>
+    <div class="nav-wordmark"><span>AX</span>ILYN</div>
+  </a>
+  <ul id="nav-menu">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#contact" class="nav-cta">Get a Quote</a></li>
+  </ul>
+  <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <!-- big orbital rings in background -->
+  <svg class="hero-orbital" viewBox="0 0 600 600" fill="none">
+    <circle cx="300" cy="300" r="280" stroke="#7C6FFF" stroke-width="1" stroke-dasharray="8 5"/>
+    <circle cx="300" cy="300" r="200" stroke="#C4B9FF" stroke-width=".6" opacity=".6"/>
+    <circle cx="300" cy="300" r="130" stroke="#7C6FFF" stroke-width=".5" opacity=".4"/>
+    <circle cx="300" cy="300" r="55" fill="none" stroke="#2DDAB4" stroke-width=".6" opacity=".5"/>
+    <circle cx="300" cy="300" r="18" fill="#7C6FFF" opacity=".4"/>
+    <circle cx="538" cy="163" r="7" fill="#2DDAB4" opacity=".7"/>
+    <circle cx="72" cy="450" r="5" fill="#C4B9FF" opacity=".5"/>
+    <circle cx="490" cy="450" r="4" fill="#7C6FFF" opacity=".4"/>
+  </svg>
+  <svg class="hero-orbital2" viewBox="0 0 360 360" fill="none" style="animation:slowspinrev 25s linear infinite;">
+    <circle cx="180" cy="180" r="168" stroke="#2DDAB4" stroke-width=".8" stroke-dasharray="4 6" opacity=".6"/>
+  </svg>
+
+  <div class="hero-content">
+    <div class="hero-badge"><span class="badge-dot"></span>Available for new projects</div>
+    <h1>
+      WE BUILD<br/>
+      <span class="ring-word">DIGITAL</span><br/>
+      <span class="outline">WORLDS</span>
+    </h1>
+    <p class="hero-sub">From orbital UI/UX design to full-stack web development, social media strategy, and brand identity — Axilyn Studio turns your vision into a gravitational digital presence.</p>
+    <div class="hero-btns">
+      <a href="#services" class="btn-primary">Explore Services</a>
+      <a href="#contact" class="btn-ghost">Let's Talk →</a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="stat-num">50+</div><div class="stat-lab">Projects Launched</div></div>
+      <div><div class="stat-num">30+</div><div class="stat-lab">Happy Clients</div></div>
+      <div><div class="stat-num">5★</div><div class="stat-lab">Average Rating</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span>Web Design</span><span class="sep">◦</span>
+    <span>UI/UX Design</span><span class="sep">◦</span>
+    <span>Web Development</span><span class="sep">◦</span>
+    <span>Social Media</span><span class="sep">◦</span>
+    <span>Graphic Design</span><span class="sep">◦</span>
+    <span>Brand Identity</span><span class="sep">◦</span>
+    <span>Web Design</span><span class="sep">◦</span>
+    <span>UI/UX Design</span><span class="sep">◦</span>
+    <span>Web Development</span><span class="sep">◦</span>
+    <span>Social Media</span><span class="sep">◦</span>
+    <span>Graphic Design</span><span class="sep">◦</span>
+    <span>Brand Identity</span><span class="sep">◦</span>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="services-top reveal">
+    <div>
+      <div class="sec-label">What We Do</div>
+      <h2>SERVICES<br/>THAT ORBIT</h2>
+    </div>
+    <p>End-to-end digital solutions crafted with purpose, precision and creative energy that pulls clients into your world.</p>
+  </div>
+  <div class="svc-grid reveal">
+    <div class="svc-card">
+      <div class="svc-num">01</div>
+      <div class="svc-icon">🎨</div>
+      <h3>Web Design</h3>
+      <p>Stunning, conversion-optimised websites that captivate visitors and reflect your brand at every scroll.</p>
+      <span class="svc-tag">DESIGN</span>
+    </div>
+    <div class="svc-card">
+      <div class="svc-num">02</div>
+      <div class="svc-icon">💻</div>
+      <h3>Web Development</h3>
+      <p>Fast, secure, scalable websites and web apps built with modern tech — from landing pages to full platforms.</p>
+      <span class="svc-tag">DEVELOPMENT</span>
+    </div>
+    <div class="svc-card">
+      <div class="svc-num">03</div>
+      <div class="svc-icon">🖱</div>
+      <h3>UI / UX Design</h3>
+      <p>User-centred interfaces designed through research, wireframes and prototypes that make complexity feel effortless.</p>
+      <span class="svc-tag">DESIGN</span>
+    </div>
+    <div class="svc-card">
+      <div class="svc-num">04</div>
+      <div class="svc-icon">📱</div>
+      <h3>Social Media</h3>
+      <p>Strategy, content creation, scheduling and analytics — everything to grow your audience and drive real engagement.</p>
+      <span class="svc-tag">MARKETING</span>
+    </div>
+    <div class="svc-card">
+      <div class="svc-num">05</div>
+      <div class="svc-icon">✏️</div>
+      <h3>Graphic Design</h3>
+      <p>Logos, brand kits, social creatives, banners and print materials — visual communication that makes you unforgettable.</p>
+      <span class="svc-tag">DESIGN</span>
+    </div>
+    <div class="svc-card">
+      <div class="svc-num">06</div>
+      <div class="svc-icon">🚀</div>
+      <h3>Brand Strategy</h3>
+      <p>We align your visual identity, messaging and digital presence into one cohesive brand story that resonates and converts.</p>
+      <span class="svc-tag">STRATEGY</span>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <svg class="process-orbital" viewBox="0 0 500 500" fill="none">
+    <circle cx="250" cy="250" r="230" stroke="#7C6FFF" stroke-width="1" stroke-dasharray="6 4"/>
+    <circle cx="250" cy="250" r="160" stroke="#2DDAB4" stroke-width=".6"/>
+    <circle cx="250" cy="250" r="90" stroke="#7C6FFF" stroke-width=".5" opacity=".5"/>
+  </svg>
+  <div class="reveal">
+    <div class="sec-label">How It Works</div>
+    <h2>OUR<br/>ORBIT CYCLE</h2>
+  </div>
+  <div class="process-grid reveal">
+    <div class="step">
+      <div class="step-line"></div>
+      <div class="step-num">01</div>
+      <h3>Discovery</h3>
+      <p>We listen to your goals, audience and vision, then map out the full scope and timeline together.</p>
+    </div>
+    <div class="step">
+      <div class="step-line"></div>
+      <div class="step-num">02</div>
+      <h3>Design</h3>
+      <p>Moodboards, wireframes and style guides crafted before a single line of code is written.</p>
+    </div>
+    <div class="step">
+      <div class="step-line"></div>
+      <div class="step-num">03</div>
+      <h3>Build</h3>
+      <p>We develop, test and iterate with your feedback at every milestone — nothing ships without your approval.</p>
+    </div>
+    <div class="step">
+      <div class="step-line"></div>
+      <div class="step-num">04</div>
+      <h3>Launch</h3>
+      <p>Go live confidently with post-launch support, analytics setup and ongoing maintenance options.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WORK / PORTFOLIO -->
+<section id="work">
+  <div class="work-top reveal">
+    <div>
+      <div class="sec-label">Selected Work</div>
+      <h2>PROJECTS<br/>IN ORBIT</h2>
+    </div>
+    <p>A curated selection of recent projects — from brand-new startups to scaling businesses.</p>
+  </div>
+  <div class="work-grid reveal">
+    <div class="work-card">
+      <div class="work-thumb" style="background:linear-gradient(135deg,#0d0d2e 0%,#1a0a3d 50%,#0a1628 100%);">
+        <div class="work-thumb-bg" style="background:radial-gradient(ellipse at 30% 40%,rgba(124,111,255,.25),transparent 60%),radial-gradient(ellipse at 70% 70%,rgba(45,218,180,.1),transparent 50%);"></div>
+        <span style="position:relative;z-index:2;font-size:2rem;">🏪</span>
+      </div>
+      <div class="work-meta">
+        <div class="work-cat">E-Commerce · Web Design</div>
+        <h3>Velour Fashion Store</h3>
+        <p>Complete redesign of a D2C fashion brand — Shopify storefront, brand identity and mobile-first UX.</p>
+      </div>
+      <div class="work-arrow">↗</div>
+    </div>
+    <div class="work-card">
+      <div class="work-thumb" style="background:linear-gradient(135deg,#040d20,#091a1a);">
+        <div class="work-thumb-bg" style="background:radial-gradient(ellipse at 60% 30%,rgba(45,218,180,.2),transparent 60%);"></div>
+        <span style="position:relative;z-index:2;font-size:2rem;">🏥</span>
+      </div>
+      <div class="work-meta">
+        <div class="work-cat">Healthcare · Web Dev</div>
+        <h3>MedCare Clinic</h3>
+        <p>Appointment booking system and patient-first website for a multi-specialty clinic in Pune.</p>
+      </div>
+      <div class="work-arrow">↗</div>
+    </div>
+    <div class="work-card">
+      <div class="work-thumb" style="background:linear-gradient(135deg,#110a04,#1f1204);">
+        <div class="work-thumb-bg" style="background:radial-gradient(ellipse at 40% 50%,rgba(255,160,50,.12),transparent 60%);"></div>
+        <span style="position:relative;z-index:2;font-size:2rem;">☕</span>
+      </div>
+      <div class="work-meta">
+        <div class="work-cat">F&B · Brand Identity</div>
+        <h3>Ember Roasters</h3>
+        <p>Logo, packaging, menu design and Instagram presence for an artisan café chain launch.</p>
+      </div>
+      <div class="work-arrow">↗</div>
+    </div>
+    <div class="work-card">
+      <div class="work-thumb" style="background:linear-gradient(135deg,#08081e,#0e0824);">
+        <div class="work-thumb-bg" style="background:radial-gradient(ellipse at 50% 40%,rgba(196,185,255,.15),transparent 60%);"></div>
+        <span style="position:relative;z-index:2;font-size:2rem;">🎓</span>
+      </div>
+      <div class="work-meta">
+        <div class="work-cat">EdTech · UI/UX</div>
+        <h3>SkillPath LMS</h3>
+        <p>Dashboard design and student journey UX for an online learning platform with 8k+ learners.</p>
+      </div>
+      <div class="work-arrow">↗</div>
+    </div>
+    <div class="work-card">
+      <div class="work-thumb" style="background:linear-gradient(135deg,#040e10,#051820);">
+        <div class="work-thumb-bg" style="background:radial-gradient(ellipse at 60% 40%,rgba(45,218,180,.18),transparent 60%);"></div>
+        <span style="position:relative;z-index:2;font-size:2rem;">📊</span>
+      </div>
+      <div class="work-meta">
+        <div class="work-cat">SaaS · Social Media</div>
+        <h3>Klaara Analytics</h3>
+        <p>6-month social media management — grew LinkedIn followers 340% and drove 3× inbound leads.</p>
+      </div>
+      <div class="work-arrow">↗</div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="testi-top reveal">
+    <div>
+      <div class="sec-label">Client Love</div>
+      <h2>WORDS FROM<br/>ORBIT</h2>
+    </div>
+    <p style="max-width:300px;color:rgba(240,240,248,.4);font-size:.95rem;line-height:1.75;">Don't just take our word for it — here's what clients say after working with us.</p>
+  </div>
+  <div class="testi-scroll reveal" id="testiScroll">
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-quote">"</div>
+      <p>Axilyn completely transformed our online presence. The website they built for us has doubled our enquiry rate within two months of launch. Phenomenal team.</p>
+      <div class="testi-author">
+        <div class="testi-avatar">RK</div>
+        <div><div class="testi-name">Rahul Khanna</div><div class="testi-role">CEO, Velour Fashion</div></div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-quote">"</div>
+      <p>The social media strategy they built for us was nothing like the generic agency stuff we'd seen before. Real results, real growth — 3× leads in six months.</p>
+      <div class="testi-author">
+        <div class="testi-avatar" style="background:linear-gradient(135deg,#2DDAB4,#1a8c6f);">SM</div>
+        <div><div class="testi-name">Sneha Malhotra</div><div class="testi-role">Founder, Klaara Analytics</div></div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-quote">"</div>
+      <p>Communication was flawless throughout. They delivered everything on time and the UI/UX quality was well above what I expected for the price. Will definitely return.</p>
+      <div class="testi-author">
+        <div class="testi-avatar" style="background:linear-gradient(135deg,#C4B9FF,#7C6FFF);">AP</div>
+        <div><div class="testi-name">Arjun Pillai</div><div class="testi-role">CPO, SkillPath</div></div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-quote">"</div>
+      <p>Our café branding was handled with so much care and creativity. Every piece — the logo, packaging, menus — felt premium and on-brand. Highly recommend Axilyn.</p>
+      <div class="testi-author">
+        <div class="testi-avatar" style="background:linear-gradient(135deg,#ffaa44,#c05a00);">DV</div>
+        <div><div class="testi-name">Divya Verma</div><div class="testi-role">Co-founder, Ember Roasters</div></div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-quote">"</div>
+      <p>We needed a clinic website fast. Axilyn delivered a fully functional, beautiful site with booking integration in under three weeks. Outstanding turnaround.</p>
+      <div class="testi-author">
+        <div class="testi-avatar" style="background:linear-gradient(135deg,#44c8ff,#0066cc);">NS</div>
+        <div><div class="testi-name">Dr. Neel Sharma</div><div class="testi-role">Director, MedCare Clinic</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="testi-nav reveal" id="testiNav"></div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="pricing-top reveal">
+    <div class="sec-label">Transparent Pricing</div>
+    <h2>PLANS THAT<br/>FIT YOUR ORBIT</h2>
+    <p>Simple, honest pricing with no hidden costs. All plans include dedicated support and revision rounds.</p>
+  </div>
+  <div class="pricing-grid reveal">
+    <div class="price-card">
+      <div class="price-plan">Starter</div>
+      <div class="price-amt"><sup>₹</sup>12,000</div>
+      <div class="price-period">one-time · website project</div>
+      <div class="price-div"></div>
+      <ul class="price-features">
+        <li>Up to 5-page website</li>
+        <li>Mobile-responsive design</li>
+        <li>Basic SEO setup</li>
+        <li>Contact form integration</li>
+        <li>2 revision rounds</li>
+        <li class="off">Custom animations</li>
+        <li class="off">CMS / blog integration</li>
+        <li class="off">Priority support</li>
+      </ul>
+      <a href="#contact" class="price-btn price-btn-ghost">GET STARTED</a>
+    </div>
+    <div class="price-card featured">
+      <div class="featured-badge">MOST POPULAR</div>
+      <div class="price-plan">Growth</div>
+      <div class="price-amt"><sup>₹</sup>28,000</div>
+      <div class="price-period">one-time · full website + social</div>
+      <div class="price-div"></div>
+      <ul class="price-features">
+        <li>Up to 10-page website</li>
+        <li>Premium UI/UX design</li>
+        <li>Custom animations & effects</li>
+        <li>CMS / blog integration</li>
+        <li>On-page SEO</li>
+        <li>1-month social media setup</li>
+        <li>5 revision rounds</li>
+        <li>Priority support (30 days)</li>
+      </ul>
+      <a href="#contact" class="price-btn price-btn-fill">GET STARTED</a>
+    </div>
+    <div class="price-card">
+      <div class="price-plan">Social Media</div>
+      <div class="price-amt"><sup>₹</sup>8,000</div>
+      <div class="price-period">per month · retainer</div>
+      <div class="price-div"></div>
+      <ul class="price-features">
+        <li>12 posts/month</li>
+        <li>Platform strategy</li>
+        <li>Custom graphic creatives</li>
+        <li>Caption & hashtag copy</li>
+        <li>Monthly performance report</li>
+        <li>2 platforms included</li>
+        <li class="off">Reels / short-form video</li>
+        <li class="off">Ad campaign management</li>
+      </ul>
+      <a href="#contact" class="price-btn price-btn-ghost">GET STARTED</a>
+    </div>
+  </div>
+  <p class="pricing-note reveal">All prices are exclusive of GST · Custom quotes available for larger projects</p>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-visual reveal">
+    <div class="about-ring-wrap">
+      <svg class="about-ring-svg" viewBox="0 0 320 320" fill="none">
+        <circle cx="160" cy="160" r="148" stroke="#7C6FFF" stroke-width="1.2" stroke-dasharray="8 5"/>
+        <circle cx="160" cy="160" r="108" stroke="#C4B9FF" stroke-width=".8" opacity=".4"/>
+        <circle cx="160" cy="160" r="70" stroke="#7C6FFF" stroke-width=".6" opacity=".3"/>
+        <circle cx="160" cy="160" r="36" stroke="#2DDAB4" stroke-width=".6" opacity=".5"/>
+        <circle cx="298" cy="98" r="8" fill="#2DDAB4" opacity=".8"/>
+        <circle cx="28" cy="230" r="6" fill="#C4B9FF" opacity=".5"/>
+        <circle cx="280" cy="240" r="4" fill="#7C6FFF" opacity=".6"/>
+        <circle cx="60" cy="80" r="3" fill="#2DDAB4" opacity=".4"/>
+      </svg>
+      <div class="about-center">
+        <div class="about-initials">AS</div>
+      </div>
+    </div>
+  </div>
+  <div class="about-content reveal">
+    <div class="sec-label">About Axilyn Studio</div>
+    <h2>CREATIVE<br/>MINDS.<br/>REAL<br/>RESULTS.</h2>
+    <p>We're a passionate team of designers, developers and strategists who believe great digital work changes businesses. Based in India, we work with startups, SMEs and individuals worldwide to craft experiences that leave a lasting impression.</p>
+    <p>Every project is treated as our own — with obsessive attention to detail, clear communication and an uncompromising commitment to deadlines.</p>
+    <div class="skills">
+      <span class="skill">Figma</span>
+      <span class="skill">React</span>
+      <span class="skill">HTML / CSS</span>
+      <span class="skill">JavaScript</span>
+      <span class="skill">WordPress</span>
+      <span class="skill">Adobe XD</span>
+      <span class="skill">Photoshop</span>
+      <span class="skill">Illustrator</span>
+      <span class="skill">Canva Pro</span>
+      <span class="skill">Next.js</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="reveal">
+    <div class="sec-label">Get In Touch</div>
+    <h2>START YOUR<br/>ORBIT TODAY</h2>
+    <p class="hero-sub">Tell us about your project — we reply within 24 hours.</p>
+  </div>
+  <div class="contact-box reveal">
+    <div class="form-row">
+      <div class="fg"><label>Your Name</label><input type="text" placeholder="John Doe"/></div>
+      <div class="fg"><label>Email Address</label><input type="email" placeholder="john@email.com"/></div>
+    </div>
+    <div class="fg"><label>Service Needed</label>
+      <select>
+        <option value="">Select a service…</option>
+        <option>Web Design</option>
+        <option>Web Development</option>
+        <option>UI / UX Design</option>
+        <option>Social Media Management</option>
+        <option>Graphic Designing</option>
+        <option>Brand Strategy</option>
+        <option>Full Package</option>
+      </select>
+    </div>
+    <div class="fg"><label>Project Details</label><textarea placeholder="Tell us about your project, budget and timeline…"></textarea></div>
+    <button class="submit-btn" onclick="sendMsg(this)">SEND MESSAGE →</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a class="foot-logo" href="#">
+    <svg class="foot-mark" viewBox="0 0 40 40" fill="none">
+      <circle cx="20" cy="20" r="17" stroke="#7C6FFF" stroke-width="1.5" stroke-dasharray="5 3"/>
+      <circle cx="20" cy="20" r="10" stroke="#C4B9FF" stroke-width="1" opacity=".5"/>
+      <circle cx="20" cy="20" r="4" fill="#7C6FFF"/>
+      <circle cx="33" cy="8" r="2.5" fill="#2DDAB4"/>
+      <circle cx="7" cy="32" r="1.8" fill="#C4B9FF" opacity=".7"/>
+    </svg>
+    <div class="foot-word"><span>AX</span>ILYN STUDIO</div>
+  </a>
+  <p>© 2025 Axilyn Studio. All rights reserved.</p>
+  <div class="foot-links">
+    <a href="#services">Services</a>
+    <a href="#process">Process</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </div>
+</footer>
+
+<script>
+// Mobile hamburger
+const hamburger = document.getElementById('hamburger');
+const navMenu = document.getElementById('nav-menu');
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('open');
+  navMenu.classList.toggle('open');
+});
+navMenu.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => { hamburger.classList.remove('open'); navMenu.classList.remove('open'); });
+});
+
+// Testimonial scroll dots
+const scroll = document.getElementById('testiScroll');
+const navDots = document.getElementById('testiNav');
+const cards = scroll.querySelectorAll('.testi-card');
+cards.forEach((_, i) => {
+  const d = document.createElement('div');
+  d.className = 'testi-dot' + (i === 0 ? ' active' : '');
+  d.addEventListener('click', () => { scroll.scrollTo({ left: i * 356, behavior: 'smooth' }); });
+  navDots.appendChild(d);
+});
+scroll.addEventListener('scroll', () => {
+  const idx = Math.round(scroll.scrollLeft / 356);
+  navDots.querySelectorAll('.testi-dot').forEach((d, i) => d.classList.toggle('active', i === idx));
+}, { passive: true });
+
+// Nav active highlight on scroll
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('nav ul a:not(.nav-cta)');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) current = s.id; });
+  navLinks.forEach(a => {
+    a.style.color = a.getAttribute('href') === '#' + current ? 'var(--ring)' : '';
+  });
+}, { passive: true });
+
+
+const cur = document.getElementById('cursor');
+const curR = document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+setInterval(()=>{rx+=(mx-rx)*.12;ry+=(my-ry)*.12;curR.style.left=rx+'px';curR.style.top=ry+'px';},16);
+document.querySelectorAll('a,button,.svc-card,.pal').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.width='16px';cur.style.height='16px';cur.style.background='var(--teal)';});
+  el.addEventListener('mouseleave',()=>{cur.style.width='10px';cur.style.height='10px';cur.style.background='var(--ring)';});
+});
+
+// Scroll reveal
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');}});
+},{threshold:0.1});
+document.querySelectorAll('.reveal,.step').forEach(el=>obs.observe(el));
+
+// Form submit
+function sendMsg(btn){
+  btn.textContent='✓ MESSAGE SENT!';
+  btn.style.background='var(--teal)';
+  btn.style.color='#04040a';
+  setTimeout(()=>{btn.textContent='SEND MESSAGE →';btn.style.background='var(--ring)';btn.style.color='#fff';},3000);
+}
+</script>
+</body>
+</html>
