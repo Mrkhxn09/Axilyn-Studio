@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Axilyn Studio — Arfa Fathima</title>
+<title>Axilyn Studio — Digital Creative Agency</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -19,6 +19,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--fb);font-weight:30
 /* cursor */
 #cur{position:fixed;width:10px;height:10px;background:var(--ring);border-radius:50%;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);transition:width .18s,height .18s,background .18s,opacity .18s;}
 #curR{position:fixed;width:36px;height:36px;border:1px solid rgba(124,111,255,.45);border-radius:50%;pointer-events:none;z-index:99998;transform:translate(-50%,-50%);}
+@media(hover:none),(max-width:768px){#cur,#curR{display:none!important;}body{cursor:auto!important;}}
 
 /* noise */
 body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9998;}
@@ -27,9 +28,9 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 nav{position:fixed;top:0;left:0;right:0;z-index:600;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 5%;backdrop-filter:blur(20px);background:rgba(4,4,10,.82);border-bottom:1px solid var(--border);}
 .nlogo{display:flex;align-items:center;gap:12px;text-decoration:none;cursor:pointer;}
 .nlm{width:34px;height:34px;flex-shrink:0;}
-.nlm .nl-o1{animation:ss 10s linear infinite;transform-origin:20px 20px;}
-.nlm .nl-o2{animation:ssr 7s linear infinite;transform-origin:20px 20px;}
-.nlm .nl-dot{animation:pulse 2.5s ease-in-out infinite;}
+.nlm .nl-o1,.flm .nl-o1{animation:ss 10s linear infinite;transform-origin:20px 20px;}
+.nlm .nl-o2,.flm .nl-o2{animation:ssr 7s linear infinite;transform-origin:20px 20px;}
+.nlm .nl-dot,.flm .nl-dot{animation:pulse 2.5s ease-in-out infinite;}
 .nwm{font-family:var(--fh);font-size:1.45rem;letter-spacing:.06em;color:var(--text);}
 .nwm span{color:var(--ring);}
 nav ul{list-style:none;display:flex;gap:2.2rem;align-items:center;}
@@ -132,9 +133,9 @@ h2{font-family:var(--fh);font-size:clamp(2.5rem,6vw,5rem);letter-spacing:.04em;l
 #services{background:var(--surf);}
 .stop{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:2rem;margin-bottom:5rem;}
 .stop p{max-width:340px;color:rgba(240,240,248,.38);font-size:.95rem;line-height:1.75;}
-.sgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);}
-@media(max-width:900px){.sgrid{grid-template-columns:1fr 1fr;}}
-@media(max-width:560px){.sgrid{grid-template-columns:1fr;}}
+.sgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);}
+.sgrid .sc:last-child{grid-column:span 2;}
+@media(max-width:560px){.sgrid{grid-template-columns:1fr;}.sgrid .sc:last-child{grid-column:span 1;}}
 .sc{background:var(--card);padding:2.5rem 2rem;position:relative;overflow:hidden;transition:background .3s;}
 .sc:hover{background:#10101e;}
 .sc::before{content:'';position:absolute;inset:0;background:rgba(124,111,255,.03);opacity:0;transition:opacity .3s;}
@@ -258,11 +259,16 @@ footer .fcopy{color:rgba(240,240,248,.2);font-size:.78rem;text-align:center;}
 <nav id="nav">
   <div class="nlogo" onclick="goHome()">
     <svg class="nlm" viewBox="0 0 40 40" fill="none">
+      <!-- outer dashed ring: rotates clockwise -->
       <circle class="nl-o1" cx="20" cy="20" r="17" stroke="#7C6FFF" stroke-width="1.5" stroke-dasharray="5 3"/>
+      <!-- inner ring: counter-rotates -->
       <circle class="nl-o2" cx="20" cy="20" r="10" stroke="#C4B9FF" stroke-width="1" opacity=".5"/>
+      <!-- centre dot -->
       <circle cx="20" cy="20" r="4" fill="#7C6FFF"/>
-      <circle class="nl-dot" cx="33" cy="8" r="2.5" fill="#2DDAB4"/>
-      <circle cx="7" cy="32" r="1.8" fill="#C4B9FF" opacity=".7"/>
+      <!-- orbiting teal dot on the outer ring (rotates with it) -->
+      <g class="nl-o1"><circle cx="33" cy="8" r="2.5" fill="#2DDAB4"/></g>
+      <!-- second orbiting dot on inner ring (rotates opposite) -->
+      <g class="nl-o2"><circle cx="20" cy="10" r="1.8" fill="#C4B9FF" opacity=".7"/></g>
     </svg>
     <div class="nwm"><div><span>AX</span>ILYN</div><div style="font-size:.5rem;letter-spacing:.3em;color:rgba(240,240,248,.3);margin-top:.05rem;">STUDIO</div></div>
   </div>
@@ -329,12 +335,37 @@ footer .fcopy{color:rgba(240,240,248,.2);font-size:.78rem;text-align:center;}
     <p>End-to-end digital solutions crafted with purpose, precision and creative energy that pulls clients into your world.</p>
   </div>
   <div class="sgrid rev d1">
-    <div class="sc"><div class="scn">01</div><div class="sci">🎨</div><h3>Web Design</h3><p>Stunning, conversion-optimised websites that captivate visitors and reflect your brand at every scroll.</p><span class="stag">DESIGN</span></div>
-    <div class="sc"><div class="scn">02</div><div class="sci">💻</div><h3>Web Development</h3><p>Fast, secure, scalable websites and web apps built with modern tech — from landing pages to full platforms.</p><span class="stag">DEVELOPMENT</span></div>
-    <div class="sc"><div class="scn">03</div><div class="sci">🖱</div><h3>UI / UX Design</h3><p>User-centred interfaces designed through research, wireframes and prototypes that make complexity effortless.</p><span class="stag">DESIGN</span></div>
-    <div class="sc"><div class="scn">04</div><div class="sci">📱</div><h3>Social Media</h3><p>Strategy, content, scheduling and analytics — everything to grow your audience and drive real engagement.</p><span class="stag">MARKETING</span></div>
-    <div class="sc"><div class="scn">05</div><div class="sci">✏️</div><h3>Graphic Design</h3><p>Logos, brand kits, social creatives, banners and print materials — visual communication that makes you unforgettable.</p><span class="stag">DESIGN</span></div>
-    <div class="sc"><div class="scn">06</div><div class="sci">🚀</div><h3>Brand Strategy</h3><p>We align your visual identity, messaging and digital presence into one cohesive brand story that converts.</p><span class="stag">STRATEGY</span></div>
+
+    <div class="sc"><div class="scn">01</div><div class="sci">🌐</div>
+      <h3>Website Design &amp; Development</h3>
+      <p>Custom websites, landing pages, UI/UX design, responsive development, website optimisation, and conversion-focused experiences.</p>
+      <span class="stag">DESIGN · DEVELOPMENT</span>
+    </div>
+
+    <div class="sc"><div class="scn">02</div><div class="sci">📱</div>
+      <h3>Social Media Management</h3>
+      <p>Content strategy, post design, reels, content scheduling, account management, audience engagement, and Meta Ads management.</p>
+      <span class="stag">MARKETING · ADS</span>
+    </div>
+
+    <div class="sc"><div class="scn">03</div><div class="sci">🔍</div>
+      <h3>SEO &amp; Local Search Optimisation</h3>
+      <p>Website SEO, Google Business Profile optimisation, local SEO, keyword optimisation, and search visibility improvements.</p>
+      <span class="stag">SEO · LOCAL</span>
+    </div>
+
+    <div class="sc"><div class="scn">04</div><div class="sci">✨</div>
+      <h3>Branding &amp; Visual Design</h3>
+      <p>Logo design, brand identity, marketing creatives, social media creatives, and visual branding assets.</p>
+      <span class="stag">BRAND · DESIGN</span>
+    </div>
+
+    <div class="sc"><div class="scn">05</div><div class="sci">🛠</div>
+      <h3>Website Maintenance &amp; Support</h3>
+      <p>Website updates, performance monitoring, content updates, security checks, and ongoing technical support.</p>
+      <span class="stag">SUPPORT · MAINTENANCE</span>
+    </div>
+
   </div>
 </section>
 
@@ -489,7 +520,7 @@ footer .fcopy{color:rgba(240,240,248,.2);font-size:.78rem;text-align:center;}
     <div class="skills">
       <span class="skill">Figma</span><span class="skill">React</span><span class="skill">HTML/CSS</span>
       <span class="skill">JavaScript</span><span class="skill">WordPress</span><span class="skill">Adobe XD</span>
-      <span class="skill">Photoshop</span><span class="skill">Illustrator</span><span class="skill">Canva Pro</span><span class="skill">Next.js</span>
+      <span class="skill">Photoshop</span><span class="skill">Illustrator</span><span class="skill">Canva Pro</span><span class="skill">Next.js</span><span class="skill">DaVinci Resolve</span>
     </div>
   </div>
 </section>
@@ -513,7 +544,13 @@ footer .fcopy{color:rgba(240,240,248,.2);font-size:.78rem;text-align:center;}
 <!-- FOOTER -->
 <footer>
   <div class="fll" onclick="goHome()">
-    <svg class="flm" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="17" stroke="#7C6FFF" stroke-width="1.5" stroke-dasharray="5 3"/><circle cx="20" cy="20" r="10" stroke="#C4B9FF" stroke-width="1" opacity=".5"/><circle cx="20" cy="20" r="4" fill="#7C6FFF"/><circle cx="33" cy="8" r="2.5" fill="#2DDAB4"/><circle cx="7" cy="32" r="1.8" fill="#C4B9FF" opacity=".7"/></svg>
+    <svg class="flm" viewBox="0 0 40 40" fill="none">
+      <circle class="nl-o1" cx="20" cy="20" r="17" stroke="#7C6FFF" stroke-width="1.5" stroke-dasharray="5 3"/>
+      <circle class="nl-o2" cx="20" cy="20" r="10" stroke="#C4B9FF" stroke-width="1" opacity=".5"/>
+      <circle cx="20" cy="20" r="4" fill="#7C6FFF"/>
+      <g class="nl-o1"><circle cx="33" cy="8" r="2.5" fill="#2DDAB4"/></g>
+      <g class="nl-o2"><circle cx="20" cy="10" r="1.8" fill="#C4B9FF" opacity=".7"/></g>
+    </svg>
     <div class="flw">
       <div class="flname"><span>AX</span>ILYN</div>
       <div class="flsub">STUDIO</div>
