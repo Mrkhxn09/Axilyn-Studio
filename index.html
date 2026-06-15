@@ -191,6 +191,11 @@ h2{font-family:var(--fh);font-size:clamp(2.5rem,6vw,5rem);letter-spacing:.04em;l
 .wover .wcompany{font-size:.75rem;color:rgba(240,240,248,.45);margin-top:.25rem;letter-spacing:.06em;}
 .wover .warrow{display:inline-flex;align-items:center;gap:.4rem;margin-top:.8rem;font-size:.72rem;letter-spacing:.1em;color:var(--ring);opacity:0;transition:opacity .3s;}
 .wcard:hover .warrow{opacity:1;}
+@media(hover:none),(max-width:768px){
+  .wcard img{opacity:.35;}
+  .wcard .wover{background:linear-gradient(to top,rgba(4,4,10,.88) 0%,rgba(4,4,10,.5) 45%,rgba(4,4,10,.15) 100%);}
+  .wcard .warrow{opacity:1;}
+}
 
 /* ── ABOUT ── */
 #about{background:var(--bg);display:grid;grid-template-columns:1fr 1fr;gap:8rem;align-items:center;}
