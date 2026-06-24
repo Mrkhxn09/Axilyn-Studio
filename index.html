@@ -96,14 +96,11 @@ nav ul a:hover::after{width:100%;}
 
 /* ── HERO ── */
 #hero{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:8rem 5% 5rem;position:relative;overflow:hidden;}
-#heroGradient{position:absolute;inset:0;pointer-events:none;z-index:2;background:radial-gradient(600px circle at 50% 50%,rgba(124,111,255,.10),transparent 70%);transition:background .1s ease;}
-.hc{position:relative;z-index:3;max-width:820px;text-align:center;display:flex;flex-direction:column;align-items:center;}
+#heroGradient{position:absolute;inset:0;pointer-events:none;z-index:1;background:radial-gradient(600px circle at 50% 50%,rgba(124,111,255,.13),transparent 70%);transition:background .1s ease;}
+.hc{position:relative;z-index:2;max-width:820px;text-align:center;display:flex;flex-direction:column;align-items:center;}
 .particle{position:absolute;border-radius:50%;z-index:2;animation:float var(--d,8s) ease-in-out infinite;}
-/* jellyfish iframe background */
-.hero-jelly{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;overflow:hidden;}
-.hero-jelly iframe{width:100%;height:100%;border:none;display:block;opacity:.72;}
-.hero-jelly-mask{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(4,4,10,.45) 0%,rgba(4,4,10,.1) 40%,rgba(4,4,10,.1) 60%,rgba(4,4,10,.7) 100%);z-index:1;pointer-events:none;}
-.webgpu-fallback{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:0;}
+.ho{position:absolute;right:-80px;top:50%;transform:translateY(-50%);width:600px;height:600px;opacity:.16;animation:ss 40s linear infinite;}
+.ho2{position:absolute;right:40px;top:50%;transform:translateY(-50%);width:360px;height:360px;opacity:.07;animation:ssr 25s linear infinite;}
 .particle{position:absolute;border-radius:50%;pointer-events:none;animation:fp var(--d,8s) ease-in-out infinite alternate;}
 @keyframes fp{from{transform:translateY(0);}to{transform:translateY(var(--y,-28px));}}
 .hbadge{display:inline-flex;align-items:center;gap:.5rem;border:1px solid var(--border);border-radius:99px;padding:.35rem 1rem;font-size:.72rem;letter-spacing:.12em;color:rgba(240,240,248,.38);margin-bottom:2rem;animation:fu .8s ease both;}
@@ -317,25 +314,23 @@ footer .fcopy{color:rgba(240,240,248,.2);font-size:.78rem;text-align:center;}
 <!-- HERO -->
 <section id="hero">
   <div id="heroGradient"></div>
-
-  <!-- Jellyfish WebGPU animation as background -->
-  <div class="hero-jelly" id="jellyWrap">
-    <iframe
-      src="https://holtsetio.com/lab/aurelia/"
-      title="Jellyfish animation"
-      loading="lazy"
-      sandbox="allow-scripts allow-same-origin"
-      id="jellyFrame"
-    ></iframe>
-    <div class="hero-jelly-mask"></div>
-  </div>
-
-  <!-- Floating particles (kept as subtle extras) -->
-  <div class="particle" style="width:4px;height:4px;background:var(--ring);opacity:.3;top:20%;left:15%;--d:7s;--y:-28px;"></div>
-  <div class="particle" style="width:3px;height:3px;background:var(--teal);opacity:.25;top:65%;left:25%;--d:9s;--y:-22px;"></div>
-  <div class="particle" style="width:5px;height:5px;background:var(--ring2);opacity:.2;top:35%;left:62%;--d:6s;--y:-35px;"></div>
-  <div class="particle" style="width:3px;height:3px;background:var(--teal);opacity:.28;top:75%;left:70%;--d:11s;--y:-18px;"></div>
-
+  <svg class="ho" viewBox="0 0 600 600" fill="none">
+    <circle cx="300" cy="300" r="280" stroke="#7C6FFF" stroke-width="1" stroke-dasharray="8 5"/>
+    <circle cx="300" cy="300" r="200" stroke="#C4B9FF" stroke-width=".6" opacity=".6"/>
+    <circle cx="300" cy="300" r="130" stroke="#7C6FFF" stroke-width=".5" opacity=".4"/>
+    <circle cx="300" cy="300" r="55" stroke="#2DDAB4" stroke-width=".6" opacity=".5" fill="none"/>
+    <circle cx="300" cy="300" r="18" fill="#7C6FFF" opacity=".4"/>
+    <circle cx="538" cy="163" r="7" fill="#2DDAB4" opacity=".7"/>
+    <circle cx="72" cy="450" r="5" fill="#C4B9FF" opacity=".5"/>
+    <circle cx="490" cy="450" r="4" fill="#7C6FFF" opacity=".4"/>
+  </svg>
+  <svg class="ho2" viewBox="0 0 360 360" fill="none">
+    <circle cx="180" cy="180" r="168" stroke="#2DDAB4" stroke-width=".8" stroke-dasharray="4 6" opacity=".6"/>
+  </svg>
+  <div class="particle" style="width:4px;height:4px;background:var(--ring);opacity:.4;top:20%;left:15%;--d:7s;--y:-28px;"></div>
+  <div class="particle" style="width:3px;height:3px;background:var(--teal);opacity:.35;top:65%;left:25%;--d:9s;--y:-22px;"></div>
+  <div class="particle" style="width:5px;height:5px;background:var(--ring2);opacity:.28;top:35%;left:62%;--d:6s;--y:-35px;"></div>
+  <div class="particle" style="width:3px;height:3px;background:var(--teal);opacity:.38;top:75%;left:70%;--d:11s;--y:-18px;"></div>
   <div class="hc">
     <div class="hbadge"><span class="bdot"></span>Available for new projects</div>
     <h1>WE BUILD<br/><span class="rw">DIGITAL</span><br/><span class="ol">WORLDS</span></h1>
