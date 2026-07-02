@@ -14,6 +14,22 @@
   --fh:'Bebas Neue',sans-serif;--fb:'DM Sans',sans-serif;
 }
 html{scroll-behavior:smooth;}
+/* ── SPLASH SCREEN ── */
+#splash{position:fixed;inset:0;background:var(--bg);z-index:999999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;transition:opacity .7s ease,visibility .7s ease;}
+#splash.hide{opacity:0;visibility:hidden;pointer-events:none;}
+.splash-logo{display:flex;flex-direction:column;align-items:center;gap:14px;animation:splashIn .6s cubic-bezier(.22,1,.36,1) both;}
+.splash-orb{width:80px;height:80px;position:relative;display:flex;align-items:center;justify-content:center;}
+.splash-orb svg{width:80px;height:80px;}
+.splash-orb .sp-o1{animation:ss 4s linear infinite;transform-origin:40px 40px;}
+.splash-orb .sp-o2{animation:ssr 2.8s linear infinite;transform-origin:40px 40px;}
+.splash-orb .sp-pulse{animation:pulse 1.8s ease-in-out infinite;}
+.splash-wordmark{font-family:var(--fh);font-size:2.6rem;letter-spacing:.12em;line-height:1;text-align:center;}
+.splash-wordmark span{color:var(--ring);}
+.splash-sub{font-size:.6rem;letter-spacing:.45em;color:rgba(240,240,248,.25);text-transform:uppercase;margin-top:.1rem;animation:splashIn .6s .15s cubic-bezier(.22,1,.36,1) both;}
+.splash-bar{width:140px;height:1px;background:var(--border);border-radius:99px;overflow:hidden;margin-top:.5rem;animation:splashIn .4s .3s ease both;}
+.splash-bar-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--ring),var(--teal));border-radius:99px;transition:width .05s linear;}
+@keyframes splashIn{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:none;}}
+
 body{background:var(--bg);color:var(--text);font-family:var(--fb);font-weight:300;overflow-x:hidden;cursor:none;}
 
 /* cursor */
@@ -279,6 +295,29 @@ footer .fcopy{color:rgba(240,240,248,.2);font-size:.78rem;text-align:center;}
 </style>
 </head>
 <body>
+
+<!-- ══════════════ SPLASH SCREEN ══════════════ -->
+<div id="splash">
+  <div class="splash-logo">
+    <div class="splash-orb">
+      <svg viewBox="0 0 80 80" fill="none">
+        <!-- outer dashed ring -->
+        <circle class="sp-o1" cx="40" cy="40" r="36" stroke="#7C6FFF" stroke-width="1.5" stroke-dasharray="8 5"/>
+        <!-- inner ring -->
+        <circle class="sp-o2" cx="40" cy="40" r="22" stroke="#C4B9FF" stroke-width="1" opacity=".5"/>
+        <!-- centre -->
+        <circle cx="40" cy="40" r="8" fill="#7C6FFF"/>
+        <!-- orbiting teal dot on outer ring -->
+        <g class="sp-o1"><circle cx="40" cy="4" r="4.5" fill="#2DDAB4"/></g>
+        <!-- orbiting violet dot on inner ring -->
+        <g class="sp-o2"><circle cx="40" cy="18" r="3" fill="#C4B9FF" opacity=".8"/></g>
+      </svg>
+    </div>
+    <div class="splash-wordmark"><span>AX</span>ILYN</div>
+    <div class="splash-sub">Studio</div>
+  </div>
+  <div class="splash-bar"><div class="splash-bar-fill" id="splashFill"></div></div>
+</div>
 <div id="cur"></div>
 <div id="curR"></div>
 
@@ -802,7 +841,29 @@ const PROJECTS = [
   }
 ];
 
-/* ── CURSOR ── */
+/* ── SPLASH ── */
+(function(){
+  const splash = document.getElementById('splash');
+  const fill   = document.getElementById('splashFill');
+  let prog = 0;
+  // Animate progress bar from 0 → 100% over ~0.7s
+  const interval = setInterval(()=>{
+    prog += (100 - prog) * 0.12 + 1;
+    if(prog > 99) prog = 99;
+    fill.style.width = prog + '%';
+  }, 30);
+  // After 1s complete and dismiss
+  setTimeout(()=>{
+    clearInterval(interval);
+    fill.style.transition = 'width .15s linear';
+    fill.style.width = '100%';
+    setTimeout(()=>{
+      splash.classList.add('hide');
+      // Remove from DOM after transition
+      setTimeout(()=>{ if(splash.parentNode) splash.parentNode.removeChild(splash); }, 800);
+    }, 180);
+  }, 1000);
+})();
 const cur=document.getElementById('cur'),curR=document.getElementById('curR');
 let mx=0,my=0,rx=0,ry=0;
 document.addEventListener('mousemove',e=>{
