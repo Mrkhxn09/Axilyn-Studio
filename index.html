@@ -5,6 +5,13 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>Axilyn Studio — Digital Creative Agency</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet"/>
+<!-- Lenis smooth scroll -->
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+<!-- GSAP + ScrollTrigger -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<!-- VanillaTilt -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{
@@ -292,6 +299,8 @@ footer .fcopy{color:rgba(240,240,248,.2);font-size:.78rem;text-align:center;}
 .rev.d1{transition-delay:.1s;}
 .rev.d2{transition-delay:.2s;}
 .rev.d3{transition-delay:.3s;}
+.wgrid,.sgrid{perspective:1200px;}
+.wcard,.sc,.loc-card{transform-style:preserve-3d;will-change:transform;}
 </style>
 </head>
 <body>
@@ -974,6 +983,121 @@ function sendMsg(btn){
   btn.textContent='✓ MESSAGE SENT!';btn.style.background='var(--teal)';btn.style.color='#04040a';
   setTimeout(()=>{btn.textContent='SEND MESSAGE →';btn.style.background='var(--ring)';btn.style.color='#fff';},3200);
 }
+
+/* ══════════════════════════════════════════
+   LENIS · GSAP ScrollTrigger · VanillaTilt
+══════════════════════════════════════════ */
+window.addEventListener('load', ()=>{
+
+  /* ── 1. LENIS smooth scroll (anti-gravity momentum) ── */
+  const lenis = new Lenis({
+    duration: 1.35,
+    easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    smooth: true,
+    smoothTouch: false,
+  });
+  function lenisRaf(time){ lenis.raf(time); requestAnimationFrame(lenisRaf); }
+  requestAnimationFrame(lenisRaf);
+  // Hook lenis into GSAP ScrollTrigger
+  lenis.on('scroll', ScrollTrigger.update);
+  gsap.ticker.add(time => lenis.raf(time * 1000));
+  gsap.ticker.lagSmoothing(0);
+
+  /* ── 2. GSAP — register plugin ── */
+  gsap.registerPlugin(ScrollTrigger);
+
+  /* ── HERO — text float in with depth ── */
+  gsap.from('.hbadge', { y:40, opacity:0, duration:1, ease:'power3.out', delay:.2 });
+  gsap.from('h1', { y:70, opacity:0, duration:1.1, ease:'power3.out', delay:.35, stagger:.12 });
+  gsap.from('.hsub', { y:40, opacity:0, duration:.9, ease:'power3.out', delay:.6 });
+  gsap.from('.hbtns', { y:30, opacity:0, duration:.8, ease:'power3.out', delay:.75 });
+  gsap.from('.hstats .hstat-item', { y:30, opacity:0, duration:.7, ease:'power3.out', delay:.9, stagger:.12 });
+  gsap.from('.ho', { scale:.6, rotation:-45, opacity:0, duration:2, ease:'power2.out', delay:.1 });
+  gsap.from('.ho2', { scale:.5, rotation:60, opacity:0, duration:2.2, ease:'power2.out', delay:.2 });
+
+  /* ── SECTIONS — 3D scroll entrance ── */
+  const sections = ['#services','#work','#process','#about','#contact'];
+  sections.forEach(sel => {
+    const el = document.querySelector(sel);
+    if(!el) return;
+    gsap.from(el.querySelector('.stop, .wh, .ph, .arc, .cbox') || el.children[0], {
+      scrollTrigger:{ trigger: el, start:'top 82%', toggleActions:'play none none none' },
+      y: 60, opacity: 0, duration: 1, ease:'power3.out'
+    });
+  });
+
+  /* ── SERVICES cards — stagger fan-in ── */
+  gsap.from('.sc', {
+    scrollTrigger:{ trigger:'.sgrid', start:'top 80%' },
+    y: 80, opacity:0, rotateX:12, transformOrigin:'top center',
+    duration:.8, ease:'power3.out', stagger:.1
+  });
+
+  /* ── WORK cards — slide up stagger ── */
+  gsap.from('.wcard', {
+    scrollTrigger:{ trigger:'.wgrid', start:'top 78%' },
+    y: 90, opacity:0, scale:.95,
+    duration:.75, ease:'power3.out', stagger:.08
+  });
+
+  /* ── PROCESS tabs ── */
+  gsap.from('.ptab', {
+    scrollTrigger:{ trigger:'.ptabs', start:'top 80%' },
+    y:30, opacity:0, duration:.6, ease:'power2.out', stagger:.1
+  });
+
+  /* ── ABOUT orbit + skills ── */
+  gsap.from('.arc', {
+    scrollTrigger:{ trigger:'#about', start:'top 75%' },
+    scale:.5, opacity:0, rotation:180, duration:1.4, ease:'back.out(1.4)'
+  });
+  gsap.from('.skill', {
+    scrollTrigger:{ trigger:'.skills', start:'top 82%' },
+    y:20, opacity:0, scale:.85, duration:.5, ease:'back.out(2)', stagger:.06
+  });
+
+  /* ── FOOTER ── */
+  gsap.from('footer', {
+    scrollTrigger:{ trigger:'footer', start:'top 95%' },
+    y:40, opacity:0, duration:.9, ease:'power2.out'
+  });
+
+  /* ── CONTACT location card ── */
+  gsap.from('.loc-card', {
+    scrollTrigger:{ trigger:'.loc-card', start:'top 80%' },
+    y:60, opacity:0, scale:.97, duration:1, ease:'power3.out'
+  });
+
+  /* ── Parallax on hero orbit SVGs ── */
+  gsap.to('.ho', {
+    scrollTrigger:{ trigger:'#hero', start:'top top', end:'bottom top', scrub:1.5 },
+    y: -120, rotation: 60, ease:'none'
+  });
+  gsap.to('.ho2', {
+    scrollTrigger:{ trigger:'#hero', start:'top top', end:'bottom top', scrub:2 },
+    y: -80, rotation: -40, ease:'none'
+  });
+  gsap.to('.hc', {
+    scrollTrigger:{ trigger:'#hero', start:'top top', end:'bottom top', scrub:1 },
+    y: -60, opacity:0, ease:'none'
+  });
+
+  /* ── 3. VANILLA TILT — 3D tilt on cards ── */
+  const isMobile = window.matchMedia('(hover:none)').matches;
+  if(!isMobile){
+    VanillaTilt.init(document.querySelectorAll('.wcard'), {
+      max: 8, speed: 600, glare: true, 'max-glare': 0.08, perspective: 900
+    });
+    VanillaTilt.init(document.querySelectorAll('.sc'), {
+      max: 6, speed: 700, glare: true, 'max-glare': 0.05, perspective: 1000
+    });
+    VanillaTilt.init(document.querySelectorAll('.loc-card'), {
+      max: 4, speed: 800, glare: true, 'max-glare': 0.04, perspective: 1200
+    });
+  }
+
+});
+
 </script>
 </body>
 </html>
