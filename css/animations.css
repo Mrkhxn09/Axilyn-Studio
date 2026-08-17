@@ -1,0 +1,117 @@
+/* ═══════════════════════════════════════════════════════
+   ANIMATIONS & KEYFRAMES — AXILYN STUDIO
+   ═══════════════════════════════════════════════════════ */
+
+/* Fade & Slide Up */
+@keyframes fu {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Splash Entrance */
+@keyframes splashIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Marquee Infinite Loop */
+@keyframes mq {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Orbital Rotations */
+@keyframes ss {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes ssr {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+/* Opacity Pulse */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.2;
+  }
+}
+
+/* Floating Particles */
+@keyframes fp {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(var(--y, -28px));
+  }
+}
+
+/* Spinner */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Scroll Reveal Classes */
+.rev {
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity 0.75s ease, transform 0.75s ease;
+}
+
+.rev.vis {
+  opacity: 1;
+  transform: none;
+}
+
+.rev.d1 {
+  transition-delay: 0.1s;
+}
+
+.rev.d2 {
+  transition-delay: 0.2s;
+}
+
+.rev.d3 {
+  transition-delay: 0.3s;
+}
+
+/* Accessibility: Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .rev {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
