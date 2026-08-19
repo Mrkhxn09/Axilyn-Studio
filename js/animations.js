@@ -54,76 +54,94 @@
 
 /**
  * ═══════════════════════════════════════════════════════
- * FOOTER GIANT WORDMARK TYPEWRITER ANIMATION
+ * FOOTER MASSIVE AXILYN LOGO PROGRESSIVE REVEAL CONTROLLER
  * ═══════════════════════════════════════════════════════
  */
-(function initFooterTypewriter() {
-  const typedEl = document.getElementById('footerGiantTyped');
-  const cursorEl = document.getElementById('footerGiantCursor');
+(function initFooterWordmarkReveal() {
+  const clipRect = document.getElementById('axilynClipRect');
+  const cursorLine = document.getElementById('axilynCursorLine');
   const wrapEl = document.querySelector('.footer-giant-wrap');
 
-  if (!typedEl || !cursorEl || !wrapEl) return;
+  if (!clipRect || !wrapEl) return;
 
-  // Check prefers-reduced-motion
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (prefersReducedMotion) {
-    typedEl.textContent = 'AXILYN';
-    cursorEl.classList.add('hidden');
+    clipRect.setAttribute('width', '1200');
+    if (cursorLine) cursorLine.style.opacity = '0';
     return;
   }
 
-  const word = 'AXILYN';
-  let charIndex = 0;
+  // Letter reveal width milestones in 1200px SVG viewBox
+  const milestones = [0, 270, 440, 560, 710, 860, 1200];
+  let currentStep = 0;
   let isDeleting = false;
   let isVisible = false;
-  let timeoutId = null;
+  let timerId = null;
 
-  function typeStep() {
-    if (!isVisible) return;
-
-    if (!isDeleting) {
-      // Typing mode
-      charIndex++;
-      typedEl.textContent = word.slice(0, charIndex);
-      cursorEl.classList.remove('hidden');
-
-      if (charIndex === word.length) {
-        // Finished typing entire word, pause before erasing (1.8s)
-        isDeleting = true;
-        timeoutId = setTimeout(typeStep, 1800);
+  function updateVisual(widthVal, showCursor) {
+    clipRect.setAttribute('width', widthVal);
+    if (cursorLine) {
+      if (showCursor && widthVal > 0 && widthVal < 1200) {
+        cursorLine.setAttribute('x1', widthVal + 4);
+        cursorLine.setAttribute('x2', widthVal + 4);
+        cursorLine.style.opacity = '0.85';
+      } else if (showCursor && widthVal >= 1200) {
+        cursorLine.setAttribute('x1', 1110);
+        cursorLine.setAttribute('x2', 1110);
+        cursorLine.style.opacity = '0.85';
       } else {
-        // Next character typing pace (~380ms)
-        timeoutId = setTimeout(typeStep, 380);
-      }
-    } else {
-      // Deleting mode
-      charIndex--;
-      typedEl.textContent = word.slice(0, charIndex);
-
-      if (charIndex === 0) {
-        // Fully erased: hide cursor and pause before retyping (~850ms)
-        cursorEl.classList.add('hidden');
-        isDeleting = false;
-        timeoutId = setTimeout(typeStep, 850);
-      } else {
-        // Next character deleting pace (~220ms)
-        timeoutId = setTimeout(typeStep, 220);
+        cursorLine.style.opacity = '0';
       }
     }
   }
 
-  // IntersectionObserver to run animation only when footer is in or near viewport
+  function step() {
+    if (!isVisible) return;
+
+    if (!isDeleting) {
+      // Reveal letters progressively (A -> AX -> AXI -> AXIL -> AXILY -> AXILYN)
+      currentStep++;
+      const targetWidth = milestones[currentStep];
+      updateVisual(targetWidth, true);
+
+      if (currentStep >= milestones.length - 1) {
+        // Fully revealed: hold with purple illumination for 1.8s
+        isDeleting = true;
+        timerId = setTimeout(step, 1800);
+      } else {
+        // Character reveal timing (~360ms)
+        timerId = setTimeout(step, 360);
+      }
+    } else {
+      // Retract letters (AXILY -> AXIL -> AXI -> AX -> A -> empty)
+      currentStep--;
+      const targetWidth = milestones[currentStep];
+      updateVisual(targetWidth, currentStep > 0);
+
+      if (currentStep <= 0) {
+        // Fully retracted: hide cursor and pause (~850ms) before next loop
+        updateVisual(0, false);
+        isDeleting = false;
+        timerId = setTimeout(step, 850);
+      } else {
+        // Character retraction timing (~200ms)
+        timerId = setTimeout(step, 200);
+      }
+    }
+  }
+
+  // IntersectionObserver to run animation only when visible in viewport
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           if (!isVisible) {
             isVisible = true;
-            typeStep();
+            step();
           }
         } else {
           isVisible = false;
-          if (timeoutId) clearTimeout(timeoutId);
+          if (timerId) clearTimeout(timerId);
         }
       });
     },
@@ -132,4 +150,5 @@
 
   observer.observe(wrapEl);
 })();
+
 

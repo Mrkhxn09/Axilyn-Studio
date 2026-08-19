@@ -735,6 +735,49 @@
 
     </div>
 
+    <!-- MASSIVE AXILYN WORDMARK WITH BOTTOM-UP PURPLE ILLUMINATION -->
+    <div class="footer-giant-wrap" aria-hidden="true">
+      <div class="footer-bottom-glow"></div>
+      <div class="footer-rising-light"></div>
+      
+      <svg class="footer-giant-svg" viewBox="0 0 1200 230" preserveAspectRatio="xMidYMid meet">
+        <defs>
+          <!-- Gradient for base outline: dark subtle outline at top, luminous purple at bottom -->
+          <linearGradient id="axilynStrokeGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="rgba(240, 240, 248, 0.12)" />
+            <stop offset="50%" stop-color="rgba(240, 240, 248, 0.22)" />
+            <stop offset="78%" stop-color="#9B8EFF" stop-opacity="0.82" />
+            <stop offset="100%" stop-color="#C4B9FF" stop-opacity="0.95" />
+          </linearGradient>
+
+          <!-- Ambient Bottom Glow Gradient for illuminated lower portion -->
+          <linearGradient id="axilynGlowGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="45%" stop-color="transparent" />
+            <stop offset="78%" stop-color="#7C6FFF" stop-opacity="0.32" />
+            <stop offset="100%" stop-color="#2DDAB4" stop-opacity="0.18" />
+          </linearGradient>
+
+          <!-- Progressive Reveal Clip Path -->
+          <clipPath id="axilynRevealClip">
+            <rect id="axilynClipRect" x="0" y="0" width="0" height="230" />
+          </clipPath>
+        </defs>
+
+        <!-- Ambient Lower Fill Shimmer (only on lower letters) -->
+        <text x="600" y="185" text-anchor="middle" font-family="'Bebas Neue', sans-serif" font-size="210" font-weight="700" letter-spacing="20" fill="url(#axilynGlowGrad)" stroke="none" clip-path="url(#axilynRevealClip)">
+          AXILYN
+        </text>
+
+        <!-- Primary Outlined Vector Logo -->
+        <text x="600" y="185" text-anchor="middle" font-family="'Bebas Neue', sans-serif" font-size="210" font-weight="700" letter-spacing="20" fill="none" stroke="url(#axilynStrokeGrad)" stroke-width="2" stroke-linejoin="round" clip-path="url(#axilynRevealClip)">
+          AXILYN
+        </text>
+
+        <!-- Vertical Leading Cursor Line -->
+        <line id="axilynCursorLine" x1="0" y1="20" x2="0" y2="195" stroke="#7C6FFF" stroke-width="2.5" opacity="0" stroke-linecap="round" />
+      </svg>
+    </div>
+
     <!-- BOTTOM FOOTER BAR -->
     <div class="footer-divider" role="separator"></div>
     <div class="footer-bottom">
@@ -744,14 +787,6 @@
         <span class="footer-legal-sep" aria-hidden="true">·</span>
         <a href="#hero" onclick="goHome()">Terms of Service</a>
       </div>
-    </div>
-  </div>
-
-  <!-- LAYER 2: GIANT OVERSIZED OUTLINED TYPOGRAPHY WITH TYPEWRITER ANIMATION -->
-  <div class="footer-giant-wrap" aria-hidden="true">
-    <div class="footer-giant-glow"></div>
-    <div class="footer-giant-text" id="footerGiantText">
-      <span class="footer-giant-typed" id="footerGiantTyped"></span><span class="footer-giant-cursor" id="footerGiantCursor">|</span>
     </div>
   </div>
 </footer>
