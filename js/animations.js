@@ -54,80 +54,138 @@
 
 /**
  * ═══════════════════════════════════════════════════════
- * FOOTER MASSIVE AXILYN LOGO PROGRESSIVE REVEAL CONTROLLER
+ * FOOTER MASSIVE AXILYN LOGO CONTINUOUS REVEAL CONTROLLER
  * ═══════════════════════════════════════════════════════
  */
 (function initFooterWordmarkReveal() {
   const clipRect = document.getElementById('axilynClipRect');
   const cursorLine = document.getElementById('axilynCursorLine');
+  const textEl = document.getElementById('axilynLogoText');
   const wrapEl = document.querySelector('.footer-giant-wrap');
+  const glowLight = document.querySelector('.footer-rising-light');
 
-  if (!clipRect || !wrapEl) return;
+  if (!clipRect || !cursorLine || !wrapEl) return;
 
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (prefersReducedMotion) {
+    clipRect.setAttribute('x', '0');
     clipRect.setAttribute('width', '1200');
-    if (cursorLine) cursorLine.style.opacity = '0';
+    cursorLine.style.display = 'none';
     return;
   }
 
-  // Letter reveal width milestones in 1200px SVG viewBox
-  const milestones = [0, 270, 440, 560, 710, 860, 1200];
-  let currentStep = 0;
-  let isDeleting = false;
-  let isVisible = false;
-  let timerId = null;
+  // Exact BBox bounds of the SVG text
+  let startX = 295;
+  let endX = 905;
+  let textWidth = 610;
+  let textY = 25;
+  let textHeight = 175;
 
-  function updateVisual(widthVal, showCursor) {
-    clipRect.setAttribute('width', widthVal);
-    if (cursorLine) {
-      if (showCursor && widthVal > 0 && widthVal < 1200) {
-        cursorLine.setAttribute('x1', widthVal + 4);
-        cursorLine.setAttribute('x2', widthVal + 4);
-        cursorLine.style.opacity = '0.85';
-      } else if (showCursor && widthVal >= 1200) {
-        cursorLine.setAttribute('x1', 1110);
-        cursorLine.setAttribute('x2', 1110);
-        cursorLine.style.opacity = '0.85';
-      } else {
-        cursorLine.style.opacity = '0';
+  function measureBounds() {
+    if (textEl && typeof textEl.getBBox === 'function') {
+      try {
+        const bbox = textEl.getBBox();
+        if (bbox && bbox.width > 50) {
+          startX = Math.max(0, bbox.x - 2);
+          textWidth = bbox.width + 4;
+          endX = startX + textWidth;
+          textY = Math.max(0, bbox.y - 2);
+          textHeight = bbox.height + 4;
+          
+          cursorLine.setAttribute('y1', String(textY));
+          cursorLine.setAttribute('y2', String(textY + textHeight));
+        }
+      } catch (e) {
+        // Fallback to default measured coordinates
       }
     }
   }
 
-  function step() {
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(measureBounds);
+  } else {
+    setTimeout(measureBounds, 100);
+  }
+
+  let state = 'REVEALING'; // 'REVEALING' | 'HOLD' | 'RETRACTING' | 'PAUSE'
+  let stateStartTime = performance.now();
+  let isVisible = false;
+  let rafId = null;
+
+  const REVEAL_DURATION = 2600;   // 2.6s continuous smooth reveal
+  const HOLD_DURATION = 1800;     // 1.8s fully visible with purple illumination
+  const RETRACT_DURATION = 1800;  // 1.8s continuous smooth reverse
+  const PAUSE_DURATION = 800;     // 0.8s resting empty pause
+
+  // Subtle smooth easing
+  function easeInOutQuad(t) {
+    return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+  }
+
+  function setVisual(progress) {
+    // progress: 0.0 to 1.0
+    const clampedProgress = Math.max(0, Math.min(1, progress));
+    const currentX = startX + clampedProgress * textWidth;
+
+    // Reveal from left (0 to currentX)
+    clipRect.setAttribute('x', '0');
+    clipRect.setAttribute('width', String(currentX));
+
+    // Cursor position immediately beside the reveal boundary
+    cursorLine.setAttribute('x1', String(currentX + 2));
+    cursorLine.setAttribute('x2', String(currentX + 2));
+    cursorLine.style.opacity = '0.95';
+
+    // Synchronize rising purple light intensity with reveal progress
+    if (glowLight) {
+      const glowOpacity = 0.35 + clampedProgress * 0.55;
+      const glowScale = 0.75 + clampedProgress * 0.4;
+      const glowY = 12 - clampedProgress * 18;
+      glowLight.style.opacity = String(glowOpacity);
+      glowLight.style.transform = `translateX(-50%) translateY(${glowY}px) scaleY(${glowScale})`;
+    }
+  }
+
+  function loop(now) {
     if (!isVisible) return;
 
-    if (!isDeleting) {
-      // Reveal letters progressively (A -> AX -> AXI -> AXIL -> AXILY -> AXILYN)
-      currentStep++;
-      const targetWidth = milestones[currentStep];
-      updateVisual(targetWidth, true);
+    const elapsed = now - stateStartTime;
 
-      if (currentStep >= milestones.length - 1) {
-        // Fully revealed: hold with purple illumination for 1.8s
-        isDeleting = true;
-        timerId = setTimeout(step, 1800);
-      } else {
-        // Character reveal timing (~360ms)
-        timerId = setTimeout(step, 360);
+    if (state === 'REVEALING') {
+      const p = Math.min(1, elapsed / REVEAL_DURATION);
+      const eased = easeInOutQuad(p);
+      setVisual(eased);
+
+      if (elapsed >= REVEAL_DURATION) {
+        state = 'HOLD';
+        stateStartTime = now;
+        setVisual(1.0);
       }
-    } else {
-      // Retract letters (AXILY -> AXIL -> AXI -> AX -> A -> empty)
-      currentStep--;
-      const targetWidth = milestones[currentStep];
-      updateVisual(targetWidth, currentStep > 0);
+    } else if (state === 'HOLD') {
+      setVisual(1.0);
+      if (elapsed >= HOLD_DURATION) {
+        state = 'RETRACTING';
+        stateStartTime = now;
+      }
+    } else if (state === 'RETRACTING') {
+      const p = Math.min(1, elapsed / RETRACT_DURATION);
+      const eased = easeInOutQuad(1 - p);
+      setVisual(eased);
 
-      if (currentStep <= 0) {
-        // Fully retracted: hide cursor and pause (~850ms) before next loop
-        updateVisual(0, false);
-        isDeleting = false;
-        timerId = setTimeout(step, 850);
-      } else {
-        // Character retraction timing (~200ms)
-        timerId = setTimeout(step, 200);
+      if (elapsed >= RETRACT_DURATION) {
+        state = 'PAUSE';
+        stateStartTime = now;
+        setVisual(0.0);
+      }
+    } else if (state === 'PAUSE') {
+      setVisual(0.0);
+      if (elapsed >= PAUSE_DURATION) {
+        state = 'REVEALING';
+        stateStartTime = now;
       }
     }
+
+    rafId = requestAnimationFrame(loop);
   }
 
   // IntersectionObserver to run animation only when visible in viewport
@@ -137,11 +195,13 @@
         if (entry.isIntersecting) {
           if (!isVisible) {
             isVisible = true;
-            step();
+            measureBounds();
+            stateStartTime = performance.now();
+            rafId = requestAnimationFrame(loop);
           }
         } else {
           isVisible = false;
-          if (timerId) clearTimeout(timerId);
+          if (rafId) cancelAnimationFrame(rafId);
         }
       });
     },
@@ -150,5 +210,6 @@
 
   observer.observe(wrapEl);
 })();
+
 
 

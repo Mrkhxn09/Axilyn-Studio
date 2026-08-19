@@ -1164,12 +1164,16 @@ h1 .ol {
 }
 
 #axilynCursorLine {
-  transition: opacity 0.25s ease;
+  stroke: var(--ring);
+  stroke-width: 2.5px;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 5px rgba(124, 111, 255, 0.75));
+  animation: cursorBlink 1.1s ease-in-out infinite;
 }
 
-@keyframes cursorGlowBlink {
-  0%, 100% { opacity: 0.9; }
-  50% { opacity: 0.15; }
+@keyframes cursorBlink {
+  0%, 100% { opacity: 0.95; }
+  50% { opacity: 0.25; }
 }
 
 @media (prefers-reduced-motion: reduce) {
