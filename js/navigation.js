@@ -5,15 +5,187 @@
  */
 
 /**
- * Switch Process Orbit Cycle tab
- * @param {number} index - Active tab index (0: Discover, 1: Design, 2: Build, 3: Launch)
+ * ═══════════════════════════════════════════════════════
+ * ORBIT CYCLE CONTROLLER (AUTO-ADVANCE, HOVER PAUSE, PROGRESS)
+ * ═══════════════════════════════════════════════════════
  */
-function swTab(index) {
+(function initOrbitProcess() {
+  const STEP_COUNT = 4;
+  const STEP_DURATION = 6000; // 6 seconds per step for comfortable reading
+
+  let currentStep = 0;
+  let elapsed = 0;
+  let lastTimestamp = null;
+  let rafId = null;
+  let isHovered = false;
+  let isIntersecting = false;
+  let isCompleted = false;
+
+  const processSec = document.getElementById('process');
   const tabs = document.querySelectorAll('.ptab');
   const panels = document.querySelectorAll('.pp');
-  tabs.forEach((tab, j) => tab.classList.toggle('on', j === index));
-  panels.forEach((panel, j) => panel.classList.toggle('on', j === index));
-}
+  const ptabsContainer = document.getElementById('ptabs');
+
+  if (!processSec || tabs.length === 0) return;
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  function updateTabProgress(index, progress) {
+    tabs.forEach((tab, j) => {
+      if (j === index) {
+        tab.style.setProperty('--tab-p', progress.toFixed(4));
+      } else {
+        tab.style.setProperty('--tab-p', '0');
+      }
+    });
+  }
+
+  function setStep(index, fromManualClick = false) {
+    if (index < 0 || index >= STEP_COUNT) return;
+
+    currentStep = index;
+    elapsed = 0;
+    lastTimestamp = null;
+
+    tabs.forEach((tab, j) => {
+      const isActive = j === index;
+      tab.classList.toggle('on', isActive);
+      tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      tab.setAttribute('tabindex', isActive ? '0' : '-1');
+    });
+
+    panels.forEach((panel, j) => {
+      const isActive = j === index;
+      panel.classList.toggle('on', isActive);
+      panel.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+    });
+
+    if (fromManualClick) {
+      isCompleted = false;
+    }
+
+    updateTabProgress(currentStep, 0);
+  }
+
+  // Global tab switcher function
+  window.swTab = function (index, isManual = true) {
+    setStep(index, isManual);
+  };
+
+  // Keyboard navigation for tablist
+  if (ptabsContainer) {
+    ptabsContainer.setAttribute('role', 'tablist');
+    ptabsContainer.setAttribute('aria-label', 'Orbit Cycle Steps');
+
+    tabs.forEach((tab, idx) => {
+      tab.setAttribute('role', 'tab');
+      tab.setAttribute('id', `ptab-${idx}`);
+      tab.setAttribute('aria-controls', `pp${idx}`);
+      tab.setAttribute('aria-selected', idx === 0 ? 'true' : 'false');
+      tab.setAttribute('tabindex', idx === 0 ? '0' : '-1');
+
+      tab.addEventListener('keydown', (e) => {
+        let newIdx = currentStep;
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+          e.preventDefault();
+          newIdx = (currentStep + 1) % STEP_COUNT;
+        } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+          e.preventDefault();
+          newIdx = (currentStep - 1 + STEP_COUNT) % STEP_COUNT;
+        } else if (e.key === 'Home') {
+          e.preventDefault();
+          newIdx = 0;
+        } else if (e.key === 'End') {
+          e.preventDefault();
+          newIdx = STEP_COUNT - 1;
+        }
+        if (newIdx !== currentStep) {
+          setStep(newIdx, true);
+          tabs[newIdx].focus();
+        }
+      });
+    });
+
+    panels.forEach((panel, idx) => {
+      panel.setAttribute('role', 'tabpanel');
+      panel.setAttribute('aria-labelledby', `ptab-${idx}`);
+      panel.setAttribute('aria-hidden', idx === 0 ? 'false' : 'true');
+    });
+  }
+
+  // Pause on hover over process section or tabs, resume on leave
+  processSec.addEventListener('mouseenter', () => {
+    isHovered = true;
+    lastTimestamp = null;
+  });
+
+  processSec.addEventListener('mouseleave', () => {
+    isHovered = false;
+    lastTimestamp = null;
+  });
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      lastTimestamp = null;
+    }
+  });
+
+  // Main animation frame loop
+  function tick(timestamp) {
+    if (prefersReducedMotion.matches) {
+      updateTabProgress(currentStep, 1);
+      return;
+    }
+
+    if (!isIntersecting || isHovered || isCompleted || document.hidden) {
+      lastTimestamp = null;
+      rafId = requestAnimationFrame(tick);
+      return;
+    }
+
+    if (lastTimestamp === null) {
+      lastTimestamp = timestamp;
+    }
+
+    const delta = timestamp - lastTimestamp;
+    lastTimestamp = timestamp;
+    elapsed += delta;
+
+    const progress = Math.min(1, elapsed / STEP_DURATION);
+    updateTabProgress(currentStep, progress);
+
+    if (elapsed >= STEP_DURATION) {
+      if (currentStep < STEP_COUNT - 1) {
+        setStep(currentStep + 1, false);
+      } else {
+        // Step 4 (Launch) completes -> stop auto-advancing
+        isCompleted = true;
+        updateTabProgress(STEP_COUNT - 1, 1);
+      }
+    }
+
+    rafId = requestAnimationFrame(tick);
+  }
+
+  // IntersectionObserver to auto-advance only when visible in viewport
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        isIntersecting = entry.isIntersecting;
+        if (isIntersecting) {
+          lastTimestamp = null;
+        }
+      });
+    },
+    { threshold: 0.15 }
+  );
+
+  observer.observe(processSec);
+
+  // Initialize initial state
+  setStep(0, false);
+  rafId = requestAnimationFrame(tick);
+})();
 
 /**
  * Open Project Detail view for a given project ID

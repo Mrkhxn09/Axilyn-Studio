@@ -160,6 +160,24 @@
   background: transparent;
   transition: color 0.25s, background 0.25s;
   position: relative;
+  overflow: hidden;
+  --tab-p: 0;
+}
+
+.ptab::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: rgba(124, 111, 255, 0.12);
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+
+.ptab.on::before {
+  opacity: 1;
 }
 
 .ptab::after {
@@ -170,8 +188,9 @@
   right: 0;
   height: 2px;
   background: var(--ring);
-  transform: scaleX(0);
-  transition: transform var(--transition-normal);
+  transform-origin: left center;
+  transform: scaleX(var(--tab-p, 0));
+  will-change: transform;
 }
 
 .ptab.on {
@@ -179,12 +198,30 @@
   background: rgba(124, 111, 255, 0.06);
 }
 
-.ptab.on::after {
-  transform: scaleX(1);
+.ptab:hover:not(.on) {
+  color: rgba(240, 240, 248, 0.65);
 }
 
-.ptab:hover:not(.on) {
-  color: rgba(240, 240, 248, 0.55);
+@media (max-width: 680px) {
+  .ptab {
+    padding: 0.85rem 0.4rem;
+    font-size: clamp(0.72rem, 2.4vw, 0.92rem);
+    letter-spacing: 0.04em;
+  }
+}
+
+@media (max-width: 420px) {
+  .ptab {
+    padding: 0.75rem 0.25rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.02em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ptab.on::after {
+    transform: scaleX(1) !important;
+  }
 }
 
 /* ── WORK CARDS ── */

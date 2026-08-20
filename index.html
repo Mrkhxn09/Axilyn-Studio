@@ -317,11 +317,11 @@
     <circle cx="250" cy="250" r="90" stroke="#7C6FFF" stroke-width=".5" opacity=".5"/>
   </svg>
   <div class="rev"><div class="sl2">How It Works</div><h2>OUR<br/>ORBIT CYCLE</h2></div>
-  <div class="ptabs rev d1" id="ptabs">
-    <button class="ptab on" onclick="swTab(0)">01 &nbsp;DISCOVER</button>
-    <button class="ptab" onclick="swTab(1)">02 &nbsp;DESIGN</button>
-    <button class="ptab" onclick="swTab(2)">03 &nbsp;BUILD</button>
-    <button class="ptab" onclick="swTab(3)">04 &nbsp;LAUNCH</button>
+  <div class="ptabs rev d1" id="ptabs" role="tablist" aria-label="Orbit Cycle Steps">
+    <button type="button" class="ptab on" id="ptab-0" role="tab" aria-selected="true" aria-controls="pp0" onclick="swTab(0)">01 &nbsp;DISCOVER</button>
+    <button type="button" class="ptab" id="ptab-1" role="tab" aria-selected="false" aria-controls="pp1" tabindex="-1" onclick="swTab(1)">02 &nbsp;DESIGN</button>
+    <button type="button" class="ptab" id="ptab-2" role="tab" aria-selected="false" aria-controls="pp2" tabindex="-1" onclick="swTab(2)">03 &nbsp;BUILD</button>
+    <button type="button" class="ptab" id="ptab-3" role="tab" aria-selected="false" aria-controls="pp3" tabindex="-1" onclick="swTab(3)">04 &nbsp;LAUNCH</button>
   </div>
   <div class="ppanels rev d2">
     <div class="pp on" id="pp0">
