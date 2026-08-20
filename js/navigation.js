@@ -19,7 +19,6 @@
   let rafId = null;
   let isHovered = false;
   let isIntersecting = false;
-  let isCompleted = false;
 
   const processSec = document.getElementById('process');
   const tabs = document.querySelectorAll('.ptab');
@@ -59,10 +58,6 @@
       panel.classList.toggle('on', isActive);
       panel.setAttribute('aria-hidden', isActive ? 'false' : 'true');
     });
-
-    if (fromManualClick) {
-      isCompleted = false;
-    }
 
     updateTabProgress(currentStep, 0);
   }
@@ -137,7 +132,7 @@
       return;
     }
 
-    if (!isIntersecting || isHovered || isCompleted || document.hidden) {
+    if (!isIntersecting || isHovered || document.hidden) {
       lastTimestamp = null;
       rafId = requestAnimationFrame(tick);
       return;
@@ -155,13 +150,8 @@
     updateTabProgress(currentStep, progress);
 
     if (elapsed >= STEP_DURATION) {
-      if (currentStep < STEP_COUNT - 1) {
-        setStep(currentStep + 1, false);
-      } else {
-        // Step 4 (Launch) completes -> stop auto-advancing
-        isCompleted = true;
-        updateTabProgress(STEP_COUNT - 1, 1);
-      }
+      const nextStep = (currentStep + 1) % STEP_COUNT;
+      setStep(nextStep, false);
     }
 
     rafId = requestAnimationFrame(tick);
