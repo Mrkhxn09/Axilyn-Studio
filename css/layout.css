@@ -877,64 +877,159 @@ h1 .ol {
   }
 }
 
-/* ── ABOUT ── */
-#about {
+/* ── ABOUT SECTION (HOMEPAGE) ── */
+.about-section {
   background: var(--bg);
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8rem;
-  align-items: center;
+  padding: 7.5rem 5%;
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-@media (max-width: 768px) {
-  #about {
+.about-container {
+  max-width: 1320px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 4rem 6rem;
+  align-items: center;
+  min-height: 480px;
+}
+
+.about-col-left {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.about-headline {
+  font-family: var(--fh);
+  font-size: clamp(2.6rem, 5vw, 4.4rem);
+  line-height: 0.96;
+  letter-spacing: 0.04em;
+  color: #FFFFFF;
+  margin: 0.8rem 0 1.8rem 0;
+  max-width: 580px;
+  word-break: break-word;
+}
+
+/* Controlled, subtle Axilyn orbit accent */
+.about-orbit-wrap {
+  width: 130px;
+  height: 130px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  margin-top: 0.5rem;
+  opacity: 0.85;
+}
+
+.about-orbit-wrap.mobile-only {
+  display: none;
+}
+
+.about-orbit-wrap.desktop-only {
+  display: flex;
+}
+
+.about-orbit-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.about-orbit-svg .ao-r1 {
+  animation: ss 16s linear infinite;
+  transform-origin: 65px 65px;
+}
+
+.about-orbit-svg .ao-r2 {
+  animation: ssr 10s linear infinite;
+  transform-origin: 65px 65px;
+}
+
+.about-col-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.about-narrative {
+  max-width: 520px;
+}
+
+.about-lead {
+  font-family: var(--fb);
+  font-size: clamp(1.04rem, 1.25vw, 1.18rem);
+  line-height: 1.7;
+  color: rgba(240, 240, 248, 0.92);
+  margin-bottom: 1.35rem;
+}
+
+.about-body {
+  font-family: var(--fb);
+  font-size: clamp(0.92rem, 1.05vw, 1rem);
+  line-height: 1.78;
+  color: rgba(240, 240, 248, 0.52);
+  margin-bottom: 1.2rem;
+}
+
+.about-body:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 900px) {
+  .about-section {
+    padding: 5rem 5%;
+  }
+
+  .about-grid {
     grid-template-columns: 1fr;
-    gap: 4rem;
+    gap: 2.2rem;
+    min-height: auto;
+  }
+
+  .about-headline {
+    font-size: clamp(2.3rem, 7.5vw, 3.5rem);
+    max-width: 100%;
+    margin-bottom: 1.2rem;
+  }
+
+  .about-orbit-wrap.desktop-only {
+    display: none;
+  }
+
+  .about-orbit-wrap.mobile-only {
+    display: flex;
+    width: 100px;
+    height: 100px;
+    margin-top: 1.5rem;
+  }
+
+  .about-narrative {
+    max-width: 100%;
   }
 }
 
-.arw {
-  width: 100%;
-  aspect-ratio: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-}
+@media (max-width: 600px) {
+  .about-section {
+    padding: 4rem 5%;
+  }
 
-.arsvg {
-  width: 100%;
-  height: 100%;
-  animation: ss 20s linear infinite;
-}
+  .about-headline {
+    font-size: clamp(2.1rem, 9vw, 3rem);
+  }
 
-.arc {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.ari {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.ac p {
-  color: rgba(240, 240, 248, 0.38);
-  font-size: 0.95rem;
-  line-height: 1.8;
-  margin-top: 1.5rem;
-}
-
-.skills {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-top: 2rem;
+  .about-orbit-wrap.mobile-only {
+    width: 80px;
+    height: 80px;
+  }
 }
 
 /* ── CONTACT & LOCATION SECTION ── */
