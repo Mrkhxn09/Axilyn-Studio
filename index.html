@@ -104,9 +104,9 @@
 <!-- Modular Stylesheets -->
 <link rel="stylesheet" href="css/variables.css?v=2.0"/>
 <link rel="stylesheet" href="css/reset.css?v=2.0"/>
-<link rel="stylesheet" href="css/animations.css?v=2.0"/>
-<link rel="stylesheet" href="css/layout.css?v=2.0"/>
-<link rel="stylesheet" href="css/components.css?v=3.0"/>
+<link rel="stylesheet" href="css/animations.css?v=2.1"/>
+<link rel="stylesheet" href="css/layout.css?v=3.1"/>
+<link rel="stylesheet" href="css/components.css?v=4.0"/>
 <link rel="stylesheet" href="css/project-view.css?v=3.0"/>
 
 <!-- EmailJS SDK -->
@@ -198,10 +198,94 @@
       <a href="#work" class="bp" aria-label="Explore our concept projects">Explore Concepts</a>
       <a href="#contact" class="bg" aria-label="Start a project with Axilyn">Start a Project →</a>
     </div>
-    <div class="hstats">
-      <div class="hstat-item"><div class="sn">01</div><div class="sl">STRATEGY</div></div>
-      <div class="hstat-item"><div class="sn">02</div><div class="sl">DESIGN</div></div>
-      <div class="hstat-item"><div class="sn">03</div><div class="sl">BUILD</div></div>
+    <!-- AXILYN PROCESS FLOW -->
+    <div class="pflow-section" id="heroProcessFlow" aria-label="Axilyn Process Flow — How We Build">
+      <div class="pflow-eyebrow">HOW WE BUILD</div>
+      <div class="pflow-container" id="pflowContainer">
+        <svg class="pflow-svg" id="pflowSvg" fill="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="pflowTrackGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#7C6FFF" stop-opacity="0.18"/>
+              <stop offset="35%" stop-color="#7C6FFF" stop-opacity="0.38"/>
+              <stop offset="70%" stop-color="#2DDAB4" stop-opacity="0.45"/>
+              <stop offset="100%" stop-color="#2DDAB4" stop-opacity="0.2"/>
+            </linearGradient>
+            <filter id="pflowGlow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="2.5" result="blur"/>
+              <feMerge>
+                <feMergeNode in="blur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+          </defs>
+          <path class="pflow-track-glow" id="pflowTrackGlow"/>
+          <path class="pflow-track-base" id="pflowTrack"/>
+          <path class="pflow-track-active" id="pflowTrackActive"/>
+          <circle class="pflow-particle" id="pflowParticle" r="3.5"/>
+        </svg>
+
+        <div class="pflow-nodes">
+          <!-- 1. IDEA -->
+          <div class="pflow-node" data-stage="0" tabindex="0" role="button" aria-label="Stage 1: Idea — Discover">
+            <div class="pflow-icon-wrap">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 18h6M10 21h4M12 2a7 7 0 0 0-7 7c0 2.5 1.5 4.5 3 6h8c1.5-1.5 3-3.5 3-6a7 7 0 0 0-7-7z"/>
+              </svg>
+              <div class="pflow-node-halo"></div>
+            </div>
+            <div class="pflow-info">
+              <span class="pflow-name">IDEA</span>
+              <span class="pflow-sub">DISCOVER</span>
+            </div>
+          </div>
+
+          <!-- 2. DESIGN -->
+          <div class="pflow-node" data-stage="1" tabindex="0" role="button" aria-label="Stage 2: Design — Shape">
+            <div class="pflow-icon-wrap">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m12 19 7-7 3 3-7 7-3-3z"/>
+                <path d="m18 13-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/>
+                <circle cx="11.5" cy="11.5" r="1"/>
+              </svg>
+              <div class="pflow-node-halo"></div>
+            </div>
+            <div class="pflow-info">
+              <span class="pflow-name">DESIGN</span>
+              <span class="pflow-sub">SHAPE</span>
+            </div>
+          </div>
+
+          <!-- 3. BUILD -->
+          <div class="pflow-node is-active" data-stage="2" tabindex="0" role="button" aria-label="Stage 3: Build — Bring to Life (Active Stage)">
+            <div class="pflow-icon-wrap">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="16 18 22 12 16 6"/>
+                <polyline points="8 6 2 12 8 18"/>
+              </svg>
+              <div class="pflow-node-halo"></div>
+            </div>
+            <div class="pflow-info">
+              <span class="pflow-name">BUILD</span>
+              <span class="pflow-sub">BRING TO LIFE</span>
+            </div>
+          </div>
+
+          <!-- 4. GROW -->
+          <div class="pflow-node" data-stage="3" tabindex="0" role="button" aria-label="Stage 4: Grow — Scale">
+            <div class="pflow-icon-wrap">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+                <polyline points="17 6 23 6 23 12"/>
+              </svg>
+              <div class="pflow-node-halo"></div>
+            </div>
+            <div class="pflow-info">
+              <span class="pflow-name">GROW</span>
+              <span class="pflow-sub">SCALE</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -222,49 +306,75 @@
   </div>
   <div class="sgrid rev d1">
 
-    <div class="sc" aria-label="Website Design and Development Service"><div class="scn">01</div><div class="sci">🌐</div>
+    <!-- 01 — WEBSITE DESIGN & DEVELOPMENT -->
+    <div class="sc" aria-label="Website Design and Development Service">
+      <div class="scn" aria-hidden="true">01</div>
+      <div class="sci" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="3" width="20" height="18" rx="3"/>
+          <line x1="2" y1="8" x2="22" y2="8"/>
+          <circle cx="5.5" cy="5.5" r="0.75" fill="currentColor"/>
+          <circle cx="8.5" cy="5.5" r="0.75" fill="currentColor"/>
+          <circle cx="11.5" cy="5.5" r="0.75" fill="currentColor"/>
+          <line x1="6" y1="12" x2="14" y2="12" stroke-opacity="0.8"/>
+          <line x1="6" y1="15" x2="11" y2="15" stroke-opacity="0.5"/>
+          <rect x="15.5" y="11.5" width="2.5" height="4.5" rx="0.5" stroke-opacity="0.7"/>
+        </svg>
+      </div>
       <h3>Website Design &amp; Development</h3>
       <p>We design and build responsive business websites that combine strong visual direction, clear messaging, intuitive navigation and purposeful calls to action.</p>
-      <div style="margin-top:.6rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.4rem;">
-        <span class="stag">WEBSITE DESIGN · DEVELOPMENT</span>
-        <a href="#work" onclick="openProject(0)" style="font-size:.72rem;color:var(--teal);text-decoration:none;font-weight:500;">See Dental Concept →</a>
-      </div>
     </div>
 
-    <div class="sc" aria-label="UI/UX Design Service"><div class="scn">02</div><div class="sci">✨</div>
+    <!-- 02 — UI/UX DESIGN -->
+    <div class="sc" aria-label="UI/UX Design Service">
+      <div class="scn" aria-hidden="true">02</div>
+      <div class="sci" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2l7 7-5 5-2-2-6 6H2v-4l6-6-2-2 7-7z"/>
+          <circle cx="12" cy="7" r="1.2" fill="currentColor"/>
+          <line x1="2" y1="22" x2="6" y2="18" stroke-opacity="0.7"/>
+          <rect x="18" y="15" width="4" height="4" rx="1" stroke-opacity="0.6"/>
+          <line x1="14" y1="17" x2="18" y2="17" stroke-dasharray="2 2" stroke-opacity="0.5"/>
+        </svg>
+      </div>
       <h3>UI/UX Design</h3>
       <p>We create user interfaces and digital experiences that make complex products, services and customer journeys easier to understand and use.</p>
-      <div style="margin-top:.6rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.4rem;">
-        <span class="stag">UI/UX DESIGN · DIGITAL PRODUCT</span>
-        <a href="#work" onclick="openProject(3)" style="font-size:.72rem;color:var(--teal);text-decoration:none;font-weight:500;">See SaaS Concept →</a>
-      </div>
     </div>
 
-    <div class="sc" aria-label="SEO and Local Search Optimisation Service"><div class="scn">03</div><div class="sci">🔍</div>
+    <!-- 03 — SEO & LOCAL SEO -->
+    <div class="sc" aria-label="SEO and Local Search Optimisation Service">
+      <div class="scn" aria-hidden="true">03</div>
+      <div class="sci" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="10.5" cy="10.5" r="7"/>
+          <line x1="15.5" y1="15.5" x2="21" y2="21"/>
+          <path d="M7 11.5l2.5-2.5 2 2 3-3"/>
+          <polyline points="12.5 7.5 14.5 7.5 14.5 9.5"/>
+        </svg>
+      </div>
       <h3>SEO &amp; Local SEO</h3>
       <p>We build search-focused foundations that help businesses become easier to discover through relevant content, technical SEO and local search optimization.</p>
-      <div style="margin-top:.6rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.4rem;">
-        <span class="stag">SEO · LOCAL SEO · TECHNICAL</span>
-        <a href="#contact" style="font-size:.72rem;color:var(--teal);text-decoration:none;font-weight:500;">Start SEO Project →</a>
-      </div>
     </div>
 
-    <div class="sc" aria-label="Social Media Management Service"><div class="scn">04</div><div class="sci">📱</div>
+    <!-- 04 — SOCIAL MEDIA MANAGEMENT -->
+    <div class="sc" aria-label="Social Media Management Service">
+      <div class="scn" aria-hidden="true">04</div>
+      <div class="sci" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3.5"/>
+          <circle cx="12" cy="12" r="1.2" fill="currentColor"/>
+          <circle cx="4" cy="6" r="2"/>
+          <circle cx="20" cy="6" r="2"/>
+          <circle cx="4" cy="18" r="2"/>
+          <circle cx="20" cy="18" r="2"/>
+          <line x1="5.8" y1="7.4" x2="9.6" y2="10.2"/>
+          <line x1="18.2" y1="7.4" x2="14.4" y2="10.2"/>
+          <line x1="5.8" y1="16.6" x2="9.6" y2="13.8"/>
+          <line x1="18.2" y1="16.6" x2="14.4" y2="13.8"/>
+        </svg>
+      </div>
       <h3>Social Media Management</h3>
       <p>We create and manage social media systems that give businesses a consistent visual presence and a clearer way to communicate with their audience.</p>
-      <div style="margin-top:.6rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.4rem;">
-        <span class="stag">SOCIAL MEDIA · BRAND SYSTEMS</span>
-        <a href="#contact" style="font-size:.72rem;color:var(--teal);text-decoration:none;font-weight:500;">Build Consistent Presence →</a>
-      </div>
-    </div>
-
-    <div class="sc" aria-label="Meta Ads Service"><div class="scn">05</div><div class="sci">🎯</div>
-      <h3>Meta Ads</h3>
-      <p>We design and manage Meta advertising campaigns around clear audiences, creative testing and measurable campaign objectives.</p>
-      <div style="margin-top:.6rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.4rem;">
-        <span class="stag">META ADS · CAMPAIGNS</span>
-        <a href="#contact" style="font-size:.72rem;color:var(--teal);text-decoration:none;font-weight:500;">Start a Campaign →</a>
-      </div>
     </div>
 
   </div>
@@ -320,57 +430,69 @@
   </div>
   <div class="wgrid rev d1">
 
-    <div class="wcard wide" onclick="openProject(0)">
-      <div class="wcard-badge">SELF-INITIATED CONCEPT · DENTAL</div>
-      <img src="assets/concepts/dental-concept.jpg" alt="Dental clinic website concept designed by Axilyn" loading="lazy" decoding="async"/>
-      <div class="wover">
+    <!-- 01: DENTAL CONCEPT (60%) -->
+    <div class="wcard wcard-60" onclick="openProject(0)">
+      <div class="wcard-top">
+        <span class="wcard-badge">SELF-INITIATED CONCEPT · DENTAL</span>
+      </div>
+      <div class="wcard-media">
+        <img src="assets/concepts/dental-concept.jpg" alt="Dental clinic website concept designed by Axilyn" loading="lazy" decoding="async"/>
+      </div>
+      <div class="wcard-footer">
         <div class="winfo">
-          <div class="wover-cat" style="font-size:.62rem;letter-spacing:.18em;color:var(--ring);text-transform:uppercase;margin-bottom:.35rem;">SELF-INITIATED CONCEPT · DENTAL CLINIC</div>
           <h3>A Modern Dental Experience</h3>
           <div class="wcompany">Concept Exploration · 2026</div>
-          <span>An experimental dental clinic website concept exploring patient trust, treatment clarity and frictionless appointment booking.</span>
         </div>
         <div class="warrow">Explore Concept →</div>
       </div>
     </div>
 
-    <div class="wcard" onclick="openProject(1)">
-      <div class="wcard-badge">SELF-INITIATED CONCEPT · INTERIORS</div>
-      <img src="assets/concepts/interior-concept.jpg" alt="Interior design studio website concept featuring architectural project presentation" loading="lazy" decoding="async"/>
-      <div class="wover">
+    <!-- 02: INTERIOR CONCEPT (40%) -->
+    <div class="wcard wcard-40" onclick="openProject(1)">
+      <div class="wcard-top">
+        <span class="wcard-badge">SELF-INITIATED CONCEPT · INTERIORS</span>
+      </div>
+      <div class="wcard-media">
+        <img src="assets/concepts/interior-concept.jpg" alt="Interior design studio website concept featuring architectural project presentation" loading="lazy" decoding="async"/>
+      </div>
+      <div class="wcard-footer">
         <div class="winfo">
-          <div class="wover-cat" style="font-size:.62rem;letter-spacing:.18em;color:var(--ring);text-transform:uppercase;margin-bottom:.35rem;">SELF-INITIATED CONCEPT · INTERIOR DESIGN</div>
           <h3>Spaces, Presented Differently</h3>
           <div class="wcompany">Concept Exploration · 2026</div>
-          <span>An interior design website concept focused on presenting architecture, spaces and project storytelling through a premium digital experience.</span>
         </div>
         <div class="warrow">Explore Concept →</div>
       </div>
     </div>
 
-    <div class="wcard" onclick="openProject(2)">
-      <div class="wcard-badge">SELF-INITIATED CONCEPT · PERFUME</div>
-      <img src="assets/concepts/perfume-concept.jpg" alt="Luxury perfume website concept showing product discovery interface" loading="lazy" decoding="async"/>
-      <div class="wover">
+    <!-- 03: PERFUME CONCEPT (40%) -->
+    <div class="wcard wcard-40" onclick="openProject(2)">
+      <div class="wcard-top">
+        <span class="wcard-badge">SELF-INITIATED CONCEPT · PERFUME</span>
+      </div>
+      <div class="wcard-media">
+        <img src="assets/concepts/perfume-concept.jpg" alt="Luxury perfume website concept showing product discovery interface" loading="lazy" decoding="async"/>
+      </div>
+      <div class="wcard-footer">
         <div class="winfo">
-          <div class="wover-cat" style="font-size:.62rem;letter-spacing:.18em;color:var(--ring);text-transform:uppercase;margin-bottom:.35rem;">SELF-INITIATED CONCEPT · LUXURY E-COMMERCE</div>
           <h3>The Digital Scent Experience</h3>
           <div class="wcompany">Concept Exploration · 2026</div>
-          <span>A luxury perfume e-commerce concept exploring product storytelling, discovery and visual identity.</span>
         </div>
         <div class="warrow">Explore Concept →</div>
       </div>
     </div>
 
-    <div class="wcard wide" onclick="openProject(3)">
-      <div class="wcard-badge">SELF-INITIATED CONCEPT · SAAS</div>
-      <img src="assets/concepts/saas-concept.jpg" alt="Modern SaaS digital product landing page concept designed by Axilyn" loading="lazy" decoding="async"/>
-      <div class="wover">
+    <!-- 04: SAAS CONCEPT (60%) -->
+    <div class="wcard wcard-60" onclick="openProject(3)">
+      <div class="wcard-top">
+        <span class="wcard-badge">SELF-INITIATED CONCEPT · SAAS</span>
+      </div>
+      <div class="wcard-media">
+        <img src="assets/concepts/saas-concept.jpg" alt="Modern SaaS digital product landing page concept designed by Axilyn" loading="lazy" decoding="async"/>
+      </div>
+      <div class="wcard-footer">
         <div class="winfo">
-          <div class="wover-cat" style="font-size:.62rem;letter-spacing:.18em;color:var(--ring);text-transform:uppercase;margin-bottom:.35rem;">SELF-INITIATED CONCEPT · SAAS / DIGITAL PRODUCT</div>
           <h3>From Idea to Interface</h3>
           <div class="wcompany">Concept Exploration · 2026</div>
-          <span>A SaaS landing page concept focused on product clarity, interface storytelling and conversion-oriented user journeys.</span>
         </div>
         <div class="warrow">Explore Concept →</div>
       </div>
@@ -379,262 +501,325 @@
   </div>
 </section>
 
-<!-- WHAT COULD WE BUILD FOR YOU? -->
-<section id="possibilities" aria-label="Digital Experiences Built Around Your Business">
-  <div class="wh rev">
-    <div>
-      <div class="sl2">TARGET INDUSTRIES &amp; EXPLORATIONS</div>
-      <h2>DIGITAL EXPERIENCES<br/>BUILT AROUND<br/>YOUR BUSINESS.</h2>
-    </div>
-    <p>Different industries have different customer journeys. We adapt the digital experience around what people need to understand, trust and do next.</p>
-  </div>
-
-  <div class="poss-wrap rev d1">
-    <div class="poss-tabs" role="tablist" aria-label="Industry Concept Categories">
-      <button type="button" class="poss-tab on" data-cat="dental" role="tab" aria-selected="true">
-        <div class="poss-tab-meta">
-          <span class="poss-tab-num">01</span>
-          <span class="poss-tab-title">DENTAL CLINICS</span>
-        </div>
-        <span class="poss-tab-arrow">→</span>
-      </button>
-      <button type="button" class="poss-tab" data-cat="interiors" role="tab" aria-selected="false">
-        <div class="poss-tab-meta">
-          <span class="poss-tab-num">02</span>
-          <span class="poss-tab-title">INTERIOR DESIGN</span>
-        </div>
-        <span class="poss-tab-arrow">→</span>
-      </button>
-      <button type="button" class="poss-tab" data-cat="restaurants" role="tab" aria-selected="false">
-        <div class="poss-tab-meta">
-          <span class="poss-tab-num">03</span>
-          <span class="poss-tab-title">RESTAURANTS</span>
-        </div>
-        <span class="poss-tab-arrow">→</span>
-      </button>
-      <button type="button" class="poss-tab" data-cat="perfume" role="tab" aria-selected="false">
-        <div class="poss-tab-meta">
-          <span class="poss-tab-num">04</span>
-          <span class="poss-tab-title">LUXURY &amp; E-COMMERCE</span>
-        </div>
-        <span class="poss-tab-arrow">→</span>
-      </button>
-      <button type="button" class="poss-tab" data-cat="realestate" role="tab" aria-selected="false">
-        <div class="poss-tab-meta">
-          <span class="poss-tab-num">05</span>
-          <span class="poss-tab-title">REAL ESTATE</span>
-        </div>
-        <span class="poss-tab-arrow">→</span>
-      </button>
-      <button type="button" class="poss-tab" data-cat="saas" role="tab" aria-selected="false">
-        <div class="poss-tab-meta">
-          <span class="poss-tab-num">06</span>
-          <span class="poss-tab-title">SAAS &amp; DIGITAL PRODUCTS</span>
-        </div>
-        <span class="poss-tab-arrow">→</span>
-      </button>
+<!-- THE AXILYN STANDARD -->
+<section id="standard" class="standard-section" aria-label="The Axilyn Standard — Working Principles &amp; Philosophy">
+  <div id="about" class="standard-anchor"></div>
+  <div class="standard-container">
+    <div class="standard-header rev">
+      <div class="standard-header-content">
+        <div class="sl2">THE AXILYN STANDARD</div>
+        <h2>BUILT WITH INTENTION.<br/>DESIGNED TO MOVE<br/>BUSINESS FORWARD.</h2>
+      </div>
+      <p class="standard-intro">We combine strategy, design and technology to create digital experiences that are clear, useful and built to evolve.</p>
     </div>
 
-    <div class="poss-display" id="possDisplay">
-      <img class="poss-bg-img" id="possImg" src="assets/concepts/dental-concept.jpg" alt="Industry concept preview showing digital experience design" loading="lazy" decoding="async"/>
-      <div class="poss-overlay"></div>
-      <div class="poss-content">
-        <div class="poss-badge" id="possBadge">CONCEPT EXPLORATION · DENTAL CLINICS</div>
-        <h3 class="poss-headline" id="possQuote">"Turn a clinic website into a patient experience."</h3>
-        <p class="poss-desc" id="possDesc">We build patient trust before the first consultation with clear treatment pathways, seamless booking integration, and calming, modern aesthetics.</p>
-        <div class="poss-pill-row" id="possTags">
-          <span class="stag">PATIENT FLOW</span>
-          <span class="stag">APPOINTMENT BOOKING</span>
-          <span class="stag">TRUST ARCHITECTURE</span>
-        </div>
-        <div class="poss-btn-row">
-          <a href="#contact" class="bp" id="possCta" onclick="selectPossService('dental')">START A DENTAL PROJECT →</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+    <div class="standard-grid">
 
-<!-- ABOUT -->
-<section id="about" aria-label="About Axilyn — Design-Led Digital Studio">
-  <div class="arw rev">
-    <svg class="arsvg" viewBox="0 0 320 320" fill="none">
-      <circle cx="160" cy="160" r="148" stroke="#7C6FFF" stroke-width="1.2" stroke-dasharray="8 5"/>
-      <circle cx="160" cy="160" r="108" stroke="#C4B9FF" stroke-width=".8" opacity=".4"/>
-      <circle cx="160" cy="160" r="70" stroke="#7C6FFF" stroke-width=".6" opacity=".3"/>
-      <circle cx="160" cy="160" r="36" stroke="#2DDAB4" stroke-width=".6" opacity=".5"/>
-      <circle cx="298" cy="98" r="8" fill="#2DDAB4" opacity=".8"/>
-      <circle cx="28" cy="230" r="6" fill="#C4B9FF" opacity=".5"/>
-      <circle cx="280" cy="240" r="4" fill="#7C6FFF" opacity=".6"/>
-      <circle cx="60" cy="80" r="3" fill="#2DDAB4" opacity=".4"/>
-    </svg>
-    <div class="arc">
-      <div class="ari">
-        <div style="font-family:var(--fh);font-size:2.1rem;letter-spacing:.08em;line-height:1;color:var(--text);"><span style="color:var(--ring);">AX</span>ILYN</div>
-        <div style="font-family:var(--fh);font-size:.75rem;letter-spacing:.4em;color:rgba(240,240,248,.35);margin-top:.1rem;text-align:center;">STUDIO</div>
+      <!-- 01: CLARITY FIRST -->
+      <div class="standard-card rev d1">
+        <div class="standard-card-glow"></div>
+        <div class="standard-card-top">
+          <div class="standard-icon-box">
+            <svg class="standard-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="9" stroke-dasharray="3 3" opacity="0.6"/>
+              <circle cx="12" cy="12" r="4" stroke="var(--teal)" stroke-width="1.8"/>
+              <circle cx="12" cy="12" r="1.5" fill="var(--teal)"/>
+              <line x1="12" y1="1" x2="12" y2="4"/>
+              <line x1="12" y1="20" x2="12" y2="23"/>
+              <line x1="1" y1="12" x2="4" y2="12"/>
+              <line x1="20" y1="12" x2="23" y2="12"/>
+            </svg>
+          </div>
+          <span class="standard-num">01</span>
+        </div>
+        <div class="standard-card-body">
+          <h3>CLARITY FIRST</h3>
+          <p>We simplify complex ideas into digital experiences people can understand quickly.</p>
+        </div>
       </div>
-    </div>
-  </div>
-  <div class="ac rev d1">
-    <div class="sl2">About Axilyn</div>
-    <h2>CREATIVE<br/>MINDS.<br/>REAL<br/>POSSIBILITIES.</h2>
-    <p class="hsub" style="margin-bottom:1.2rem;font-size:1.05rem;line-height:1.7;color:rgba(240,240,248,.85);">Axilyn is a design-led digital studio combining strategy, UI/UX, web development and digital growth. We work with businesses that want their digital presence to communicate more clearly, look more considered and create better experiences for their customers.</p>
-    <p style="margin-bottom:1.4rem;color:rgba(240,240,248,.65);">Every concept and project is treated with obsessive craft — thoughtful typography, responsive interfaces, and an uncompromising dedication to visual refinement. Designed to show businesses what their online presence can truly become.</p>
-    <div>
-      <div class="sl2" style="margin-bottom:.6rem;font-size:.68rem;">WHAT WE DO</div>
-      <div class="skills" aria-label="Core services provided by Axilyn">
-        <span class="skill">Website Design</span>
-        <span class="skill">UI/UX Design</span>
-        <span class="skill">Web Development</span>
-        <span class="skill">SEO</span>
-        <span class="skill">Local SEO</span>
-        <span class="skill">Social Media Management</span>
-        <span class="skill">Meta Ads</span>
+
+      <!-- 02: DESIGN WITH PURPOSE -->
+      <div class="standard-card rev d2">
+        <div class="standard-card-glow"></div>
+        <div class="standard-card-top">
+          <div class="standard-icon-box">
+            <svg class="standard-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="3" opacity="0.5"/>
+              <path d="M3 12H21" stroke-dasharray="2 2" opacity="0.4"/>
+              <path d="M12 3V21" stroke-dasharray="2 2" opacity="0.4"/>
+              <circle cx="12" cy="12" r="3" stroke="var(--teal)" stroke-width="1.8"/>
+              <path d="M8 16L16 8" stroke="var(--teal)" stroke-width="1.6"/>
+            </svg>
+          </div>
+          <span class="standard-num">02</span>
+        </div>
+        <div class="standard-card-body">
+          <h3>DESIGN WITH PURPOSE</h3>
+          <p>Every layout, interaction and visual decision has a reason behind it.</p>
+        </div>
       </div>
+
+      <!-- 03: BUILT TO PERFORM -->
+      <div class="standard-card rev d3">
+        <div class="standard-card-glow"></div>
+        <div class="standard-card-top">
+          <div class="standard-icon-box">
+            <svg class="standard-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4.5 17.5C3.5 15.5 3.3 13 4.2 10.8C5.2 8.2 7.3 6.2 10 5.2C12.7 4.2 15.7 4.6 18 6C20.3 7.5 21.8 9.9 22.3 12.5C22.6 14.8 22 17.2 20.5 19" opacity="0.5"/>
+              <path d="M7 17.5H17" stroke-dasharray="2 2" opacity="0.4"/>
+              <circle cx="12" cy="15" r="2" fill="var(--teal)"/>
+              <path d="M12 15L16.5 8.5" stroke="var(--teal)" stroke-width="1.8"/>
+            </svg>
+          </div>
+          <span class="standard-num">03</span>
+        </div>
+        <div class="standard-card-body">
+          <h3>BUILT TO PERFORM</h3>
+          <p>Fast, responsive and structured for real users — not just screenshots.</p>
+        </div>
+      </div>
+
+      <!-- 04: READY TO GROW -->
+      <div class="standard-card rev d4">
+        <div class="standard-card-glow"></div>
+        <div class="standard-card-top">
+          <div class="standard-icon-box">
+            <svg class="standard-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 19L10 13L14 16L20 7" stroke="var(--teal)" stroke-width="1.8"/>
+              <path d="M15 7H20V12" stroke="var(--teal)" stroke-width="1.8"/>
+              <circle cx="4" cy="19" r="1.8" fill="currentColor" opacity="0.6"/>
+              <circle cx="10" cy="13" r="1.8" fill="currentColor" opacity="0.6"/>
+              <circle cx="14" cy="16" r="1.8" fill="currentColor" opacity="0.6"/>
+              <circle cx="20" cy="7" r="2" fill="var(--teal)"/>
+            </svg>
+          </div>
+          <span class="standard-num">04</span>
+        </div>
+        <div class="standard-card-body">
+          <h3>READY TO GROW</h3>
+          <p>Your digital presence should evolve as your business does.</p>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
 
-<!-- WHY AXILYN -->
-<section id="why-axilyn" aria-label="Why Axilyn — Designing Digital Experiences With Purpose">
-  <div class="why-container">
-    <div class="why-header rev">
-      <div class="sl2">WHY AXILYN</div>
-      <h2>DESIGNING<br/>DIGITAL EXPERIENCES<br/>WITH PURPOSE.</h2>
-      <p class="why-sub">We combine strategy, design and technology to create digital experiences that help businesses communicate clearly, look credible and connect with the people they want to reach.</p>
-    </div>
+<!-- CONTACT & LOCATION -->
+<section id="contact" class="contact-section" aria-label="Contact Axilyn — Start a Digital Project">
+  <div class="contact-container">
+    <div class="contact-grid">
 
-    <div class="why-grid rev d1">
-      <div class="why-card">
-        <div class="why-card-top">
-          <span class="why-num">01</span>
-          <span class="why-tag">FOUNDATION</span>
+      <!-- LEFT: HEADER & FORM -->
+      <div class="contact-left rev">
+        <div class="contact-header">
+          <div class="sl2">GET IN TOUCH</div>
+          <h2>LET'S BUILD<br/>SOMETHING<br/>WORTH SEEING.</h2>
+          <p class="contact-intro">Have a website, digital product or business that needs a stronger digital experience? Tell us what you're building and we'll start from there.</p>
         </div>
-        <h3>STRATEGY</h3>
-        <p>Understand the business, audience and goals before designing.</p>
+
+        <div class="contact-form-card">
+          <form id="contactForm" novalidate autocomplete="on" aria-label="Contact Axilyn">
+
+            <!-- Honeypot anti-spam field (hidden from humans) -->
+            <div class="hp-field" aria-hidden="true">
+              <label>Leave this empty</label>
+              <input type="text" name="hp_field" id="hp_field" tabindex="-1" autocomplete="off"/>
+            </div>
+
+            <!-- Row 1: Name | Company -->
+            <div class="frow">
+              <div class="fg" id="fg_name">
+                <label for="cf_name">Full Name <span style="color:#ff6b6b">*</span></label>
+                <input type="text" id="cf_name" name="from_name" placeholder="Your Name" autocomplete="name" required aria-required="true" aria-describedby="err_name"/>
+                <span class="err" id="err_name" role="alert">Please enter your full name.</span>
+              </div>
+              <div class="fg" id="fg_company">
+                <label for="cf_company">Company Name <span class="fg-opt">(Optional)</span></label>
+                <input type="text" id="cf_company" name="company" placeholder="Your Company" autocomplete="organization"/>
+                <span class="err" id="err_company"></span>
+              </div>
+            </div>
+
+            <!-- Row 2: Email | Phone -->
+            <div class="frow">
+              <div class="fg" id="fg_email">
+                <label for="cf_email">Email Address <span style="color:#ff6b6b">*</span></label>
+                <input type="email" id="cf_email" name="reply_to" placeholder="youremail@gmail.com" autocomplete="email" required aria-required="true" aria-describedby="err_email"/>
+                <span class="err" id="err_email" role="alert">Please enter a valid email address.</span>
+              </div>
+              <div class="fg" id="fg_phone">
+                <label for="cf_phone">Phone Number <span class="fg-opt">(Optional)</span></label>
+                <input type="tel" id="cf_phone" name="phone" placeholder="+91 98765 43210" autocomplete="tel"/>
+                <span class="err" id="err_phone"></span>
+              </div>
+            </div>
+
+            <!-- Row 3: Service | Budget -->
+            <div class="frow">
+              <div class="fg" id="fg_service">
+                <label for="cf_service">Service Interested In <span style="color:#ff6b6b">*</span></label>
+                <select id="cf_service" name="service" required aria-required="true" aria-describedby="err_service">
+                  <option value="">Select a service…</option>
+                  <option>Website Design &amp; Development</option>
+                  <option>UI/UX Design</option>
+                  <option>SEO &amp; Local SEO</option>
+                  <option>Social Media Management</option>
+                  <option>Meta Ads</option>
+                  <option>Full Digital Package</option>
+                  <option>Other</option>
+                </select>
+                <span class="err" id="err_service" role="alert">Please select a service.</span>
+              </div>
+              <div class="fg" id="fg_budget">
+                <label for="cf_budget">Budget <span class="fg-opt">(Optional)</span></label>
+                <select id="cf_budget" name="budget">
+                  <option value="">Select your budget range…</option>
+                  <option>Under ₹15,000</option>
+                  <option>₹15,000 – ₹30,000</option>
+                  <option>₹30,000 – ₹60,000</option>
+                  <option>₹60,000 – ₹1,00,000</option>
+                  <option>₹1,00,000+</option>
+                  <option>Let's discuss</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Row 4: Project Description -->
+            <div class="fg" id="fg_message">
+              <label for="cf_message">Project Description <span style="color:#ff6b6b">*</span></label>
+              <textarea id="cf_message" name="message" rows="3" placeholder="Tell us about your project — what you need, your goals, timeline and any specific requirements…" required aria-required="true" aria-describedby="err_message"></textarea>
+              <span class="err" id="err_message" role="alert">Please describe your project.</span>
+            </div>
+
+            <!-- Row 5: Direct Email -->
+            <div class="contact-direct-email">
+              <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+              <span>Or email us directly: <a href="mailto:axilyn.studio@gmail.com">axilyn.studio@gmail.com</a></span>
+            </div>
+
+            <!-- Row 6: Submit Button -->
+            <button type="submit" class="sbtn" id="submitBtn">START A PROJECT →</button>
+
+            <!-- Status messages -->
+            <div class="form-status" id="formSuccess" role="alert" aria-live="polite">
+              ✅ <strong>Thank you!</strong> Your message has been sent successfully. We'll get back to you within 24 business hours.
+            </div>
+            <div class="form-status" id="formError" role="alert" aria-live="polite">
+              ❌ <strong>Something went wrong</strong> while sending your message. Please try again or email us directly at <a href="mailto:axilyn.studio@gmail.com" style="color:#ff6b6b;">axilyn.studio@gmail.com</a>
+            </div>
+
+          </form>
+        </div>
       </div>
 
-      <div class="why-card">
-        <div class="why-card-top">
-          <span class="why-num">02</span>
-          <span class="why-tag">CRAFT</span>
+      <!-- RIGHT: LOCATION & MAP CARD -->
+      <div class="contact-right rev d1">
+        <div class="loc-card-unified">
+
+          <!-- Map Header / Embed -->
+          <div class="loc-map-container">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.2!2d77.6315!3d13.0287!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae17cf17132879%3A0x28c03860c68b1725!2sLoftsify%20-%20Human%20Centric%20Interior%20Design%20Studio%20Bangalore!5e0!3m2!1sen!2sin!4v1718000000000!5m2!1sen!2sin"
+              allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+              title="Axilyn Studio Location">
+            </iframe>
+            
+            <!-- Floating Map Pin Badge -->
+            <div class="loc-map-badge">
+              <span class="loc-badge-dot"></span>
+              <span class="loc-badge-text">AXILYN STUDIO · BANGALORE</span>
+            </div>
+
+            <!-- Open in Google Maps control -->
+            <a class="loc-map-btn"
+               href="https://www.google.com/maps/dir//Loftsify+-+Human+Centric+Interior+Design+Studio+Bangalore,+216,+3rd+Cross+Rd,+HBR+Layout+4th+Block,+Meganahalli,+Kalyan+Nagar,+Bengaluru,+Karnataka+560043/@13.0249029,77.6192442,15z/data=!4m8!4m7!1m0!1m5!1m1!1s0x3bae17cf17132879:0x28c03860c68b1725!2m2!1d77.633753!2d13.0287378?entry=ttu&amp;g_ep=EgoyMDI2MDYxMC4wIKXMDSoASAFQAw%3D%3D"
+               target="_blank" rel="noopener" title="Open in Google Maps">
+              OPEN IN GOOGLE MAPS ↗
+            </a>
+          </div>
+
+          <!-- Bottom Information Area -->
+          <div class="loc-details">
+            <div class="loc-brand-header">
+              <div class="loc-title">AXILYN STUDIO</div>
+              <p class="loc-tagline">"Let's turn ideas into meaningful digital experiences."</p>
+            </div>
+
+            <div class="loc-blocks">
+              <!-- Address Block -->
+              <div class="loc-block-row">
+                <div class="loc-icon-pill">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                    <circle cx="12" cy="10" r="3"/>
+                  </svg>
+                </div>
+                <div class="loc-block-content">
+                  <div class="loc-block-label">OUR ADDRESS</div>
+                  <address class="loc-block-val">
+                    216, 3rd Cross Rd, HBR Layout<br/>
+                    4th Block, Kalyan Nagar,<br/>
+                    Bengaluru, Karnataka 560043
+                  </address>
+                </div>
+              </div>
+
+              <!-- Working Hours Block -->
+              <div class="loc-block-row">
+                <div class="loc-icon-pill">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/>
+                    <polyline points="12 6 12 12 16 14"/>
+                  </svg>
+                </div>
+                <div class="loc-block-content">
+                  <div class="loc-block-label">WORKING HOURS</div>
+                  <div class="loc-block-val">
+                    Mon – Sat<br/>
+                    9:00 AM – 7:00 PM
+                  </div>
+                </div>
+              </div>
+
+              <!-- Email Block -->
+              <div class="loc-block-row">
+                <div class="loc-icon-pill">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                    <polyline points="22,6 12,13 2,6"/>
+                  </svg>
+                </div>
+                <div class="loc-block-content">
+                  <div class="loc-block-label">EMAIL</div>
+                  <div class="loc-block-val">
+                    <a href="mailto:axilyn.studio@gmail.com" class="loc-email-link">axilyn.studio@gmail.com</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
         </div>
-        <h3>DESIGN</h3>
-        <p>Create thoughtful interfaces and visual systems that make the brand stand out.</p>
       </div>
 
-      <div class="why-card">
-        <div class="why-card-top">
-          <span class="why-num">03</span>
-          <span class="why-tag">EXECUTION</span>
-        </div>
-        <h3>BUILD</h3>
-        <p>Turn the design into a fast, responsive digital experience.</p>
-      </div>
-    </div>
-
-    <div class="why-cta-box rev d2">
-      <a href="#contact" class="bp">LET'S BUILD →</a>
     </div>
   </div>
 </section>
 
-<!-- CONTACT -->
-<section id="contact" aria-label="Contact Axilyn — Start a Digital Project">
-  <div class="rev"><div class="sl2">Get In Touch</div><h2>LET'S BUILD<br/>SOMETHING<br/>WORTH SEEING.</h2><p class="hsub">Have a website, digital product or business that needs a stronger digital experience? Tell us what you're building and we'll start from there.</p></div>
-  <div class="cbox rev d1">
-    <form id="contactForm" novalidate autocomplete="on" aria-label="Contact Axilyn">
+<!-- FAQ SECTION -->
+<section id="faq" class="faq-section" aria-label="Frequently Asked Questions" itemscope itemtype="https://schema.org/FAQPage">
+  <div class="faq-container rev">
+    <div class="faq-header">
+      <div class="sl2">FAQ</div>
+      <h2>FREQUENTLY ASKED<br/>QUESTIONS.</h2>
+    </div>
 
-      <!-- Honeypot anti-spam field (hidden from humans) -->
-      <div class="hp-field" aria-hidden="true">
-        <label>Leave this empty</label>
-        <input type="text" name="hp_field" id="hp_field" tabindex="-1" autocomplete="off"/>
-      </div>
-
-      <div class="frow">
-        <div class="fg" id="fg_name">
-          <label for="cf_name">Full Name <span style="color:#ff6b6b">*</span></label>
-          <input type="text" id="cf_name" name="from_name" placeholder="Your Name" autocomplete="name" required aria-required="true" aria-describedby="err_name"/>
-          <span class="err" id="err_name" role="alert">Please enter your full name.</span>
-        </div>
-        <div class="fg" id="fg_company">
-          <label for="cf_company">Company Name <span style="color:rgba(240,240,248,.25);font-size:.6rem;">(Optional)</span></label>
-          <input type="text" id="cf_company" name="company" placeholder="Your Company" autocomplete="organization"/>
-          <span class="err" id="err_company"></span>
-        </div>
-      </div>
-
-      <div class="frow">
-        <div class="fg" id="fg_email">
-          <label for="cf_email">Email Address <span style="color:#ff6b6b">*</span></label>
-          <input type="email" id="cf_email" name="reply_to" placeholder="youremail@gmail.com" autocomplete="email" required aria-required="true" aria-describedby="err_email"/>
-          <span class="err" id="err_email" role="alert">Please enter a valid email address.</span>
-        </div>
-        <div class="fg" id="fg_phone">
-          <label for="cf_phone">Phone Number <span style="color:rgba(240,240,248,.25);font-size:.6rem;">(Optional)</span></label>
-          <input type="tel" id="cf_phone" name="phone" placeholder="+91 98765 43210" autocomplete="tel"/>
-          <span class="err" id="err_phone"></span>
-        </div>
-      </div>
-
-      <div class="fg" id="fg_service">
-        <label for="cf_service">Service Interested In <span style="color:#ff6b6b">*</span></label>
-        <select id="cf_service" name="service" required aria-required="true" aria-describedby="err_service">
-          <option value="">Select a service…</option>
-          <option>Website Design &amp; Development</option>
-          <option>UI/UX Design</option>
-          <option>SEO &amp; Local SEO</option>
-          <option>Social Media Management</option>
-          <option>Meta Ads</option>
-          <option>Full Digital Package</option>
-          <option>Other</option>
-        </select>
-        <span class="err" id="err_service" role="alert">Please select a service.</span>
-      </div>
-
-      <div class="fg" id="fg_budget">
-        <label for="cf_budget">Budget <span style="color:rgba(240,240,248,.25);font-size:.6rem;">(Optional)</span></label>
-        <select id="cf_budget" name="budget">
-          <option value="">Select your budget range…</option>
-          <option>Under ₹15,000</option>
-          <option>₹15,000 – ₹30,000</option>
-          <option>₹30,000 – ₹60,000</option>
-          <option>₹60,000 – ₹1,00,000</option>
-          <option>₹1,00,000+</option>
-          <option>Let's discuss</option>
-        </select>
-      </div>
-
-      <div class="fg" id="fg_message">
-        <label for="cf_message">Project Description <span style="color:#ff6b6b">*</span></label>
-        <textarea id="cf_message" name="message" placeholder="Tell us about your project — what you need, your goals, timeline and any specific requirements…" required aria-required="true" aria-describedby="err_message"></textarea>
-        <span class="err" id="err_message" role="alert">Please describe your project.</span>
-      </div>
-
-      <!-- Contact info row -->
-      <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:1rem;padding:.7rem 1rem;background:rgba(124,111,255,.06);border-radius:8px;border:1px solid var(--border);">
-        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="#7C6FFF" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-        <span style="font-size:.75rem;color:rgba(240,240,248,.35);">Or email us directly: <a href="mailto:axilyn.studio@gmail.com" style="color:var(--ring);text-decoration:none;">axilyn.studio@gmail.com</a></span>
-      </div>
-
-      <button type="submit" class="sbtn" id="submitBtn">START A PROJECT →</button>
-
-      <!-- Status messages -->
-      <div class="form-status" id="formSuccess" role="alert" aria-live="polite">
-        ✅ <strong>Thank you!</strong> Your message has been sent successfully. We'll get back to you within 24 business hours.
-      </div>
-      <div class="form-status" id="formError" role="alert" aria-live="polite">
-        ❌ <strong>Something went wrong</strong> while sending your message. Please try again or email us directly at <a href="mailto:axilyn.studio@gmail.com" style="color:#ff6b6b;">axilyn.studio@gmail.com</a>
-      </div>
-
-    </form>
-  </div>
-
-  <!-- FAQ -->
-  <div class="loc-wrap rev d1" style="margin-top:4rem;" itemscope itemtype="https://schema.org/FAQPage">
-    <div class="loc-label">❓ Frequently Asked Questions</div>
-    <div style="display:flex;flex-direction:column;gap:1px;background:var(--border);border-radius:12px;overflow:hidden;border:1px solid var(--border);">
-
+    <div class="faq-accordion">
       <details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
         <summary itemprop="name">What services does Axilyn Studio offer?</summary>
         <div itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
@@ -669,59 +854,8 @@
           <p itemprop="text">Our pricing depends on project scope, features and timeline. Contact us via the form above for a free consultation and custom quote tailored to your business.</p>
         </div>
       </details>
-
     </div>
   </div>
-
-  <!-- LOCATION -->
-  <div class="loc-wrap rev d2">
-    <div class="loc-label">📍 Find Us</div>
-    <div class="loc-card">
-
-      <!-- Map -->
-      <div class="loc-map">
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.2!2d77.6315!3d13.0287!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae17cf17132879%3A0x28c03860c68b1725!2sLoftsify%20-%20Human%20Centric%20Interior%20Design%20Studio%20Bangalore!5e0!3m2!1sen!2sin!4v1718000000000!5m2!1sen!2sin"
-          allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-          title="Axilyn Studio Location">
-        </iframe>
-        <div class="loc-map-over"></div>
-      </div>
-
-      <!-- Info -->
-      <div class="loc-info">
-        <div>
-          <div class="loc-badge"><span></span>We're Open · Mon–Sat</div>
-          <div class="loc-name"><em>AXILYN</em> STUDIO</div>
-          <div class="loc-addr">
-            216, 3rd Cross Rd, HBR Layout 4th Block,<br/>
-            Meganahalli, Kalyan Nagar,<br/>
-            Bengaluru, Karnataka 560043
-          </div>
-
-          <div class="loc-meta">
-            <div class="loc-meta-row">
-              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-              Mon – Sat &nbsp;·&nbsp; 9:00 AM – 7:00 PM
-            </div>
-            <div class="loc-meta-row">
-              <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              HBR Layout, Kalyan Nagar, Bengaluru
-            </div>
-          </div>
-        </div>
-
-        <a class="loc-dir-btn"
-           href="https://www.google.com/maps/dir//Loftsify+-+Human+Centric+Interior+Design+Studio+Bangalore,+216,+3rd+Cross+Rd,+HBR+Layout+4th+Block,+Meganahalli,+Kalyan+Nagar,+Bengaluru,+Karnataka+560043/@13.0249029,77.6192442,15z/data=!4m8!4m7!1m0!1m5!1m1!1s0x3bae17cf17132879:0x28c03860c68b1725!2m2!1d77.633753!2d13.0287378?entry=ttu&amp;g_ep=EgoyMDI2MDYxMC4wIKXMDSoASAFQAw%3D%3D"
-           target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-          GET DIRECTIONS
-        </a>
-      </div>
-
-    </div>
-  </div>
-
 </section>
 
 <!-- FOOTER -->
@@ -1004,7 +1138,7 @@
 <!-- ══════════════════ MODULAR SCRIPTS ══════════════════ -->
 <script src="js/projects-data.js?v=3.0"></script>
 <script src="js/cursor.js?v=3.0"></script>
-<script src="js/animations.js?v=3.0"></script>
+<script src="js/animations.js?v=3.1"></script>
 <script src="js/navigation.js?v=3.0"></script>
 <script src="js/contact.js?v=3.0"></script>
 <script src="js/main.js?v=3.0"></script>
