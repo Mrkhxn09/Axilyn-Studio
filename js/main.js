@@ -24,6 +24,7 @@
 
     setTimeout(() => {
       splash.classList.add('hide');
+      window.dispatchEvent(new CustomEvent('splashDone'));
       setTimeout(() => {
         if (splash.parentNode) splash.parentNode.removeChild(splash);
       }, 800);

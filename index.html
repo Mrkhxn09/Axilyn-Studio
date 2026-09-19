@@ -143,7 +143,7 @@
 
 <!-- ══════════════════ NAV ══════════════════ -->
 <nav id="nav">
-  <div class="nlogo" onclick="goHome()">
+  <a href="/" class="nlogo" aria-label="Axilyn Studio Homepage">
     <svg class="nlm" viewBox="0 0 40 40" fill="none">
       <!-- outer dashed ring: rotates clockwise -->
       <circle class="nl-o1" cx="20" cy="20" r="17" stroke="#7C6FFF" stroke-width="1.5" stroke-dasharray="5 3"/>
@@ -157,13 +157,13 @@
       <g class="nl-o2"><circle cx="20" cy="10" r="1.8" fill="#C4B9FF" opacity=".7"/></g>
     </svg>
     <div class="nwm"><div><span>AX</span>ILYN</div><div style="font-size:.5rem;letter-spacing:.3em;color:rgba(240,240,248,.3);margin-top:.05rem;">STUDIO</div></div>
-  </div>
+  </a>
   <ul>
-    <li><a href="#services" onclick="goHome()">Services</a></li>
-    <li><a href="#process" onclick="goHome()">Process</a></li>
-    <li><a href="#work" onclick="goHome()">Concepts</a></li>
-    <li><a href="#about" onclick="goHome()">About</a></li>
-    <li><a href="#contact" onclick="goHome()" class="ncta">Start a Project</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#concepts">Concepts</a></li>
+    <li><a href="/about/">About</a></li>
+    <li><a href="#contact" class="ncta">Start a Project</a></li>
   </ul>
 </nav>
 
@@ -195,7 +195,7 @@
     <h1>WE BUILD<br/><span class="rw">DIGITAL</span><br/><span class="ol">EXPERIENCES</span></h1>
     <p class="hsub">Axilyn combines strategy, UI/UX design, web development and digital growth to create experiences that make businesses easier to discover, understand and remember.</p>
     <div class="hbtns">
-      <a href="#work" class="bp" aria-label="Explore our concept projects">Explore Concepts</a>
+      <a href="#concepts" class="bp" aria-label="Explore our concept projects">Explore Concepts</a>
       <a href="#contact" class="bg" aria-label="Start a project with Axilyn">Start a Project →</a>
     </div>
     <!-- AXILYN PROCESS FLOW -->
@@ -420,6 +420,7 @@
 </section>
 
 <!-- CONCEPTS -->
+<div id="concepts" class="standard-anchor"></div>
 <section id="work" aria-label="Digital Concepts — Self-Initiated Explorations">
   <div class="wh rev">
     <div>
@@ -431,7 +432,7 @@
   <div class="wgrid rev d1">
 
     <!-- 01: DENTAL CONCEPT (60%) -->
-    <div class="wcard wcard-60" onclick="openProject(0)">
+    <div class="wcard wcard-60" role="button" tabindex="0" onclick="openProject(0)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openProject(0);}" aria-label="Explore A Modern Dental Experience concept">
       <div class="wcard-top">
         <span class="wcard-badge">SELF-INITIATED CONCEPT · DENTAL</span>
       </div>
@@ -448,7 +449,7 @@
     </div>
 
     <!-- 02: INTERIOR CONCEPT (40%) -->
-    <div class="wcard wcard-40" onclick="openProject(1)">
+    <div class="wcard wcard-40" role="button" tabindex="0" onclick="openProject(1)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openProject(1);}" aria-label="Explore Spaces, Presented Differently concept">
       <div class="wcard-top">
         <span class="wcard-badge">SELF-INITIATED CONCEPT · INTERIORS</span>
       </div>
@@ -465,7 +466,7 @@
     </div>
 
     <!-- 03: PERFUME CONCEPT (40%) -->
-    <div class="wcard wcard-40" onclick="openProject(2)">
+    <div class="wcard wcard-40" role="button" tabindex="0" onclick="openProject(2)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openProject(2);}" aria-label="Explore The Digital Scent Experience concept">
       <div class="wcard-top">
         <span class="wcard-badge">SELF-INITIATED CONCEPT · PERFUME</span>
       </div>
@@ -482,7 +483,7 @@
     </div>
 
     <!-- 04: SAAS CONCEPT (60%) -->
-    <div class="wcard wcard-60" onclick="openProject(3)">
+    <div class="wcard wcard-60" role="button" tabindex="0" onclick="openProject(3)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openProject(3);}" aria-label="Explore From Idea to Interface concept">
       <div class="wcard-top">
         <span class="wcard-badge">SELF-INITIATED CONCEPT · SAAS</span>
       </div>
@@ -737,8 +738,8 @@
             <!-- Open in Google Maps control -->
             <a class="loc-map-btn"
                href="https://www.google.com/maps/dir//Loftsify+-+Human+Centric+Interior+Design+Studio+Bangalore,+216,+3rd+Cross+Rd,+HBR+Layout+4th+Block,+Meganahalli,+Kalyan+Nagar,+Bengaluru,+Karnataka+560043/@13.0249029,77.6192442,15z/data=!4m8!4m7!1m0!1m5!1m1!1s0x3bae17cf17132879:0x28c03860c68b1725!2m2!1d77.633753!2d13.0287378?entry=ttu&amp;g_ep=EgoyMDI2MDYxMC4wIKXMDSoASAFQAw%3D%3D"
-               target="_blank" rel="noopener" title="Open in Google Maps">
-              OPEN IN GOOGLE MAPS ↗
+               target="_blank" rel="noopener" title="Get Directions — Open in Google Maps" aria-label="Get Directions — Open in Google Maps">
+              GET DIRECTIONS ↗
             </a>
           </div>
 
@@ -865,7 +866,7 @@
 
       <!-- COLUMN 1 — BRAND -->
       <div class="footer-col footer-col-brand">
-        <div class="fll" onclick="goHome()" role="button" tabindex="0" aria-label="Axilyn Studio Homepage">
+        <a href="/" class="fll" aria-label="Axilyn Studio Homepage">
           <svg class="flm" viewBox="0 0 40 40" fill="none" aria-hidden="true">
             <circle class="nl-o1" cx="20" cy="20" r="17" stroke="#7C6FFF" stroke-width="1.5" stroke-dasharray="5 3"/>
             <circle class="nl-o2" cx="20" cy="20" r="10" stroke="#C4B9FF" stroke-width="1" opacity=".5"/>
@@ -877,7 +878,7 @@
             <div class="flname"><span>AX</span>ILYN</div>
             <div class="flsub">STUDIO</div>
           </div>
-        </div>
+        </a>
         <p class="footer-desc">Building digital experiences that help ambitious businesses grow.</p>
         <div class="footer-social" aria-label="Axilyn Studio Social Links">
           <!-- Instagram -->
@@ -899,12 +900,12 @@
       <div class="footer-col">
         <h4 class="footer-col-title">Quick Links</h4>
         <ul class="footer-links">
-          <li><a href="#hero" onclick="goHome()">Home</a></li>
-          <li><a href="#services" onclick="goHome()">Services</a></li>
-          <li><a href="#process" onclick="goHome()">Process</a></li>
-          <li><a href="#work" onclick="goHome()">Concepts</a></li>
-          <li><a href="#about" onclick="goHome()">About</a></li>
-          <li><a href="#contact" onclick="goHome()">Contact</a></li>
+          <li><a href="/">Home</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#process">Process</a></li>
+          <li><a href="#concepts">Concepts</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="#contact">Contact</a></li>
         </ul>
       </div>
 
@@ -912,11 +913,11 @@
       <div class="footer-col">
         <h4 class="footer-col-title">Services</h4>
         <ul class="footer-links">
-          <li><a href="#services" onclick="goHome()">Website Design &amp; Development</a></li>
-          <li><a href="#services" onclick="goHome()">UI/UX Design</a></li>
-          <li><a href="#services" onclick="goHome()">SEO &amp; Local SEO</a></li>
-          <li><a href="#services" onclick="goHome()">Social Media Management</a></li>
-          <li><a href="#services" onclick="goHome()">Meta Ads</a></li>
+          <li><a href="#services">Website Design &amp; Development</a></li>
+          <li><a href="#services">UI/UX Design</a></li>
+          <li><a href="#services">SEO &amp; Local SEO</a></li>
+          <li><a href="#services">Social Media Management</a></li>
+          <li><a href="#services">Meta Ads</a></li>
         </ul>
       </div>
 
@@ -991,9 +992,9 @@
     <div class="footer-bottom">
       <div class="footer-copy">© 2026 Axilyn Studio. All rights reserved.</div>
       <div class="footer-legal">
-        <a href="#hero" onclick="goHome()">Privacy Policy</a>
+        <a href="#hero">Privacy Policy</a>
         <span class="footer-legal-sep" aria-hidden="true">·</span>
-        <a href="#hero" onclick="goHome()">Terms of Service</a>
+        <a href="#hero">Terms of Service</a>
       </div>
     </div>
   </div>
@@ -1005,15 +1006,27 @@
 <div id="projectPage">
   <!-- STICKY TOP NAVIGATION -->
   <div class="proj-nav-bar">
-    <button type="button" class="proj-back-btn" onclick="backToWork()" aria-label="Return to all concepts">
-      <span class="proj-back-arrow">←</span> Back to Concepts
-    </button>
+    <div style="display:flex;align-items:center;gap:1.2rem;">
+      <a href="/" class="nlogo" aria-label="Axilyn Studio Homepage">
+        <svg class="nlm" viewBox="0 0 40 40" fill="none">
+          <circle class="nl-o1" cx="20" cy="20" r="17" stroke="#7C6FFF" stroke-width="1.5" stroke-dasharray="5 3"/>
+          <circle class="nl-o2" cx="20" cy="20" r="10" stroke="#C4B9FF" stroke-width="1" opacity=".5"/>
+          <circle cx="20" cy="20" r="4" fill="#7C6FFF"/>
+          <g class="nl-o1"><circle cx="33" cy="8" r="2.5" fill="#2DDAB4"/></g>
+          <g class="nl-o2"><circle cx="20" cy="10" r="1.8" fill="#C4B9FF" opacity=".7"/></g>
+        </svg>
+        <div class="nwm"><div><span>AX</span>ILYN</div><div style="font-size:.5rem;letter-spacing:.3em;color:rgba(240,240,248,.3);margin-top:.05rem;">STUDIO</div></div>
+      </a>
+      <button type="button" class="proj-back-btn" onclick="backToWork()" aria-label="Return to all concepts">
+        <span class="proj-back-arrow">←</span> Back to Concepts
+      </button>
+    </div>
     <div class="proj-nav-center">
       <span class="proj-nav-cat" id="pNavCat">SELF-INITIATED CONCEPT</span>
       <span class="proj-nav-sep">/</span>
       <span class="proj-nav-title" id="pNavTitle">A MODERN DENTAL EXPERIENCE</span>
     </div>
-    <a href="#contact" class="proj-nav-cta" onclick="goHome()">Build With Axilyn →</a>
+    <a href="#contact" class="proj-nav-cta">Build With Axilyn →</a>
   </div>
 
   <!-- 1. HERO / INTRODUCTION -->
@@ -1031,7 +1044,7 @@
           <div class="pmrow"><div class="pmlab">Year</div><div class="pmval" id="pmYear">2026</div></div>
           <div class="pmrow"><div class="pmlab">Duration</div><div class="pmval" id="pmDur">Studio Concept Sprint</div></div>
           <div class="pmrow"><div class="pmlab">Focus</div><div class="proj-tags" id="pmTags"></div></div>
-          <a href="#contact" class="proj-meta-cta" onclick="goHome()">BUILD WITH AXILYN →</a>
+          <a href="#contact" class="proj-meta-cta">BUILD WITH AXILYN →</a>
         </div>
       </div>
     </div>
@@ -1118,7 +1131,7 @@
     <div class="pcta-inner">
       <h2 class="pcta-title" id="pCtaHeading">HAVE A BUSINESS THAT COULD USE A BETTER EXPERIENCE?</h2>
       <p class="pcta-desc" id="pCtaText">Let's turn your idea, brand or business into a digital experience people remember.</p>
-      <a href="#contact" class="pcta-btn" onclick="goHome()" id="pCtaBtn">BUILD WITH AXILYN →</a>
+      <a href="#contact" class="pcta-btn" id="pCtaBtn">BUILD WITH AXILYN →</a>
     </div>
   </section>
 

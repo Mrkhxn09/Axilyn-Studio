@@ -502,89 +502,174 @@ function openProject(id, pushState = true) {
 }
 
 /**
+ * Unified Section Navigation
+ * Transitions from SPA project view back to mainSite if needed,
+ * updates URL hash without full reload, and smoothly scrolls to target section.
+ * @param {string} sectionId - Target element ID (e.g., 'services', 'process', 'concepts', 'contact')
+ * @param {boolean} [pushState=true] - Whether to update browser history
+ */
+function navigateToSection(sectionId, pushState = true) {
+  const mainSite = document.getElementById('mainSite');
+  const projectPage = document.getElementById('projectPage');
+
+  if (projectPage && projectPage.style.display !== 'none') {
+    projectPage.style.display = 'none';
+    if (mainSite) mainSite.style.display = 'block';
+
+    // Restore Homepage SEO title & meta description
+    document.title = 'AXILYN | Web Design, UI/UX & Digital Growth Studio';
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) {
+      metaDesc.setAttribute('content', 'Axilyn is a design-led digital studio creating high-performing websites, UI/UX experiences, SEO strategies and digital growth solutions for ambitious businesses.');
+    }
+    const canonicalEl = document.querySelector('link[rel="canonical"]');
+    if (canonicalEl) {
+      canonicalEl.setAttribute('href', 'https://axilyn-studio.vercel.app/');
+    }
+    if (typeof swTab === 'function') swTab(0);
+  }
+
+  // Normalize target element
+  let cleanId = (sectionId || '').replace(/^#/, '');
+  if (cleanId === 'home' || !cleanId) cleanId = 'hero';
+
+  let target = document.getElementById(cleanId);
+  if (!target && (cleanId === 'concepts' || cleanId === 'work')) {
+    target = document.getElementById('concepts') || document.getElementById('work');
+  }
+
+  const urlPath = (cleanId === 'hero') ? '/' : `/#${cleanId}`;
+
+  if (pushState && window.history && window.history.pushState && !window.location.protocol.startsWith('file')) {
+    try {
+      history.pushState({ section: cleanId }, document.title, urlPath);
+    } catch (e) {}
+  }
+
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      if (cleanId === 'hero') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+}
+
+window.navigateToSection = navigateToSection;
+
+/**
  * Return to Main Site homepage (always scrolls to top #hero)
  * @param {boolean} [pushState=true]
  */
 function goHome(pushState = true) {
-  const mainSite = document.getElementById('mainSite');
-  const projectPage = document.getElementById('projectPage');
-  if (mainSite) mainSite.style.display = 'block';
-  if (projectPage) projectPage.style.display = 'none';
-
-  // Restore Homepage SEO title & meta description
-  document.title = 'AXILYN | Web Design, UI/UX & Digital Growth Studio';
-  const metaDesc = document.querySelector('meta[name="description"]');
-  if (metaDesc) {
-    metaDesc.setAttribute('content', 'Axilyn is a design-led digital studio creating high-performing websites, UI/UX experiences, SEO strategies and digital growth solutions for ambitious businesses.');
-  }
-  const canonicalEl = document.querySelector('link[rel="canonical"]');
-  if (canonicalEl) {
-    canonicalEl.setAttribute('href', 'https://axilyn-studio.vercel.app/');
-  }
-
-  if (pushState && window.history && window.history.pushState && !window.location.protocol.startsWith('file')) {
-    if (window.location.pathname !== '/' && !window.location.pathname.endsWith('index.html')) {
-      try {
-        history.pushState({}, 'AXILYN | Web Design, UI/UX & Digital Growth Studio', '/');
-      } catch (e) {}
-    }
-  }
-
-  swTab(0); // Reset process tabs to 01 Discover
-
-  // Double rAF ensures browser layout repaint before smooth scroll
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-  });
+  navigateToSection('hero', pushState);
 }
+window.goHome = goHome;
 
 /**
- * Return to Work section on the main site
+ * Return to Work/Concepts section on the main site
  * @param {boolean} [pushState=true]
  */
 function backToWork(pushState = true) {
-  const main = document.getElementById('mainSite');
-  const proj = document.getElementById('projectPage');
-  if (proj) proj.style.display = 'none';
-  if (main) main.style.display = 'block';
-
-  document.title = 'AXILYN | Web Design, UI/UX & Digital Growth Studio';
-  const metaDesc = document.querySelector('meta[name="description"]');
-  if (metaDesc) {
-    metaDesc.setAttribute('content', 'Axilyn is a design-led digital studio creating high-performing websites, UI/UX experiences, SEO strategies and digital growth solutions for ambitious businesses.');
-  }
-  const canonicalEl = document.querySelector('link[rel="canonical"]');
-  if (canonicalEl) {
-    canonicalEl.setAttribute('href', 'https://axilyn-studio.vercel.app/');
-  }
-
-  if (pushState && window.history && window.history.pushState && !window.location.protocol.startsWith('file')) {
-    try {
-      history.pushState({}, 'AXILYN | Web Design, UI/UX & Digital Growth Studio', '/#work');
-    } catch (e) {}
-  }
-
-  swTab(0);
-
-  // Double rAF ensures browser layout repaint before smooth scroll
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      const el = document.getElementById('work');
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
-    });
-  });
+  navigateToSection('concepts', pushState);
 }
+window.backToWork = backToWork;
+
+// Initial hash scrolling helper (handles cross-page jumps like /about/ -> /#services)
+function checkAndScrollHash() {
+  const rawHash = window.location.hash;
+  if (!rawHash) return;
+  const hash = rawHash.replace('#', '');
+  if (!hash) return;
+
+  setTimeout(() => {
+    navigateToSection(hash, false);
+  }, 100);
+}
+
+// When splash screen finishes, scroll to hash if present
+window.addEventListener('splashDone', () => {
+  checkAndScrollHash();
+});
+
+// Also on load for cases without splash
+window.addEventListener('load', () => {
+  if (!document.getElementById('splash')) {
+    checkAndScrollHash();
+  }
+});
+
+// Global link interception for smooth SPA navigation and logo clicks
+document.addEventListener('click', (e) => {
+  const link = e.target.closest('a');
+  if (!link) return;
+  const href = link.getAttribute('href');
+  if (!href) return;
+
+  // Handle logo / root links when mainSite is present on this page
+  if (href === '/' && document.getElementById('mainSite')) {
+    const projectPage = document.getElementById('projectPage');
+    if (projectPage && projectPage.style.display !== 'none') {
+      e.preventDefault();
+      goHome();
+      return;
+    }
+    if (window.location.pathname === '/' || window.location.pathname.endsWith('index.html')) {
+      e.preventDefault();
+      goHome();
+      return;
+    }
+  }
+
+  // Handle hash links (e.g. #services, #process, #concepts, #contact, #work) or /#section
+  const isHomepage = window.location.pathname === '/' || window.location.pathname.endsWith('index.html');
+  if (href.startsWith('#') || (isHomepage && href.startsWith('/#'))) {
+    const sectionId = href.replace(/^\/?#/, '');
+    if (sectionId) {
+      const target = document.getElementById(sectionId) || (sectionId === 'concepts' ? document.getElementById('work') : null);
+      if (target || sectionId === 'hero' || sectionId === 'home') {
+        e.preventDefault();
+        navigateToSection(sectionId);
+      }
+    }
+  }
+});
 
 // Browser Back / Forward button navigation
 window.addEventListener('popstate', (e) => {
   if (e.state && typeof e.state.projectId === 'number') {
     openProject(e.state.projectId, false);
+  } else if (e.state && e.state.section) {
+    navigateToSection(e.state.section, false);
   } else {
-    goHome(false);
+    const hash = window.location.hash.replace('#', '');
+    if (hash && (document.getElementById(hash) || hash === 'concepts' || hash === 'work')) {
+      navigateToSection(hash, false);
+    } else {
+      goHome(false);
+    }
   }
 });
+
+// FAQ Accordion Interaction
+(function initFaqAccordion() {
+  const faqItems = document.querySelectorAll('.faq-item');
+  if (!faqItems.length) return;
+
+  faqItems.forEach((item) => {
+    item.addEventListener('toggle', () => {
+      if (item.open) {
+        faqItems.forEach((other) => {
+          if (other !== item && other.open) {
+            other.removeAttribute('open');
+          }
+        });
+      }
+    });
+  });
+})();
 
 /**
  * Open Fullscreen Lightbox Modal
