@@ -178,6 +178,26 @@
 })();
 
 /**
+ * Normalize an asset path to a reliable, stable root-relative URL.
+ * Works seamlessly across direct URL loads, client-side history navigation, and root domains.
+ * @param {string} url - Source asset path
+ * @returns {string} Normalized root-relative URL
+ */
+function resolveConceptAsset(url) {
+  if (!url) return '';
+  if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('data:')) {
+    return url;
+  }
+  // Strip any relative prefixes (../../ or ./ or leading slashes)
+  const clean = url.replace(/^(\.{1,2}\/)+/, '').replace(/^\/+/, '');
+  if (typeof window !== 'undefined' && window.location && window.location.protocol === 'file:') {
+    const isDeep = window.location.pathname.includes('/concepts/');
+    return isDeep ? `../../${clean}` : `./${clean}`;
+  }
+  return `/${clean}`;
+}
+
+/**
  * Open Project Detail view for a given project ID
  * @param {number} id - Index in PROJECTS array
  * @param {boolean} [pushState=true] - Whether to push state to browser history
@@ -186,7 +206,13 @@ function openProject(id, pushState = true) {
   if (typeof PROJECTS === 'undefined' || !PROJECTS[id]) return;
   const p = PROJECTS[id];
 
-  // Update Dynamic SEO Title & Meta Description
+  // 1. Immediately activate SPA project view so layout exists for image rendering
+  const mainSite = document.getElementById('mainSite');
+  const projectPage = document.getElementById('projectPage');
+  if (mainSite) mainSite.style.display = 'none';
+  if (projectPage) projectPage.style.display = 'block';
+
+  // 2. Update Dynamic SEO Title & Meta Description
   if (p.seoTitle) {
     document.title = p.seoTitle;
   }
@@ -195,13 +221,13 @@ function openProject(id, pushState = true) {
     metaDesc.setAttribute('content', p.metaDesc);
   }
 
-  // Update Canonical URL if present
+  // 3. Update Canonical URL if present
   const canonicalEl = document.querySelector('link[rel="canonical"]');
   if (canonicalEl && p.cleanSlug) {
     canonicalEl.setAttribute('href', `https://axilyn-studio.vercel.app/concepts/${p.cleanSlug}/`);
   }
 
-  // Push clean URL to browser history
+  // 4. Push clean URL to browser history
   if (pushState && window.history && window.history.pushState && !window.location.protocol.startsWith('file')) {
     const cleanUrl = `/concepts/${p.cleanSlug || p.slug}/`;
     try {
@@ -211,13 +237,20 @@ function openProject(id, pushState = true) {
     }
   }
 
-  // 1. Sticky Nav Bar
+  // 5. Preload primary hero/first concept screenshot immediately
+  const primaryImgUrl = resolveConceptAsset(p.screens && p.screens[0] ? p.screens[0].img : p.hero);
+  if (primaryImgUrl) {
+    const preloader = new Image();
+    preloader.src = primaryImgUrl;
+  }
+
+  // 6. Sticky Nav Bar
   const pNavCat = document.getElementById('pNavCat');
   const pNavTitle = document.getElementById('pNavTitle');
   if (pNavCat) pNavCat.textContent = p.cat ? p.cat.toUpperCase() : 'SELF-INITIATED CONCEPT';
   if (pNavTitle) pNavTitle.textContent = p.title ? p.title.toUpperCase() : '';
 
-  // 2. Hero / Intro
+  // 7. Hero / Intro
   const phEyebrow = document.getElementById('phEyebrow');
   const phTitle = document.getElementById('phTitle');
   const phDesc = document.getElementById('phDesc');
@@ -236,7 +269,7 @@ function openProject(id, pushState = true) {
     tagsEl.innerHTML = p.tags.map((t) => `<span class="ptag">${t}</span>`).join('');
   }
 
-  // 3. The Idea
+  // 8. The Idea
   if (p.idea) {
     const pIdeaEyebrow = document.getElementById('pIdeaEyebrow');
     const pIdeaHeading = document.getElementById('pIdeaHeading');
@@ -248,7 +281,7 @@ function openProject(id, pushState = true) {
     if (pIdeaP2) pIdeaP2.textContent = p.idea.p2;
   }
 
-  // 4. The Problem
+  // 9. The Problem
   if (p.problem) {
     const pProblemEyebrow = document.getElementById('pProblemEyebrow');
     const pProblemHeading = document.getElementById('pProblemHeading');
@@ -266,7 +299,7 @@ function openProject(id, pushState = true) {
     }
   }
 
-  // 5. Design Direction
+  // 10. Design Direction
   if (p.direction) {
     const pDirEyebrow = document.getElementById('pDirEyebrow');
     const pDirHeading = document.getElementById('pDirHeading');
@@ -286,7 +319,7 @@ function openProject(id, pushState = true) {
     }
   }
 
-  // 6. The Experience (Key Screens)
+  // 11. The Experience (Key Screens)
   const pExpEyebrow = document.getElementById('pExpEyebrow');
   const pExpIntro = document.getElementById('pExpIntro');
   if (p.experience) {
@@ -295,14 +328,17 @@ function openProject(id, pushState = true) {
   }
   const pScreensList = document.getElementById('pScreensList');
   if (pScreensList && p.screens) {
-    pScreensList.innerHTML = p.screens.map((s, idx) => `
+    pScreensList.innerHTML = p.screens.map((s, idx) => {
+      const resolvedImg = resolveConceptAsset(s.img);
+      const isHero = idx === 0;
+      return `
       <article class="pscreen-item">
         <header class="pscreen-header pscreen-meta">
           <div class="pscreen-num pscreen-step">${s.num}</div>
           <h3 class="pscreen-title">${s.heading}</h3>
           <p class="pscreen-desc">${s.desc}</p>
         </header>
-        <div class="pscreen-frame" onclick="openLb('${s.img}')" role="button" tabindex="0" aria-label="Click to enlarge ${s.heading}">
+        <div class="pscreen-frame" onclick="openLb('${resolvedImg}')" role="button" tabindex="0" aria-label="Click to enlarge ${s.heading}">
           <div class="pscreen-browser-bar">
             <div class="pscreen-dots">
               <span class="pscreen-dot red"></span>
@@ -313,14 +349,20 @@ function openProject(id, pushState = true) {
             <span class="pscreen-zoom-hint">⤢ Enlarge View</span>
           </div>
           <div class="pscreen-img-wrap">
-            <img src="${s.img}" alt="${s.heading} — ${p.title} digital concept designed by Axilyn" loading="lazy" decoding="async" class="pscreen-img"/>
+            <img src="${resolvedImg}"
+                 alt="${s.heading} — ${p.title} digital concept designed by Axilyn"
+                 loading="${isHero ? 'eager' : 'lazy'}"
+                 ${isHero ? 'fetchpriority="high"' : ''}
+                 decoding="async"
+                 class="pscreen-img"/>
           </div>
         </div>
       </article>
-    `).join('');
+      `;
+    }).join('');
   }
 
-  // 7. Details That Matter
+  // 12. Details That Matter
   if (p.details) {
     const pDetailsEyebrow = document.getElementById('pDetailsEyebrow');
     const pDetailsHeading = document.getElementById('pDetailsHeading');
@@ -338,7 +380,7 @@ function openProject(id, pushState = true) {
     }
   }
 
-  // 8. Design System
+  // 13. Design System
   if (p.designSystem) {
     const pSystemEyebrow = document.getElementById('pSystemEyebrow');
     const pSystemHeading = document.getElementById('pSystemHeading');
@@ -386,7 +428,7 @@ function openProject(id, pushState = true) {
     }
   }
 
-  // 9. What This Concept Explores (Takeaway)
+  // 14. What This Concept Explores (Takeaway)
   if (p.takeaway) {
     const pTakeawayEyebrow = document.getElementById('pTakeawayEyebrow');
     const pTakeawayHeading = document.getElementById('pTakeawayHeading');
@@ -406,13 +448,13 @@ function openProject(id, pushState = true) {
     }
   }
 
-  // 10. Subtle Disclaimer
+  // 15. Subtle Disclaimer
   const pDisclaimerText = document.getElementById('pDisclaimerText');
   if (pDisclaimerText) {
     pDisclaimerText.textContent = p.disclaimer || 'Self-initiated concept created by AXILYN. This project is an exploration of digital experience design and is not a commissioned client project.';
   }
 
-  // 11. Project CTA
+  // 16. Project CTA
   if (p.cta) {
     const pCtaHeading = document.getElementById('pCtaHeading');
     const pCtaText = document.getElementById('pCtaText');
@@ -422,29 +464,39 @@ function openProject(id, pushState = true) {
     if (pCtaBtn) pCtaBtn.textContent = p.cta.btnText || 'BUILD WITH AXILYN →';
   }
 
-  // 12. More Concepts (exclude current project)
+  // 17. More Concepts (exclude current project)
   const relEl = document.getElementById('relGrid');
   if (relEl) {
     const others = PROJECTS.filter((x) => x.id !== id).slice(0, 3);
     relEl.innerHTML = others
-      .map(
-        (o) => `
-      <div class="rel-card" onclick="openProject(${o.id})">
-        <img src="${o.hero}" alt="${o.title}" loading="lazy"/>
-        <div class="rel-over">
-          <small>${o.cat}</small>
-          <span>${o.title}</span>
-        </div>
-      </div>`
-      )
+      .map((o) => {
+        const relHero = resolveConceptAsset(o.hero);
+        return `
+        <div class="rel-card" onclick="openProject(${o.id})">
+          <img src="${relHero}" alt="${o.title}" loading="lazy" decoding="async"/>
+          <div class="rel-over">
+            <small>${o.cat}</small>
+            <span>${o.title}</span>
+          </div>
+        </div>`;
+      })
       .join('');
   }
 
-  // Switch SPA views
-  const mainSite = document.getElementById('mainSite');
-  const projectPage = document.getElementById('projectPage');
-  if (mainSite) mainSite.style.display = 'none';
-  if (projectPage) projectPage.style.display = 'block';
+  // 18. Image verification & error listeners
+  if (projectPage) {
+    const allImgs = projectPage.querySelectorAll('img');
+    allImgs.forEach((img) => {
+      const rawSrc = img.getAttribute('src');
+      const resolved = resolveConceptAsset(rawSrc);
+      if (rawSrc !== resolved) {
+        img.setAttribute('src', resolved);
+      }
+      img.addEventListener('error', function () {
+        console.error(`[Axilyn Concept Image Error] Failed to load: ${this.src}`);
+      }, { once: true });
+    });
+  }
 
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -542,7 +594,7 @@ function openLb(src) {
   const lb = document.getElementById('lb');
   const lbImg = document.getElementById('lbImg');
   if (lb && lbImg) {
-    lbImg.src = src;
+    lbImg.src = resolveConceptAsset(src);
     lb.classList.add('on');
   }
 }
@@ -585,7 +637,7 @@ document.addEventListener('keydown', (e) => {
       desc: 'We build patient trust before the first consultation with clear treatment pathways, seamless booking integration, and calming, modern aesthetics.',
       tags: ['PATIENT FLOW', 'APPOINTMENT BOOKING', 'TRUST ARCHITECTURE'],
       cta: 'START A DENTAL PROJECT →',
-      img: 'assets/concepts/dental-concept.jpg',
+      img: '/assets/concepts/dental-concept.jpg',
       serviceOption: 'Website Design & Development'
     },
     interiors: {
@@ -594,7 +646,7 @@ document.addEventListener('keydown', (e) => {
       desc: 'A premium digital experience built to make architectural work feel as refined online as it does in the real world through editorial pacing and high-resolution spatial storytelling.',
       tags: ['SPATIAL PACING', 'EDITORIAL PORTFOLIO', 'ARCHITECTURAL SHOWCASE'],
       cta: 'START AN INTERIOR PROJECT →',
-      img: 'assets/concepts/interior-concept.jpg',
+      img: '/assets/concepts/interior-concept.jpg',
       serviceOption: 'UI/UX Design'
     },
     restaurants: {
@@ -612,7 +664,7 @@ document.addEventListener('keydown', (e) => {
       desc: 'A luxury e-commerce concept focused on olfactory storytelling, product discovery and visual identity that elevates perceived product value.',
       tags: ['OLFACTORY STORYTELLING', 'LUXURY COMMERCE', 'VISUAL IDENTITY'],
       cta: 'START A LUXURY PROJECT →',
-      img: 'assets/concepts/perfume-concept.jpg',
+      img: '/assets/concepts/perfume-concept.jpg',
       serviceOption: 'UI/UX Design'
     },
     realestate: {
@@ -630,7 +682,7 @@ document.addEventListener('keydown', (e) => {
       desc: 'A modern SaaS landing page concept focused on product clarity, interface storytelling and conversion-oriented customer journeys.',
       tags: ['PRODUCT CLARITY', 'USER ONBOARDING', 'CONVERSION FLOWS'],
       cta: 'START A SAAS PROJECT →',
-      img: 'assets/concepts/saas-concept.jpg',
+      img: '/assets/concepts/saas-concept.jpg',
       serviceOption: 'UI/UX Design'
     }
   };

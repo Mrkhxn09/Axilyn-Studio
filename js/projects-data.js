@@ -26,7 +26,7 @@ const PROJECTS = [
     eyebrow: 'SELF-INITIATED CONCEPT / 2026',
     title: 'A MODERN DENTAL EXPERIENCE',
     cat: 'SELF-INITIATED CONCEPT · DENTAL CLINIC',
-    hero: 'assets/concepts/dental-concept.jpg',
+    hero: '/assets/concepts/dental-concept.jpg',
     desc: 'Most dental websites communicate treatments. This concept explores how a dental website can communicate confidence, comfort and clarity before a patient ever walks through the door.',
     client: 'Self-Initiated Concept',
     year: '2026',
@@ -87,25 +87,25 @@ const PROJECTS = [
         num: '01 / HOMEPAGE',
         heading: 'A CALMER FIRST IMPRESSION',
         desc: 'The homepage immediately communicates what the clinic stands for, what patients can expect and where to take the next step.',
-        img: 'assets/concepts/dental-concept.jpg'
+        img: '/assets/concepts/dental-concept.jpg'
       },
       {
         num: '02 / TREATMENTS',
         heading: 'INFORMATION WITHOUT THE OVERLOAD',
         desc: 'Treatments are structured around patient questions rather than simply listing procedures. Visitors can understand what a treatment is, who it is for and what to expect.',
-        img: 'assets/concepts/dental-treatments.jpg'
+        img: '/assets/concepts/dental-treatments.jpg'
       },
       {
         num: '03 / PATIENT EXPERIENCE',
         heading: 'SHOW PEOPLE WHAT TO EXPECT',
         desc: 'From the clinic environment to the treatment journey, the interface uses visual storytelling to make an unfamiliar experience feel more understandable.',
-        img: 'assets/concepts/dental-experience-ui.jpg'
+        img: '/assets/concepts/dental-experience-ui.jpg'
       },
       {
         num: '04 / APPOINTMENT',
         heading: 'THE NEXT STEP SHOULD BE OBVIOUS',
         desc: 'The booking experience is intentionally simple: choose the service, select a convenient time and confirm the appointment without unnecessary steps.',
-        img: 'assets/concepts/dental-booking.jpg'
+        img: '/assets/concepts/dental-booking.jpg'
       }
     ],
     details: {
@@ -186,7 +186,7 @@ const PROJECTS = [
     eyebrow: 'SELF-INITIATED CONCEPT / 2026',
     title: 'SPACES, PRESENTED DIFFERENTLY',
     cat: 'SELF-INITIATED CONCEPT · INTERIOR DESIGN',
-    hero: 'assets/concepts/interior-concept.jpg',
+    hero: '/assets/concepts/interior-concept.jpg',
     desc: 'Most architectural websites present spaces as static image galleries. This concept explores how digital pacing, materiality and editorial storytelling can make interior architecture feel as sensory online as it does in the physical world.',
     client: 'Self-Initiated Concept',
     year: '2026',
@@ -247,25 +247,25 @@ const PROJECTS = [
         num: '01 / HOMEPAGE',
         heading: 'SPATIAL PROPORTIONS ON SCREEN',
         desc: "The homepage introduces the studio's architectural ethos with full-bleed spatial vistas and unhurried editorial navigation.",
-        img: 'assets/concepts/interior-concept.jpg'
+        img: '/assets/concepts/interior-concept.jpg'
       },
       {
         num: '02 / SELECTED SPACES',
         heading: 'EDITORIAL CURATION OVER THUMBNAIL GRIDS',
         desc: "Residential works are presented with asymmetric architectural cadence, allowing each room's natural light and materiality to command attention.",
-        img: 'assets/concepts/interior-portfolio.jpg'
+        img: '/assets/concepts/interior-portfolio.jpg'
       },
       {
         num: '03 / CRAFTSMANSHIP',
         heading: 'MATERIALITY DECONSTRUCTED',
         desc: 'Detailed structural case studies reveal the tactile specifications: cast concrete (450 MPa), oiled Hinoki timber and honed travertine.',
-        img: 'assets/concepts/interior-craft.jpg'
+        img: '/assets/concepts/interior-craft.jpg'
       },
       {
         num: '04 / COMMISSIONS',
         heading: 'A PRIVATE CONVERSATION',
         desc: 'A multi-step architectural briefing interface allows prospective clients to articulate scale, aesthetic vision and typology with ease.',
-        img: 'assets/concepts/interior-inquiry.jpg'
+        img: '/assets/concepts/interior-inquiry.jpg'
       }
     ],
     details: {
@@ -346,7 +346,7 @@ const PROJECTS = [
     eyebrow: 'SELF-INITIATED CONCEPT / 2026',
     title: 'THE DIGITAL SCENT EXPERIENCE',
     cat: 'SELF-INITIATED CONCEPT · PERFUME BRAND',
-    hero: 'assets/concepts/perfume-concept.jpg',
+    hero: '/assets/concepts/perfume-concept.jpg',
     desc: 'Perfume is invisible. Most fragrance websites rely strictly on bottle photographs. This concept explores how olfactory storytelling, interactive fragrance pyramids and sensory discovery kits can visualize an invisible fragrance online.',
     client: 'Self-Initiated Concept',
     year: '2026',
@@ -407,25 +407,25 @@ const PROJECTS = [
         num: '01 / HOMEPAGE',
         heading: 'OLFACTORY POETRY IN LIGHT',
         desc: 'The hero experience immediately sets the nocturnal mood with glowing flacon lighting and interactive scent pyramids.',
-        img: 'assets/concepts/perfume-concept.jpg'
+        img: '/assets/concepts/perfume-concept.jpg'
       },
       {
         num: '02 / OLFACTORY NOTES',
         heading: 'THE ARCHITECTURE OF SCENT',
         desc: 'Interactive botanical note breakdowns showing evaporation curves from crisp Calabrian bergamot to deep Atlas cedarwood.',
-        img: 'assets/concepts/perfume-notes.jpg'
+        img: '/assets/concepts/perfume-notes.jpg'
       },
       {
         num: '03 / CRAFTSMANSHIP',
         heading: 'THE WEIGHT OF LUXURY',
         desc: 'Macro exploration of the physical bottle: 420g flint glass, micro-fine mist actuator, and magnetic tactile closure.',
-        img: 'assets/concepts/perfume-bottle.jpg'
+        img: '/assets/concepts/perfume-bottle.jpg'
       },
       {
         num: '04 / DISCOVERY SET',
         heading: 'CURATE BEFORE COMMITTING',
         desc: 'A customizable 5-vial discovery wardrobe in a black velvet presentation tray, fully redeemable toward full flacons.',
-        img: 'assets/concepts/perfume-discovery.jpg'
+        img: '/assets/concepts/perfume-discovery.jpg'
       }
     ],
     details: {
@@ -506,7 +506,7 @@ const PROJECTS = [
     eyebrow: 'SELF-INITIATED CONCEPT / 2026',
     title: 'FROM IDEA TO INTERFACE',
     cat: 'SELF-INITIATED CONCEPT · SAAS / DIGITAL PRODUCT',
-    hero: 'assets/concepts/saas-concept.jpg',
+    hero: '/assets/concepts/saas-concept.jpg',
     desc: 'Most developer tools bury their product in marketing jargon. This concept explores how live sandboxes, interactive telemetry and visual runtime graphs turn complex developer infrastructure into immediate clarity.',
     client: 'Self-Initiated Concept',
     year: '2026',
@@ -567,25 +567,25 @@ const PROJECTS = [
         num: '01 / HOMEPAGE',
         heading: 'A DEVELOPER EXPERIENCE THAT DELIVERS',
         desc: 'The landing interface proves immediate value with a live analytics preview and simulated terminal commands.',
-        img: 'assets/concepts/saas-concept.jpg'
+        img: '/assets/concepts/saas-concept.jpg'
       },
       {
         num: '02 / TELEMETRY DASHBOARD',
         heading: 'OBSERVABILITY AT A GLANCE',
         desc: 'Real-time P99 latency tracking, 2.4M req/sec health maps, and live event streaming in dark glass panels.',
-        img: 'assets/concepts/saas-dashboard.jpg'
+        img: '/assets/concepts/saas-dashboard.jpg'
       },
       {
         num: '03 / LIVE TERMINAL',
         heading: 'COMPOSE, SIMULATE & SHIP',
         desc: 'Split-pane interface pairing TypeScript configuration directly with real-time edge deployment output.',
-        img: 'assets/concepts/saas-terminal.jpg'
+        img: '/assets/concepts/saas-terminal.jpg'
       },
       {
         num: '04 / EDGE MESH PIPELINE',
         heading: 'ORCHESTRATE WITHOUT CODE FRICTION',
         desc: 'Interactive visual node canvas illustrating automatic micro-builds, 180+ global PoP distribution, and zero downtime switches.',
-        img: 'assets/concepts/saas-deploy.jpg'
+        img: '/assets/concepts/saas-deploy.jpg'
       }
     ],
     details: {
@@ -658,3 +658,21 @@ const PROJECTS = [
     }
   }
 ];
+
+// Normalize all concept image paths to root-relative URLs
+(function normalizeProjectAssetPaths() {
+  if (typeof PROJECTS === 'undefined' || !Array.isArray(PROJECTS)) return;
+  PROJECTS.forEach((proj) => {
+    if (proj.hero && !proj.hero.startsWith('http') && !proj.hero.startsWith('data:') && !proj.hero.startsWith('/')) {
+      proj.hero = '/' + proj.hero.replace(/^(\.{1,2}\/)+/, '');
+    }
+    if (Array.isArray(proj.screens)) {
+      proj.screens.forEach((screen) => {
+        if (screen.img && !screen.img.startsWith('http') && !screen.img.startsWith('data:') && !screen.img.startsWith('/')) {
+          screen.img = '/' + screen.img.replace(/^(\.{1,2}\/)+/, '');
+        }
+      });
+    }
+  });
+})();
+
