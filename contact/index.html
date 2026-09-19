@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,viewport-fit=cover"/>
+
+<!-- ═══ PRIMARY SEO ═══ -->
+<title>Contact Axilyn | Start a Digital Project</title>
+<meta name="description" content="Have a website, digital product or business that needs a stronger digital experience? Tell us what you're building and we'll start from there."/>
+<meta name="keywords" content="contact Axilyn, start a digital project, web design consultation, hire digital studio"/>
+<meta name="robots" content="index, follow"/>
+<meta name="author" content="AXILYN"/>
+<link rel="canonical" href="https://axilyn-studio.vercel.app/contact/"/>
+
+<!-- ═══ OPEN GRAPH ═══ -->
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://axilyn-studio.vercel.app/contact/"/>
+<meta property="og:title" content="Contact Axilyn | Start a Digital Project"/>
+<meta property="og:description" content="Have a website, digital product or business that needs a stronger digital experience? Tell us what you're building and we'll start from there."/>
+<meta property="og:image" content="https://axilyn-studio.vercel.app/assets/concepts/dental-concept.jpg"/>
+<meta property="og:site_name" content="AXILYN"/>
+<meta property="og:locale" content="en_US"/>
+
+<!-- ═══ TWITTER CARD ═══ -->
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Contact Axilyn | Start a Digital Project"/>
+<meta name="twitter:description" content="Have a website, digital product or business that needs a stronger digital experience? Tell us what you're building and we'll start from there."/>
+<meta name="twitter:image" content="https://axilyn-studio.vercel.app/assets/concepts/dental-concept.jpg"/>
+
+<!-- ═══ SCHEMA.ORG BREADCRUMB ═══ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://axilyn-studio.vercel.app/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Contact",
+          "item": "https://axilyn-studio.vercel.app/contact/"
+        }
+      ]
+    },
+    {
+      "@type": "ContactPage",
+      "name": "Contact Axilyn",
+      "description": "Have a website, digital product or business that needs a stronger digital experience? Tell us what you're building and we'll start from there.",
+      "mainEntity": {
+        "@type": "Organization",
+        "name": "AXILYN",
+        "url": "https://axilyn-studio.vercel.app/",
+        "email": "axilyn.studio@gmail.com"
+      }
+    }
+  ]
+}
+</script>
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&amp;display=swap" rel="stylesheet"/>
+
+<!-- Modular Stylesheets -->
+<link rel="stylesheet" href="../css/variables.css?v=2.0"/>
+<link rel="stylesheet" href="../css/reset.css?v=2.0"/>
+<link rel="stylesheet" href="../css/animations.css?v=2.0"/>
+<link rel="stylesheet" href="../css/layout.css?v=2.0"/>
+<link rel="stylesheet" href="../css/components.css?v=3.0"/>
+
+<!-- EmailJS SDK -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+</head>
+<body>
+
+<!-- Custom Cursor Elements -->
+<div id="cur"></div>
+<div id="curR"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nlogo" onclick="window.location.href='/'">
+    <svg class="nlm" viewBox="0 0 40 40" fill="none">
+      <circle class="nl-o1" cx="20" cy="20" r="17" stroke="#7C6FFF" stroke-width="1.5" stroke-dasharray="5 3"/>
+      <circle class="nl-o2" cx="20" cy="20" r="10" stroke="#C4B9FF" stroke-width="1" opacity=".5"/>
+      <circle cx="20" cy="20" r="4" fill="#7C6FFF"/>
+      <g class="nl-o1"><circle cx="33" cy="8" r="2.5" fill="#2DDAB4"/></g>
+      <g class="nl-o2"><circle cx="20" cy="10" r="1.8" fill="#C4B9FF" opacity=".7"/></g>
+    </svg>
+    <div class="nwm"><div><span>AX</span>ILYN</div><div style="font-size:.5rem;letter-spacing:.3em;color:rgba(240,240,248,.3);margin-top:.05rem;">STUDIO</div></div>
+  </div>
+  <ul>
+    <li><a href="/services/">Services</a></li>
+    <li><a href="/#process">Process</a></li>
+    <li><a href="/#work">Concepts</a></li>
+    <li><a href="/about/">About</a></li>
+    <li><a href="/contact/" class="ncta" style="color:var(--text);">Start a Project</a></li>
+  </ul>
+</nav>
+
+<div style="padding-top:6rem;">
+  <!-- CONTACT -->
+  <section id="contact" aria-label="Contact Axilyn — Start a Digital Project">
+    <div>
+      <div class="sl2">GET IN TOUCH</div>
+      <h1>LET'S BUILD<br/>SOMETHING<br/>WORTH SEEING.</h1>
+      <p class="hsub">Have a website, digital product or business that needs a stronger digital experience? Tell us what you're building and we'll start from there.</p>
+    </div>
+    <div class="cbox" style="margin-top:2.5rem;">
+      <form id="contactForm" novalidate autocomplete="on" aria-label="Contact Axilyn">
+
+        <!-- Honeypot anti-spam field -->
+        <div class="hp-field" aria-hidden="true">
+          <label>Leave this empty</label>
+          <input type="text" name="hp_field" id="hp_field" tabindex="-1" autocomplete="off"/>
+        </div>
+
+        <div class="frow">
+          <div class="fg" id="fg_name">
+            <label for="cf_name">Full Name <span style="color:#ff6b6b">*</span></label>
+            <input type="text" id="cf_name" name="from_name" placeholder="Your Name" autocomplete="name" required aria-required="true"/>
+            <span class="err" id="err_name" role="alert">Please enter your full name.</span>
+          </div>
+          <div class="fg" id="fg_company">
+            <label for="cf_company">Company Name <span style="color:rgba(240,240,248,.25);font-size:.6rem;">(Optional)</span></label>
+            <input type="text" id="cf_company" name="company" placeholder="Your Company" autocomplete="organization"/>
+            <span class="err" id="err_company"></span>
+          </div>
+        </div>
+
+        <div class="frow">
+          <div class="fg" id="fg_email">
+            <label for="cf_email">Email Address <span style="color:#ff6b6b">*</span></label>
+            <input type="email" id="cf_email" name="reply_to" placeholder="youremail@gmail.com" autocomplete="email" required aria-required="true"/>
+            <span class="err" id="err_email" role="alert">Please enter a valid email address.</span>
+          </div>
+          <div class="fg" id="fg_phone">
+            <label for="cf_phone">Phone Number <span style="color:rgba(240,240,248,.25);font-size:.6rem;">(Optional)</span></label>
+            <input type="tel" id="cf_phone" name="phone" placeholder="+91 98765 43210" autocomplete="tel"/>
+            <span class="err" id="err_phone"></span>
+          </div>
+        </div>
+
+        <div class="fg" id="fg_service">
+          <label for="cf_service">Service Interested In <span style="color:#ff6b6b">*</span></label>
+          <select id="cf_service" name="service" required aria-required="true">
+            <option value="">Select a service…</option>
+            <option>Website Design &amp; Development</option>
+            <option>UI/UX Design</option>
+            <option>SEO &amp; Local SEO</option>
+            <option>Social Media Management</option>
+            <option>Meta Ads</option>
+            <option>Full Digital Package</option>
+            <option>Other</option>
+          </select>
+          <span class="err" id="err_service" role="alert">Please select a service.</span>
+        </div>
+
+        <div class="fg" id="fg_budget">
+          <label for="cf_budget">Budget <span style="color:rgba(240,240,248,.25);font-size:.6rem;">(Optional)</span></label>
+          <select id="cf_budget" name="budget">
+            <option value="">Select your budget range…</option>
+            <option>Under ₹15,000</option>
+            <option>₹15,000 – ₹30,000</option>
+            <option>₹30,000 – ₹60,000</option>
+            <option>₹60,000 – ₹1,00,000</option>
+            <option>₹1,00,000+</option>
+            <option>Let's discuss</option>
+          </select>
+        </div>
+
+        <div class="fg" id="fg_message">
+          <label for="cf_message">Project Description <span style="color:#ff6b6b">*</span></label>
+          <textarea id="cf_message" name="message" placeholder="Tell us about your project — what you need, your goals, timeline and any specific requirements…" required aria-required="true"></textarea>
+          <span class="err" id="err_message" role="alert">Please describe your project.</span>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:1rem;padding:.7rem 1rem;background:rgba(124,111,255,.06);border-radius:8px;border:1px solid var(--border);">
+          <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="#7C6FFF" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <span style="font-size:.75rem;color:rgba(240,240,248,.35);">Or email us directly: <a href="mailto:axilyn.studio@gmail.com" style="color:var(--ring);text-decoration:none;">axilyn.studio@gmail.com</a></span>
+        </div>
+
+        <button type="submit" class="sbtn" id="submitBtn">START A PROJECT →</button>
+
+        <div class="form-status" id="formSuccess" role="alert" aria-live="polite">
+          ✅ <strong>Thank you!</strong> Your message has been sent successfully. We'll get back to you within 24 business hours.
+        </div>
+        <div class="form-status" id="formError" role="alert" aria-live="polite">
+          ❌ <strong>Something went wrong</strong> while sending your message. Please try again or email us directly at <a href="mailto:axilyn.studio@gmail.com" style="color:#ff6b6b;">axilyn.studio@gmail.com</a>
+        </div>
+
+      </form>
+    </div>
+  </section>
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-container">
+    <div class="footer-grid">
+      <div class="footer-col footer-col-brand">
+        <div class="fll" onclick="window.location.href='/'" role="button" tabindex="0">
+          <svg class="flm" viewBox="0 0 40 40" fill="none">
+            <circle class="nl-o1" cx="20" cy="20" r="17" stroke="#7C6FFF" stroke-width="1.5" stroke-dasharray="5 3"/>
+            <circle class="nl-o2" cx="20" cy="20" r="10" stroke="#C4B9FF" stroke-width="1" opacity=".5"/>
+            <circle cx="20" cy="20" r="4" fill="#7C6FFF"/>
+          </svg>
+          <div class="flw">
+            <div class="flname"><span>AX</span>ILYN</div>
+            <div class="flsub">STUDIO</div>
+          </div>
+        </div>
+        <p class="footer-desc">Building digital experiences that help ambitious businesses grow.</p>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-col-title">Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/services/">Services</a></li>
+          <li><a href="/#work">Concepts</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/contact/">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-col-title">Services</h4>
+        <ul class="footer-links">
+          <li><a href="/services/">Website Design &amp; Development</a></li>
+          <li><a href="/services/">UI/UX Design</a></li>
+          <li><a href="/services/">SEO &amp; Local SEO</a></li>
+          <li><a href="/services/">Social Media Management</a></li>
+          <li><a href="/services/">Meta Ads</a></li>
+        </ul>
+      </div>
+      <div class="footer-col footer-col-contact">
+        <h4 class="footer-col-title">Get in Touch</h4>
+        <ul class="footer-contact-list">
+          <li><a href="mailto:axilyn.studio@gmail.com">axilyn.studio@gmail.com</a></li>
+          <li><span>Bengaluru, Karnataka, India</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-divider" role="separator"></div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 Axilyn. All rights reserved.</div>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/cursor.js?v=3.0"></script>
+<script src="../js/contact.js?v=3.0"></script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://axilyn-studio.vercel.app/sitemap.xml
