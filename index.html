@@ -506,29 +506,49 @@
 <section id="about" class="about-section" aria-label="About Axilyn Digital Studio">
   <div class="about-container">
     <div class="about-grid">
-      <!-- LEFT COLUMN: Headline & Subtle Orbit Accent -->
-      <div class="about-col-left rev">
-        <div class="sl2">ABOUT AXILYN</div>
-        <h2 class="about-headline">
-          DESIGNING<br/>
-          DIGITAL<br/>
-          EXPERIENCES<br/>
-          WITH PURPOSE.
-        </h2>
-        <div class="about-orbit-wrap desktop-only" aria-hidden="true">
-          <svg class="about-orbit-svg" viewBox="0 0 130 130" fill="none">
-            <circle class="ao-r1" cx="65" cy="65" r="56" stroke="#7C6FFF" stroke-width="1.2" stroke-dasharray="5 3.5" opacity="0.6"/>
-            <circle class="ao-r2" cx="65" cy="65" r="36" stroke="#C4B9FF" stroke-width="0.8" opacity="0.45"/>
-            <circle cx="65" cy="65" r="5" fill="#7C6FFF" opacity="0.9"/>
-            <g class="ao-r1"><circle cx="65" cy="9" r="2.5" fill="#2DDAB4"/></g>
-            <g class="ao-r2"><circle cx="65" cy="29" r="1.8" fill="#C4B9FF" opacity="0.8"/></g>
+
+      <!-- LEFT COLUMN: Large Axilyn Orbit Visual -->
+      <div class="about-col-left" aria-hidden="true">
+        <div class="about-orbit-wrap">
+          <svg class="about-orbit-svg" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Outermost glow halo -->
+            <circle cx="250" cy="250" r="238" stroke="rgba(124,111,255,0.06)" stroke-width="1"/>
+            <!-- Outer dashed ring — rotates clockwise -->
+            <circle class="ao-r1" cx="250" cy="250" r="220" stroke="#7C6FFF" stroke-width="1.4" stroke-dasharray="10 7" opacity="0.45"/>
+            <!-- Mid ring — counter-rotates -->
+            <circle class="ao-r2" cx="250" cy="250" r="170" stroke="#C4B9FF" stroke-width="1" opacity="0.3"/>
+            <!-- Inner ring — rotates clockwise slower -->
+            <circle class="ao-r3" cx="250" cy="250" r="120" stroke="#7C6FFF" stroke-width="1" stroke-dasharray="4 6" opacity="0.35"/>
+            <!-- Innermost subtle ring -->
+            <circle cx="250" cy="250" r="72" stroke="rgba(196,185,255,0.18)" stroke-width="1"/>
+            <!-- Teal orbiting particle on outer ring -->
+            <g class="ao-r1"><circle cx="250" cy="30" r="6" fill="#2DDAB4" opacity="0.9"/></g>
+            <!-- Violet orbiting particle on mid ring -->
+            <g class="ao-r2"><circle cx="250" cy="80" r="4.5" fill="#C4B9FF" opacity="0.75"/></g>
+            <!-- Small particle on inner ring -->
+            <g class="ao-r3"><circle cx="250" cy="130" r="3" fill="#7C6FFF" opacity="0.8"/></g>
+            <!-- Second teal particle (opposite side) on outer ring -->
+            <g class="ao-r1-lag"><circle cx="250" cy="470" r="4" fill="#2DDAB4" opacity="0.55"/></g>
           </svg>
+          <!-- Axilyn wordmark centered inside orbit -->
+          <div class="about-orbit-center" aria-hidden="true">
+            <div class="about-orbit-wordmark"><span>AX</span>ILYN</div>
+            <div class="about-orbit-sub">STUDIO</div>
+          </div>
         </div>
       </div>
 
-      <!-- RIGHT COLUMN: Narrative Description -->
-      <div class="about-col-right rev d1">
-        <div class="about-narrative">
+      <!-- RIGHT COLUMN: Eyebrow, Headline, Text, Service Pills -->
+      <div class="about-col-right">
+        <div class="about-eyebrow rev"><div class="sl2">ABOUT AXILYN</div></div>
+
+        <h2 class="about-headline rev d1">
+          DESIGNING DIGITAL<br/>
+          EXPERIENCES<br/>
+          WITH PURPOSE.
+        </h2>
+
+        <div class="about-narrative rev d2">
           <p class="about-lead">
             Axilyn is a design-led digital studio combining strategy, UI/UX, web development and digital growth.
           </p>
@@ -539,15 +559,36 @@
             Every concept is approached with thoughtful structure, strong visual direction and attention to the details that make digital experiences feel intuitive.
           </p>
         </div>
-        <div class="about-orbit-wrap mobile-only" aria-hidden="true">
-          <svg class="about-orbit-svg" viewBox="0 0 130 130" fill="none">
-            <circle class="ao-r1" cx="65" cy="65" r="56" stroke="#7C6FFF" stroke-width="1.2" stroke-dasharray="5 3.5" opacity="0.6"/>
-            <circle class="ao-r2" cx="65" cy="65" r="36" stroke="#C4B9FF" stroke-width="0.8" opacity="0.45"/>
-            <circle cx="65" cy="65" r="5" fill="#7C6FFF" opacity="0.9"/>
-            <g class="ao-r1"><circle cx="65" cy="9" r="2.5" fill="#2DDAB4"/></g>
-            <g class="ao-r2"><circle cx="65" cy="29" r="1.8" fill="#C4B9FF" opacity="0.8"/></g>
-          </svg>
+
+        <div class="about-services rev d3">
+          <div class="about-services-label">WHAT WE DO</div>
+          <div class="about-pills">
+            <span class="about-pill">Website Design</span>
+            <span class="about-pill">UI/UX Design</span>
+            <span class="about-pill">Web Development</span>
+            <span class="about-pill">SEO</span>
+            <span class="about-pill">Local SEO</span>
+            <span class="about-pill">Social Media Management</span>
+            <span class="about-pill">Meta Ads</span>
+          </div>
         </div>
+
+        <!-- Mobile orbit — shows below content on small screens -->
+        <div class="about-mobile-orbit" aria-hidden="true">
+          <svg class="about-orbit-svg-sm" viewBox="0 0 500 500" fill="none">
+            <circle class="ao-r1" cx="250" cy="250" r="220" stroke="#7C6FFF" stroke-width="1.4" stroke-dasharray="10 7" opacity="0.45"/>
+            <circle class="ao-r2" cx="250" cy="250" r="170" stroke="#C4B9FF" stroke-width="1" opacity="0.3"/>
+            <circle class="ao-r3" cx="250" cy="250" r="120" stroke="#7C6FFF" stroke-width="1" stroke-dasharray="4 6" opacity="0.35"/>
+            <g class="ao-r1"><circle cx="250" cy="30" r="6" fill="#2DDAB4" opacity="0.9"/></g>
+            <g class="ao-r2"><circle cx="250" cy="80" r="4.5" fill="#C4B9FF" opacity="0.75"/></g>
+            <g class="ao-r3"><circle cx="250" cy="130" r="3" fill="#7C6FFF" opacity="0.8"/></g>
+          </svg>
+          <div class="about-orbit-center-sm">
+            <div class="about-orbit-wordmark-sm"><span>AX</span>ILYN</div>
+            <div class="about-orbit-sub-sm">STUDIO</div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>

@@ -880,110 +880,238 @@ h1 .ol {
 /* ── ABOUT SECTION (HOMEPAGE) ── */
 .about-section {
   background: var(--bg);
-  padding: 7.5rem 5%;
+  padding: 7rem 5%;
   position: relative;
   overflow: hidden;
   border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .about-container {
-  max-width: 1320px;
+  max-width: 1400px;
   margin: 0 auto;
   width: 100%;
 }
 
 .about-grid {
   display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  gap: 4rem 6rem;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem 6rem;
   align-items: center;
-  min-height: 480px;
+  min-height: 700px;
 }
 
+/* ── LEFT: Large Orbit ── */
 .about-col-left {
   position: relative;
   display: flex;
-  flex-direction: column;
+  align-items: center;
   justify-content: center;
+  min-height: 520px;
 }
 
-.about-headline {
-  font-family: var(--fh);
-  font-size: clamp(2.6rem, 5vw, 4.4rem);
-  line-height: 0.96;
-  letter-spacing: 0.04em;
-  color: #FFFFFF;
-  margin: 0.8rem 0 1.8rem 0;
-  max-width: 580px;
-  word-break: break-word;
-}
-
-/* Controlled, subtle Axilyn orbit accent */
 .about-orbit-wrap {
-  width: 130px;
-  height: 130px;
   position: relative;
+  width: clamp(380px, 44vw, 600px);
+  height: clamp(380px, 44vw, 600px);
   display: flex;
   align-items: center;
   justify-content: center;
   pointer-events: none;
-  margin-top: 0.5rem;
-  opacity: 0.85;
-}
-
-.about-orbit-wrap.mobile-only {
-  display: none;
-}
-
-.about-orbit-wrap.desktop-only {
-  display: flex;
+  flex-shrink: 0;
 }
 
 .about-orbit-svg {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
 }
 
-.about-orbit-svg .ao-r1 {
-  animation: ss 16s linear infinite;
-  transform-origin: 65px 65px;
+/* Orbit ring animations */
+.about-orbit-svg .ao-r1,
+.about-orbit-svg-sm .ao-r1 {
+  animation: ss 24s linear infinite;
+  transform-origin: 250px 250px;
 }
 
-.about-orbit-svg .ao-r2 {
-  animation: ssr 10s linear infinite;
-  transform-origin: 65px 65px;
+.about-orbit-svg .ao-r2,
+.about-orbit-svg-sm .ao-r2 {
+  animation: ssr 16s linear infinite;
+  transform-origin: 250px 250px;
 }
 
+.about-orbit-svg .ao-r3,
+.about-orbit-svg-sm .ao-r3 {
+  animation: ss 36s linear infinite;
+  transform-origin: 250px 250px;
+}
+
+.about-orbit-svg .ao-r1-lag {
+  animation: ss 24s linear infinite;
+  animation-delay: -12s;
+  transform-origin: 250px 250px;
+}
+
+/* Centre wordmark overlay */
+.about-orbit-center {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  pointer-events: none;
+}
+
+.about-orbit-wordmark {
+  font-family: var(--fh);
+  font-size: clamp(1.4rem, 2.5vw, 2.2rem);
+  letter-spacing: 0.1em;
+  color: rgba(240, 240, 248, 0.9);
+  line-height: 1;
+}
+
+.about-orbit-wordmark span {
+  color: var(--ring);
+}
+
+.about-orbit-sub {
+  font-size: 0.52rem;
+  letter-spacing: 0.42em;
+  color: rgba(240, 240, 248, 0.22);
+  text-transform: uppercase;
+  margin-top: 0.25rem;
+}
+
+/* ── RIGHT: Content ── */
 .about-col-right {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  gap: 0;
+}
+
+.about-eyebrow {
+  margin-bottom: 0;
+}
+
+.about-headline {
+  font-family: var(--fh);
+  font-size: clamp(2.4rem, 3.8vw, 4rem);
+  line-height: 0.96;
+  letter-spacing: 0.04em;
+  color: #FFFFFF;
+  margin: 0.6rem 0 1.8rem 0;
+  max-width: 520px;
+  word-break: break-word;
 }
 
 .about-narrative {
-  max-width: 520px;
+  max-width: 490px;
+  margin-bottom: 2.2rem;
 }
 
 .about-lead {
   font-family: var(--fb);
-  font-size: clamp(1.04rem, 1.25vw, 1.18rem);
-  line-height: 1.7;
-  color: rgba(240, 240, 248, 0.92);
-  margin-bottom: 1.35rem;
+  font-size: clamp(1rem, 1.2vw, 1.12rem);
+  line-height: 1.72;
+  color: rgba(240, 240, 248, 0.9);
+  margin-bottom: 1.2rem;
 }
 
 .about-body {
   font-family: var(--fb);
-  font-size: clamp(0.92rem, 1.05vw, 1rem);
-  line-height: 1.78;
-  color: rgba(240, 240, 248, 0.52);
-  margin-bottom: 1.2rem;
+  font-size: clamp(0.9rem, 1vw, 0.98rem);
+  line-height: 1.8;
+  color: rgba(240, 240, 248, 0.5);
+  margin-bottom: 1rem;
 }
 
 .about-body:last-child {
   margin-bottom: 0;
 }
 
+/* WHAT WE DO */
+.about-services {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.about-services-label {
+  font-size: 0.62rem;
+  letter-spacing: 0.24em;
+  color: rgba(240, 240, 248, 0.32);
+  text-transform: uppercase;
+  font-weight: 500;
+  font-family: var(--fb);
+}
+
+.about-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.about-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.42rem 1rem;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(124, 111, 255, 0.28);
+  background: rgba(124, 111, 255, 0.05);
+  font-family: var(--fb);
+  font-size: 0.74rem;
+  letter-spacing: 0.04em;
+  color: rgba(240, 240, 248, 0.62);
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: default;
+  transition: border-color 0.25s, color 0.25s, background 0.25s, box-shadow 0.25s;
+}
+
+.about-pill:hover {
+  border-color: rgba(124, 111, 255, 0.55);
+  color: rgba(240, 240, 248, 0.9);
+  background: rgba(124, 111, 255, 0.1);
+  box-shadow: 0 0 12px rgba(124, 111, 255, 0.15), 0 0 24px rgba(45, 218, 180, 0.06);
+}
+
+/* Mobile orbit — hidden on desktop */
+.about-mobile-orbit {
+  display: none;
+}
+
+/* ── ANIMATION DELAY UTILITIES ── */
+.about-section .d1 { transition-delay: 0.08s; animation-delay: 0.08s; }
+.about-section .d2 { transition-delay: 0.18s; animation-delay: 0.18s; }
+.about-section .d3 { transition-delay: 0.28s; animation-delay: 0.28s; }
+
+/* prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .ao-r1, .ao-r2, .ao-r3, .ao-r1-lag {
+    animation: none !important;
+  }
+}
+
+/* ── RESPONSIVE: 1100px ── */
+@media (max-width: 1100px) {
+  .about-orbit-wrap {
+    width: clamp(320px, 42vw, 480px);
+    height: clamp(320px, 42vw, 480px);
+  }
+
+  .about-headline {
+    font-size: clamp(2.2rem, 4vw, 3.4rem);
+  }
+
+  .about-grid {
+    gap: 3rem 4rem;
+  }
+}
+
+/* ── RESPONSIVE: 900px (tablet) ── */
 @media (max-width: 900px) {
   .about-section {
     padding: 5rem 5%;
@@ -991,44 +1119,97 @@ h1 .ol {
 
   .about-grid {
     grid-template-columns: 1fr;
-    gap: 2.2rem;
+    gap: 2.5rem;
     min-height: auto;
   }
 
-  .about-headline {
-    font-size: clamp(2.3rem, 7.5vw, 3.5rem);
-    max-width: 100%;
-    margin-bottom: 1.2rem;
-  }
-
-  .about-orbit-wrap.desktop-only {
+  /* Hide desktop orbit on mobile */
+  .about-col-left {
     display: none;
   }
 
-  .about-orbit-wrap.mobile-only {
-    display: flex;
-    width: 100px;
-    height: 100px;
-    margin-top: 1.5rem;
+  .about-col-right {
+    gap: 0;
+  }
+
+  .about-headline {
+    font-size: clamp(2.4rem, 7.5vw, 3.6rem);
+    max-width: 100%;
   }
 
   .about-narrative {
     max-width: 100%;
   }
+
+  /* Show mobile orbit below pills */
+  .about-mobile-orbit {
+    display: block;
+    position: relative;
+    width: clamp(200px, 55vw, 300px);
+    height: clamp(200px, 55vw, 300px);
+    margin: 2.5rem auto 0;
+    flex-shrink: 0;
+  }
+
+  .about-orbit-svg-sm {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .about-orbit-center-sm {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  .about-orbit-wordmark-sm {
+    font-family: var(--fh);
+    font-size: clamp(0.9rem, 4vw, 1.3rem);
+    letter-spacing: 0.1em;
+    color: rgba(240, 240, 248, 0.88);
+    line-height: 1;
+  }
+
+  .about-orbit-wordmark-sm span {
+    color: var(--ring);
+  }
+
+  .about-orbit-sub-sm {
+    font-size: 0.45rem;
+    letter-spacing: 0.38em;
+    color: rgba(240, 240, 248, 0.2);
+    text-transform: uppercase;
+    margin-top: 0.2rem;
+  }
 }
 
+/* ── RESPONSIVE: 600px (mobile) ── */
 @media (max-width: 600px) {
   .about-section {
     padding: 4rem 5%;
   }
 
   .about-headline {
-    font-size: clamp(2.1rem, 9vw, 3rem);
+    font-size: clamp(2rem, 9vw, 3rem);
+    margin-bottom: 1.4rem;
   }
 
-  .about-orbit-wrap.mobile-only {
-    width: 80px;
-    height: 80px;
+  .about-pill {
+    font-size: 0.68rem;
+    padding: 0.38rem 0.85rem;
+  }
+
+  .about-mobile-orbit {
+    width: clamp(180px, 60vw, 240px);
+    height: clamp(180px, 60vw, 240px);
+    margin-top: 2rem;
   }
 }
 
